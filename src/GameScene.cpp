@@ -4,6 +4,7 @@
 
 GameScene::GameScene(sf::RenderWindow* _window)
 	: Scene(Type::GameScene, _window) {
+	m_view = _window->getView();
 	debugCircle.setFillColor(sf::Color::Green);
 	debugCircle.setRadius(2);
 }
@@ -25,9 +26,16 @@ void GameScene::handleEvents(const sf::Event& ev) {
 void GameScene::update(float dt) {
 	m_player.update(dt);
 	debugCircle.setPosition(m_player.getPosition().x, m_player.getPosition().y);
+	autoScroll(dt);
 }
 
 void GameScene::render(sf::RenderStates states) const {
 	m_player.draw(*window, states);
 	window->draw(debugCircle);
+	window->setView(m_view);
+}
+
+void GameScene::autoScroll(float dt) {
+	const float SCROLL_SPEED = -.1f * (dt * 1000);
+	m_view.move(sf::Vector2f(0.f, SCROLL_SPEED));
 }

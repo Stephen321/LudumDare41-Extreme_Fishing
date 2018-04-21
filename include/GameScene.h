@@ -17,4 +17,7 @@ private:
 	Player m_player;
 	se::EntityInstance* m_entity;
 	sf::CircleShape debugCircle;
+	sf::View m_view;
+	
+	void autoScroll(float dt);
 };
