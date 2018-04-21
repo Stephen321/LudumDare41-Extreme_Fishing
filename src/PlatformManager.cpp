@@ -43,7 +43,7 @@ void PlatformManager::start() {
 	m_platforms.push_back(Platform(sf::Vector2f(PLATFORM_PLAYER_START_X * TILE_SIZE, PLATFORM_PLAYER_START_Y * TILE_SIZE), window));
 	m_playerStartPosition = m_platforms.back().getPosition();
 	m_playerStartPosition.x += PLATFORM_SIZE_X * 0.5f * TILE_SIZE;
-	m_playerStartPosition.y -= TILE_SIZE * 0.5f;
+	m_playerStartPosition.y -= TILE_SIZE * 0.05f;
 
 	//random x position but yet y start for platforms
 	for (int i = 0; i < PLATFORM_START_Y_SIZE; i++) {

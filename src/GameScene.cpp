@@ -13,6 +13,7 @@ GameScene::GameScene(sf::RenderWindow* _window)
 void GameScene::start() {
 	m_platformManager.start(); // call this first so it sets player start position
 	m_player.start(m_platformManager.getPlayerStartPosition());
+	m_view = window->getDefaultView();
 }
 
 void GameScene::stop() {

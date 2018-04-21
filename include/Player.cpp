@@ -4,7 +4,8 @@
 
 Player::Player()
 	: m_speed(PLAYER_MAXSPEED)
-	, m_grounded(false) {
+	, m_grounded(false)
+	, m_spaceHeld(false) {
 	m_entity = GameData::getInstance().getAsset<se::EntityInstance*>("Player");
 }
 
@@ -19,7 +20,6 @@ void Player::start(const sf::Vector2f& start) {
 void Player::update(float dt) {
 	sf::IntRect bb= getBoundingBox();
 	m_lastY = bb.top + bb.height - (m_velocity.y * dt);
-
 	//user input
 	sf::Vector2f dir;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
@@ -34,14 +34,28 @@ void Player::update(float dt) {
 	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 	//	dir.y = 1;
 	//}
-	if (m_grounded && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-			//move down through platform
-			m_grounded = false;
-			m_position.y += 1.f;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		if (m_grounded) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+				//move down through platform
+				m_grounded = false;
+				m_position.y += 1.f;
+			}
+			else {
+				if (m_spaceHeld == false) {
+					m_spaceHeld = true;
+					m_spaceTimer.restart();
+				}
+			}
 		}
-		else { //jump
-			m_velocity.y = PLAYER_JUMPFORCE;
+	}
+	else {
+		if (m_spaceHeld) { //space released!
+			m_spaceHeld = false;
+			float heldFor = m_spaceTimer.getElapsedTime().asSeconds();
+			float m = fmin(heldFor, PLAYER_MAXSPACEMULT) / PLAYER_SPACEMULT;
+			//jump
+			m_velocity.y = PLAYER_JUMPFORCE + ((PLAYER_JUMPFORCE * 0.5f) * m);
 			m_grounded = false;
 		}
 	}
