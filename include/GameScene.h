@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Scene.h"
-#include "Spriter.h"
+#include "Player.h"
 
 
 class GameScene : public Scene {
@@ -14,6 +14,7 @@ public:
 	void render(sf::RenderStates states) const override;
 
 private:
-	SpriterEngine::EntityInstance* m_playerEntity;
+	Player m_player;
+	se::EntityInstance* m_entity;
 	sf::CircleShape debugCircle;
 };

@@ -67,6 +67,9 @@ namespace SpriterEngine
 
 	void EntityInstance::setTimeElapsed(real timeElapsed)
 	{
+		//Stephen321 addition:
+		timeElapsed *= 1000;
+		//end
 		justFinished = false;
 		if (currentAnimation)
 		{

@@ -177,6 +177,7 @@ xcopy /Y "$(ProjectDir)dependencies\sfml\bin\*.dll" "$(TargetDir)"</Command>
     <ClInclude Include="include\Helpers.h" />
     <ClInclude Include="include\MenuScene.h" />
     <ClInclude Include="include\GameObject.h" />
+    <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\Screen.h" />
@@ -270,6 +271,7 @@ xcopy /Y "$(ProjectDir)dependencies\sfml\bin\*.dll" "$(TargetDir)"</Command>
     <ClCompile Include="dependencies\spriter\spriterengine\variable\variable.cpp" />
     <ClCompile Include="dependencies\spriter\spriterengine\variable\variablecontainer.cpp" />
     <ClCompile Include="dependencies\spriter\spriterengine\variable\variableinstancenameandidmap.cpp" />
+    <ClCompile Include="include\Player.cpp" />
     <ClCompile Include="src\GameScene.cpp" />
     <ClCompile Include="src\main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>

@@ -12,3 +12,7 @@ bool GameObject::getAlive() const {
 void GameObject::setAlive(bool alive) {
 	m_alive = alive;
 }
+
+sf::Vector2f GameObject::getPosition() {
+	return m_position;
+}
