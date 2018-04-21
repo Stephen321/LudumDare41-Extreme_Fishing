@@ -280,6 +280,9 @@
     <ClCompile Include="dependencies\spriter\spriterengine\user_override\jsonspriterfileattributewrapper.cpp">
       <Filter>src\spriterengine</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameObject.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameData.h">
@@ -310,6 +313,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Spriter.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameObject.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
