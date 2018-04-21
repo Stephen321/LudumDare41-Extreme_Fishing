@@ -17,4 +17,5 @@ private:
 	sf::Vector2f m_velocity;
 	float m_speed;
 	bool m_grounded;
+	float m_lastY;
 };

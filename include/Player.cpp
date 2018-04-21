@@ -17,32 +17,42 @@ void Player::start(const sf::Vector2f& start) {
 }
 
 void Player::update(float dt) {
+	sf::IntRect bb= getBoundingBox();
+	m_lastY = bb.top + bb.height - (m_velocity.y * dt);
+
 	//user input
 	sf::Vector2f dir;
-	bool m_jump = false;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		dir.x = -1;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		dir.x = 1;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		dir.y = -1;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		dir.y = 1;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		m_jump = true;
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+	//	dir.y = -1;
+	//}
+	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+	//	dir.y = 1;
+	//}
+	if (m_grounded && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+			//move down through platform
+			m_grounded = false;
+			m_position.y += 1.f;
+		}
+		else { //jump
+			m_velocity.y = PLAYER_JUMPFORCE;
+			m_grounded = false;
+		}
 	}
 
 	//velocity change
 	sf::Vector2f gravity;
-	if (!m_grounded)
+	if (m_grounded) {
+		m_velocity.y = 0.f;
+	}
+	else {
 		gravity = sf::Vector2f(0.f, GRAVITY);
-	else if (m_jump) {
-		m_velocity.y = PLAYER_JUMPFORCE;
-		m_grounded = false;
 	}
 	m_velocity += gravity * dt;
 	if (dir.x != 0.f)
@@ -84,25 +94,24 @@ void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 }
 
 void Player::checkCollisions(const std::vector<Platform>& platforms) {
+	bool falling = true;
 	for (int i = 0; i < platforms.size(); i++) {
 		sf::IntRect bb = platforms[i].getBoundingBox();
 		sf::IntRect playerBB = getBoundingBox();
 		if (bb.intersects(playerBB)) {
-			m_grounded = true;
+			falling = false;
+			if (m_lastY < bb.top)
+				m_grounded = true;
 		}
-		//if (m_position.x > bb.left && m_position.x < bb.left + bb.width) {
-		//	//could be potential colliding
-		//	if (m_position.y > bb.top && m_position.y < bb.top + bb.height) {
-
-		//	}
-		//}
 	}
+	if (falling)
+		m_grounded = false;
 }
 
 sf::IntRect Player::getBoundingBox() const {
 	sf::IntRect bb;
-	bb.left = (int)m_position.x;
-	bb.top = (int)m_position.y;
+	bb.left = (int)m_position.x - (TILE_SIZE * 0.5f);
+	bb.top = (int)m_position.y - (TILE_SIZE * 2.f);
 	bb.width = PLAYER_SIZE_X * TILE_SIZE;
 	bb.height = (int)(PLAYER_SIZE_Y * TILE_SIZE);
 	return bb;
