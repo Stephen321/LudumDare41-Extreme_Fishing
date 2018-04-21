@@ -292,6 +292,12 @@
     <ClCompile Include="src\PlatformManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\FishManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FishingSpot.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameData.h">
@@ -334,6 +340,12 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\PlatformManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FishManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FishingSpot.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

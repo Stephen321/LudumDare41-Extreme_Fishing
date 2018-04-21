@@ -39,6 +39,9 @@ void GameData::load(sf::RenderWindow* _window) {
 	//no point adding entity to assets map cause you dont need just one..
 	addModelAsset("platform", "assets/animations/Platform/platform.scon", entities);
 
+	entities.push_back("FishingSpot");
+	addModelAsset("fishingSpot", "assets/animations/FishingSpot/fishingSpot.scon", entities);
+
 	assert(assets.size() && "no asserts were loaded");
 }
 
