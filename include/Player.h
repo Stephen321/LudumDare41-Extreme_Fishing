@@ -15,6 +15,8 @@ public:
 private:
 	se::EntityInstance* m_entity;
 	sf::Vector2f m_velocity;
+	sf::Clock m_spaceTimer; 
+	bool m_spaceHeld;
 	float m_speed;
 	bool m_grounded;
 	float m_lastY;

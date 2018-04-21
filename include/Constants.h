@@ -21,6 +21,8 @@ static const float PLAYER_DRAGTHRESHOLD = 1.f;
 static const float PLAYER_DRAG = 0.99f;
 static const float PLAYER_SIZE_X = 1.f;
 static const float PLAYER_SIZE_Y = 2.f;
+static const float PLAYER_SPACEMULT = 2.f;
+static const float PLAYER_MAXSPACEMULT = 2.f; //seconds max you can hold space
 
 //platform
 static const float PLATFORM_SPAWN_TIME = 1.f;
