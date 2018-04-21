@@ -286,6 +286,12 @@
     <ClCompile Include="include\Player.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlatformManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameData.h">
@@ -322,6 +328,12 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Player.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Platform.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PlatformManager.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

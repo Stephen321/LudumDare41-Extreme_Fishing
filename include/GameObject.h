@@ -1,9 +1,11 @@
 #pragma once
 
-#include "SFML\Graphics.hpp"
 #include <iostream>
+#include "SFML\Graphics.hpp"
+#include "Helpers.h"
 using std::cout;
 using std::endl;
+using namespace Helpers;
 
 class GameObject {
 public:
