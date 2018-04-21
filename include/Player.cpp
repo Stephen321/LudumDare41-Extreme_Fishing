@@ -1,25 +1,19 @@
 #include "Player.h"
 #include "GameData.h"
 #include "Constants.h"
-#include "Helpers.h"
-
-using namespace Helpers;
 
 Player::Player()
 	: m_speed(PLAYER_MAXSPEED)
 	, m_grounded(false) {
+	m_entity = GameData::getInstance().getAsset<se::EntityInstance*>("Player");
 }
 
-void Player::start(const sf::Vector2f start) {
+void Player::start(const sf::Vector2f& start) {
 	m_position = start;
 	m_grounded = false;
 	m_velocity.x = 0.f;
 	m_velocity.y = 0.f;
-	m_entity = GameData::getInstance().getAsset<se::EntityInstance*>("Snakato");
-	m_entity->setCurrentAnimation("NewAnimation");
-
-	m_entity->setScale(se::point(0.5f, 0.5f));
-	m_entity->setPosition(se::vectorToPoint(start));
+	m_entity->setCurrentAnimation("Idle");
 }
 
 void Player::update(float dt) {
@@ -73,11 +67,11 @@ void Player::update(float dt) {
 	//}
 
 	//temp collision detected
-	if (m_position.y > 800.f) {
-		m_position.y = 800.f;
-		m_velocity.y = 0.f;
-		m_grounded = true;
-	}
+	//if (m_position.y > 800.f) {
+	//	m_position.y = 800.f;
+	//	m_velocity.y = 0.f;
+	//	m_grounded = true;
+	//}
 
 	//update position
 	m_position += m_velocity * dt;
@@ -87,4 +81,29 @@ void Player::update(float dt) {
 
 void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	m_entity->render();
+}
+
+void Player::checkCollisions(const std::vector<Platform>& platforms) {
+	for (int i = 0; i < platforms.size(); i++) {
+		sf::IntRect bb = platforms[i].getBoundingBox();
+		sf::IntRect playerBB = getBoundingBox();
+		if (bb.intersects(playerBB)) {
+			m_grounded = true;
+		}
+		//if (m_position.x > bb.left && m_position.x < bb.left + bb.width) {
+		//	//could be potential colliding
+		//	if (m_position.y > bb.top && m_position.y < bb.top + bb.height) {
+
+		//	}
+		//}
+	}
+}
+
+sf::IntRect Player::getBoundingBox() const {
+	sf::IntRect bb;
+	bb.left = (int)m_position.x;
+	bb.top = (int)m_position.y;
+	bb.width = PLAYER_SIZE_X * TILE_SIZE;
+	bb.height = (int)(PLAYER_SIZE_Y * TILE_SIZE);
+	return bb;
 }

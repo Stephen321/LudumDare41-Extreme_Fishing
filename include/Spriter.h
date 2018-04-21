@@ -11,7 +11,7 @@ namespace SpriterEngine {
 	SpriterEngine::point inline vectorToPoint(const sf::Vector2f& vector) {
 		return SpriterEngine::point(vector.x, vector.y);
 	}
-	sf::Vector2f inline vectorToPoint(SpriterEngine::point p) {
+	sf::Vector2f inline pointToVector(SpriterEngine::point p) {
 		return sf::Vector2f(p.x, p.y);
 	}
 }

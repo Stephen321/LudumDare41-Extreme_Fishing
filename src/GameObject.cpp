@@ -2,7 +2,6 @@
 
 GameObject::GameObject()
 	: m_alive(true) {
-
 }
 
 bool GameObject::getAlive() const {

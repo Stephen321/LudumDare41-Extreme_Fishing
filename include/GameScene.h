@@ -2,6 +2,7 @@
 
 #include "Scene.h"
 #include "Player.h"
+#include "PlatformManager.h"
 
 
 class GameScene : public Scene {
@@ -15,7 +16,7 @@ public:
 
 private:
 	Player m_player;
-	se::EntityInstance* m_entity;
+	PlatformManager m_platformManager;
 	sf::CircleShape debugCircle;
 	sf::View m_view;
 	
