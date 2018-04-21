@@ -16,4 +16,7 @@ public:
 private:
 	SpriterEngine::EntityInstance* m_playerEntity;
 	sf::CircleShape debugCircle;
+	sf::View m_view;
+	
+	void autoScroll(float dt);
 };

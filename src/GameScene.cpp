@@ -4,6 +4,8 @@
 
 GameScene::GameScene(sf::RenderWindow* _window)
 	: Scene(Type::GameScene, _window) {
+	m_view = _window->getView();
+	
 	m_playerEntity = GameData::getInstance().getAsset<se::EntityInstance*>("Snakato");
 	m_playerEntity->setCurrentAnimation("NewAnimation");
 
@@ -31,9 +33,16 @@ void GameScene::handleEvents(const sf::Event& ev) {
 
 void GameScene::update(float dt) {
 	m_playerEntity->setTimeElapsed(dt * 1000);
+	autoScroll(dt);
 }
 
 void GameScene::render(sf::RenderStates states) const {
 	m_playerEntity->render();
 	window->draw(debugCircle);
+	window->setView(m_view);
+}
+
+void GameScene::autoScroll(float dt) {
+	const float SCROLL_SPEED = -.1f * (dt * 1000);
+	m_view.move(sf::Vector2f(0.f, SCROLL_SPEED));
 }
