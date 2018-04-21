@@ -283,6 +283,9 @@
     <ClCompile Include="src\GameObject.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="include\Player.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameData.h">
@@ -316,6 +319,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\GameObject.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Player.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

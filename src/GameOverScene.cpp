@@ -20,7 +20,7 @@ void GameOverScene::stop() {
 }
 
 void GameOverScene::handleEvents(const sf::Event& ev) {
-	if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Space) {
+	if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Return) {
 		SceneManager::getInstance().changeScene(Type::MenuScene);
 	}
 }
