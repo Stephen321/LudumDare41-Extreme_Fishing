@@ -21,6 +21,7 @@ private:
 	FishManager m_fishManager;
 	sf::CircleShape debugCircle;
 	sf::View m_view;
+	sf::Sprite m_background;
 	
 	void autoScroll(float dt);
 };

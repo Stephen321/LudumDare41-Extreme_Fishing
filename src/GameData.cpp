@@ -28,10 +28,12 @@ void GameData::load(sf::RenderWindow* _window) {
 	//add textures
 	addAsset<sf::Texture>("menu", "assets/sprites/menu.png");
 	addAsset<sf::Texture>("gameover", "assets/sprites/gameover.png");
+	addAsset<sf::Texture>("sky", "assets/sprites/sky.png");
 
 	addAsset<se::SpriterModel>("fisher", "assets/animations/Fisher/fisher.scon");
 	addAsset<se::SpriterModel>("platform", "assets/animations/Platform/platform.scon");
 	addAsset<se::SpriterModel>("fishingSpot", "assets/animations/FishingSpot/fishingSpot.scon");
+	addAsset<se::SpriterModel>("water", "assets/animations/Ocean/water.scon");
 
 	assert(assets.size() && "no asserts were loaded");
 }

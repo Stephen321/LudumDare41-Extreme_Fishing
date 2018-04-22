@@ -12,10 +12,17 @@ public:
 	void start();
 	void update(float dt);
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-	bool attempt(const Player& player);
+	void attempt(Player* player);
 private:
 	std::vector<FishingSpot> m_fishingSpots;
 	std::vector<int> m_possibleXLocations;
 	const sf::RenderWindow* window;
 	sf::Clock m_spawnTimer;
+	se::EntityInstance* m_water;
+	sf::RectangleShape m_fishingLine;
+	sf::Clock m_timer;
+	const bool* m_playerQte;
+	bool m_success;
+	float m_timeNeededToAttempt;
+	std::vector<int> m_xActive;
 };

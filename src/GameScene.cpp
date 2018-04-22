@@ -9,6 +9,8 @@ GameScene::GameScene(sf::RenderWindow* _window)
 	m_view = _window->getView();
 	debugCircle.setFillColor(sf::Color::Green);
 	debugCircle.setRadius(2);
+	m_background.setTexture(GameData::getInstance().getAsset<sf::Texture>("sky"));
+	m_background.setScale(SCREEN_WIDTH, 1.f);
 }
 
 void GameScene::start() {
@@ -26,6 +28,7 @@ void GameScene::handleEvents(const sf::Event& ev) {
 	if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Return) {
 		SceneManager::getInstance().changeScene(Type::GameOverScene);
 	}
+	m_player.handleEvents(ev);
 }
 
 void GameScene::update(float dt) {
@@ -36,13 +39,15 @@ void GameScene::update(float dt) {
 	m_player.checkCollisions(m_platformManager.getPlatforms());
 	m_player.update(dt);
 	if (m_player.getAttemptingToFish()) { //todo: pass ref of player to fm or ref of fm to player?
-		m_fishManager.attempt(m_player);
+		m_fishManager.attempt(&m_player);
 	}
 	debugCircle.setPosition(m_player.getPosition().x, m_player.getPosition().y);
+	m_background.setPosition(m_view.getCenter().x - (SCREEN_WIDTH * 0.5f), m_view.getCenter().y - (SCREEN_HEIGHT * 0.5f));
 	autoScroll(dt);
 }
 
 void GameScene::render(sf::RenderStates states) const{
+	window->draw(m_background);
 	window->draw(m_platformManager);
 	window->draw(m_player);
 	window->draw(m_fishManager);
@@ -53,7 +58,8 @@ void GameScene::render(sf::RenderStates states) const{
 	d.setFillColor(sf::Color(0,255,0,100));
 	d.setPosition(m_player.getBoundingBox().left, m_player.getBoundingBox().top);
 	d.setSize(sf::Vector2f(m_player.getBoundingBox().width, m_player.getBoundingBox().height));
-	//window->draw(d);
+	//if (m_player.getAttemptingToFish())
+	//	window->draw(d);
 	for (int i = 0; i < m_platformManager.getPlatforms().size(); i++) {
 		sf::IntRect bb = m_platformManager.getPlatforms()[i].getBoundingBox();
 		d.setPosition(bb.left, bb.top);
