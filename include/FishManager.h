@@ -24,5 +24,6 @@ private:
 	const bool* m_playerQte;
 	bool m_success;
 	float m_timeNeededToAttempt;
+	int m_fishedSpot;
 	std::vector<int> m_xActive;
 };

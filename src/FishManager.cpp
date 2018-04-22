@@ -62,9 +62,15 @@ void FishManager::update(float dt){
 			}
 		}
 	}
-	if (m_success && *m_playerQte == false) {
-		m_success = false;
-		m_fishingLine.setPosition(-100.f, -100.f);
+	if (m_playerQte && *m_playerQte == false) {
+		if (m_success) {
+			m_success = false;
+			m_fishingLine.setPosition(-100.f, -100.f);
+		}
+		if (m_fishedSpot != -1) {
+			m_fishingSpots[m_fishedSpot].setAlive(false);
+			m_fishedSpot = -1;
+		}
 	}
 	m_water->setPosition(se::point(0.f, currentWaterLevel));
 	m_water->setTimeElapsed(dt);
@@ -102,22 +108,24 @@ void FishManager::attempt(Player* player) {
 	if (fishingTimeSec > m_timeNeededToAttempt) {
 		bool fishingSpotExists = false;
 		int lineX = m_fishingLine.getPosition().x - ((int)m_fishingLine.getPosition().x % TILE_SIZE);
-		int f = 0;
 		for (int i = 0; i < m_fishingSpots.size(); i++) {
 			if (m_fishingSpots[i].getAlive() && m_fishingSpots[i].getX() == lineX) {
-				f = i;
+				m_fishedSpot = i;
+				fishingSpotExists = true;
 				break;
 			}
 		}
 		if (fishingSpotExists) {
-			assert(f);
+			assert(m_fishedSpot != -1);
 			//success
 			m_success = true;
 			m_timer.restart();
-			player->setSuccessfulAttempt(m_fishingSpots[f].getLength(), m_fishingSpots[f].getTime());
+			m_fishingSpots[m_fishedSpot].setBeingFished(true);
+			player->setSuccessfulAttempt(m_fishingSpots[m_fishedSpot].getLength(), m_fishingSpots[m_fishedSpot].getTime());
 			m_playerQte = player->getQte();
 		}
 		else {//fail
+			player->setFailedAttempt();
 			m_fishingLine.setPosition(-100.f, -100.f);
 		}
 	}

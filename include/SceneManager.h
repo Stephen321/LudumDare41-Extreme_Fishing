@@ -16,6 +16,7 @@ public:
 	void render();
 	void changeScene(Scene::Type type);
 	void finishedLoading();
+	bool getPaused() const;
 private:
 	SceneManager();
 	SceneManager(const SceneManager&) = delete;

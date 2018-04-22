@@ -16,10 +16,19 @@ void FishingSpot::start(const sf::Vector2f start, int x, int qteMax) {
 	m_entity->setCurrentAnimation("Bubbles");
 	m_activeTimer.restart();
 	m_alive = true;
+	m_beingFished = false;
 	m_length = randomNumber(QTE_MIN, qteMax);
-	m_time = ((m_length / QTE_MIN) * QTE_MIN_TIME) + randomNumberF(-QTE_RAND_OFFSET, QTE_RAND_OFFSET);
-	m_timeToBeActive = (FISHINGSPOT_ACTIVE_TIME * 0.5f) +
-		(FISHINGSPOT_ACTIVE_TIME * (m_length / (((QTE_MIN + QTE_MAX) * 0.5f)) * QTE_MIN_TIME)); //stay active for longer if this is a harder combo spot
+	double r = (double)rand() / RAND_MAX; //0 - 1.f
+	float chance = 0.05f;
+	for (int i = qteMax - QTE_MIN; i >= 0 ; i--) {
+		if (r < chance)
+			m_length = QTE_MIN + i;
+		chance += 0.15f;
+	}//length is more likely to be lower number
+
+	m_time = ((m_length / ((QTE_MIN + QTE_MAX) * 0.5f)) * QTE_MIN_TIME) + randomNumberF(-QTE_RAND_OFFSET * 0.35f, QTE_RAND_OFFSET * 2.5f);
+	m_timeToBeActive = (m_time * 1.5f) + randomNumberF(-FISHINGSPOT_ACTIVE_TIME * 0.75f, FISHINGSPOT_ACTIVE_TIME * 1.25f);
+	m_timeToBeActive = fmax(m_timeToBeActive, FISHINGSPOT_ACTIVE_TIME);
 	cout << "m_length: " << m_length;
 	cout << ", m_time: " << m_time;
 	cout << ", m_timeToBeActive: " << m_timeToBeActive << endl;
@@ -29,7 +38,7 @@ void FishingSpot::update(float dt) {
 	m_position.y += SCROLL_SPEED * dt;
 	m_entity->setPosition(se::vectorToPoint(m_position));
 	m_entity->setTimeElapsed(dt);	
-	if (m_activeTimer.getElapsedTime().asSeconds() > m_timeToBeActive)
+	if (m_activeTimer.getElapsedTime().asSeconds() > m_timeToBeActive && m_beingFished == false)
 		m_alive = false;
 }
 
@@ -58,4 +67,8 @@ int FishingSpot::getLength() const {
 
 float FishingSpot::getTime() const {
 	return m_time;
+}
+
+void FishingSpot::setBeingFished(bool beingFished) {
+	m_beingFished = beingFished;
 }

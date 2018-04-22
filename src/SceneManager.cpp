@@ -43,8 +43,8 @@ void SceneManager::update() {
 		return;
 	}
 	float dt = m_clock.restart().asSeconds();
-	if (dt > 1.f || m_pause)
-		dt = 0.f;
+	//if (m_pause)
+	//	dt = 0.f;
 	m_currentScene->update(dt);
 }
 
@@ -74,4 +74,8 @@ void SceneManager::finishedLoading() {
 	m_scenes.push_back(new GameOverScene(&m_window));
 	//todo this should go to menuscene
 	changeScene(Scene::Type::GameScene);
+}
+
+bool SceneManager::getPaused() const {
+	return m_pause;
 }

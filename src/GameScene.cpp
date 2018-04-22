@@ -32,7 +32,7 @@ void GameScene::handleEvents(const sf::Event& ev) {
 }
 
 void GameScene::update(float dt) {
-	if (!dt)
+	if (dt > 1.f || SceneManager::getInstance().getPaused())
 		return;
 	m_platformManager.update(dt);
 	m_fishManager.update(dt);

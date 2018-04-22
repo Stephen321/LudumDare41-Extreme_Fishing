@@ -14,6 +14,7 @@ namespace Helpers {
 			KEY_TO_CHARS(S);
 			KEY_TO_CHARS(D)
 		}
+		return "NotMapped";
 	}
 
 	//clamps a value between min and max-1

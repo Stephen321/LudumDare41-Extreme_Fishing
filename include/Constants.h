@@ -20,8 +20,8 @@ static const int WATER_Y_OFFSET = (int)(SCREEN_HEIGHT * 0.5f) - (WATER_TILES * T
 //qte
 static const int QTE_MIN = 3;
 static const int QTE_MAX = 8;
-static const float QTE_MIN_TIME = 4.f; //this many seconds to do the min 
-static const float QTE_RAND_OFFSET = 2.f;
+static const float QTE_MIN_TIME = 5.f; //this many seconds to do the min 
+static const float QTE_RAND_OFFSET = 1.f;
 static const int POSSIBLE_KEYS_SIZE = 4;
 static const sf::Keyboard::Key POSSIBLE_QTE_KEYS[POSSIBLE_KEYS_SIZE] = { //also change in Helpers
 	sf::Keyboard::Key::W,
@@ -69,10 +69,10 @@ static const float FISHINGSPOT_SIZE_X = 1.f;
 static const float FISHINGSPOT_SIZE_Y = 1.f;
 static const int FISHINGSPOT_MAXACTIVE = 5;
 static const float FISHINGSPOT_SPAWN_TIME = 0.65f;
-static const float FISHINGSPOT_ACTIVE_TIME = 10.f;
+static const float FISHINGSPOT_ACTIVE_TIME = 3.f;
 static const int FISHINGSPOT_SPAWN_CHANCE = 5;
 
 //fishing line
 static const int FISHINGLINE_THICKNESS = 2;
 static const float FISHINGLINE_TIME = 0.35f;
-static const float FISHINGLINE_TIME_DIST = 250.f; //how far line should move in line time above
+static const float FISHINGLINE_TIME_DIST = 300.f; //how far line should move in line time above

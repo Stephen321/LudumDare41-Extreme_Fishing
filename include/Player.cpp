@@ -124,7 +124,8 @@ void Player::setSuccessfulAttempt(int length, float time) {
 		//set up qte keys 
 		m_qteKeys.clear();
 		for (int i = 0; i < length; i++) {
-
+			int k = rand() % POSSIBLE_KEYS_SIZE;
+			m_qteKeys.push_back(POSSIBLE_QTE_KEYS[k]);
 		}
 	}
 }

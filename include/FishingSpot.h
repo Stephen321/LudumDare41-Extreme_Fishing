@@ -14,6 +14,7 @@ public:
 	sf::IntRect getBoundingBox() const;
 	int getLength() const;
 	float getTime() const;
+	void setBeingFished(bool beingFished);
 private:
 	se::EntityInstance* m_entity;
 	sf::Clock m_activeTimer;
@@ -21,4 +22,5 @@ private:
 	int m_x;
 	int m_length;
 	float m_time;
+	bool m_beingFished;
 };
