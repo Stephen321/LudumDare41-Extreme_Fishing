@@ -1,19 +1,19 @@
 #pragma once
 
-#include "SFML\Graphics.hpp"
-#include "Constants.h"
 #include <vector>
+#include "FishingSpot.h"
 
-class FishManager {
+class FishManager : public sf::Drawable{
 public:
-	FishManager();
+	FishManager(const sf::RenderWindow* _window);
 
 	void start();
 	void update(float dt);
-	void draw();
+	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 private:
-	std::vector<sf::Vector2f> m_fishingSpots;
-
-	
+	std::vector<FishingSpot> m_fishingSpots;
+	std::vector<int> m_possibleXLocations;
+	const sf::RenderWindow* window;
+	sf::Clock m_spawnTimer;
 };

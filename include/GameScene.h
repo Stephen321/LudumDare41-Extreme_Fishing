@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Player.h"
 #include "PlatformManager.h"
+#include "FishManager.h"
 
 
 class GameScene : public Scene {
@@ -17,6 +18,7 @@ public:
 private:
 	Player m_player;
 	PlatformManager m_platformManager;
+	FishManager m_fishManager;
 	sf::CircleShape debugCircle;
 	sf::View m_view;
 	

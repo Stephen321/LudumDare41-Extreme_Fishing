@@ -29,18 +29,9 @@ void GameData::load(sf::RenderWindow* _window) {
 	addAsset<sf::Texture>("menu", "assets/sprites/menu.png");
 	addAsset<sf::Texture>("gameover", "assets/sprites/gameover.png");
 
-	//add model asset and entities in it 
-	std::vector<std::string> entities;
-	entities.push_back("Player");
-	addModelAsset("fisher", "assets/animations/Fisher/fisher.scon", entities);
-
-	entities.clear();
-	//entities.push_back("Platform");
-	//no point adding entity to assets map cause you dont need just one..
-	addModelAsset("platform", "assets/animations/Platform/platform.scon", entities);
-
-	entities.push_back("FishingSpot");
-	addModelAsset("fishingSpot", "assets/animations/FishingSpot/fishingSpot.scon", entities);
+	addAsset<se::SpriterModel>("fisher", "assets/animations/Fisher/fisher.scon");
+	addAsset<se::SpriterModel>("platform", "assets/animations/Platform/platform.scon");
+	addAsset<se::SpriterModel>("fishingSpot", "assets/animations/FishingSpot/fishingSpot.scon");
 
 	assert(assets.size() && "no asserts were loaded");
 }
@@ -51,19 +42,8 @@ void GameData::addTexture(const char * name, const char * path) {
 	assets[std::string(name)] = a;
 }
 
-void GameData::addModelAsset(const char * name, const char * path, const std::vector<std::string>& entities) {
+void GameData::addModel(const char * name, const char * path) {
 	Asset<se::SpriterModel*>* a = new Asset<se::SpriterModel*>;
 	a->data = new se::SpriterModel(path, new se::ExampleFileFactory(window), new se::ExampleObjectFactory(window));
 	assets[std::string(name)] = a;
-
-	//note, this only stores 1 enitity instance, if you need more than one get the model and call getNewEntityInstance on it
-	for (int i = 0; i < entities.size(); i++) {
-		Asset<se::EntityInstance*>* e = new Asset<se::EntityInstance*>;
-		e->data = a->data->getNewEntityInstance(entities[i]);
-		assets[entities[i]] = e;
-	}
-}
-
-void GameData::addEntity(const char * model, const char * name) {
-	//getAsset<SpriterEngine::SpriterModel>
 }

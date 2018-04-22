@@ -65,8 +65,9 @@ void PlatformManager::update(float dt) {
 						m_platforms.end());
 
 	if (m_spawnTimer.getElapsedTime().asSeconds() > PLATFORM_SPAWN_TIME) {
+		m_spawnTimer.restart();
 		//find top of window
-		float top = window->getView().getCenter().y - (window->getView().getSize().y * 0.5f);
+		float top = window->getView().getCenter().y - (SCREEN_HEIGHT * 0.5f);
 		int y = ((int)top - ((int)top % TILE_SIZE)) - TILE_SIZE;
 		if (y != m_lastY) {//dont spawn on same grid row
 			m_lastY = y;

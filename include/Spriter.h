@@ -14,4 +14,9 @@ namespace SpriterEngine {
 	sf::Vector2f inline pointToVector(SpriterEngine::point p) {
 		return sf::Vector2f(p.x, p.y);
 	}
+	inline void changeAnimation(se::EntityInstance* e, const char* name, float blend = 0.f) {
+		if (e->currentAnimationName() != name) {
+			e->setCurrentAnimation(name, blend);
+		}
+	}
 }
