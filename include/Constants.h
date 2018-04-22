@@ -28,6 +28,8 @@ static const float PLAYER_MAXSPACEMULT = 2.f; //seconds max you can hold space
 static const const char* PLAYER_RUN_ANIM = "Run";
 static const const char* PLAYER_IDLE_ANIM = "Idle";
 static const const char* PLAYER_IDLE_CROUCH_ANIM = "Idle Crouch";
+static const const char* PLAYER_JUMP_ANIM = "Jump";
+static const const char* PLAYER_FALL_ANIM = "Falling";
 
 //platform
 static const float PLATFORM_SPAWN_TIME = 1.f;

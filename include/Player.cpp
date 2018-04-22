@@ -15,7 +15,7 @@ Player::Player()
 
 void Player::start(const sf::Vector2f& start) {
 	m_position = start;
-	m_grounded = false;
+	m_grounded = true;
 	m_crouching = false;
 	m_crouching = false;
 	m_fishing = false;
@@ -76,7 +76,9 @@ void Player::update(float dt) {
 			se::changeAnimation(m_entity, PLAYER_IDLE_ANIM, 200.f);
 			m_blending = true;
 		}
-		else if (m_entity->currentAnimationName() == PLAYER_RUN_ANIM) {
+		else if (m_entity->currentAnimationName() == PLAYER_RUN_ANIM ||
+				 m_entity->currentAnimationName() == PLAYER_JUMP_ANIM ||
+				 m_entity->currentAnimationName() == PLAYER_FALL_ANIM) {
 			se::changeAnimation(m_entity, PLAYER_IDLE_ANIM);
 		}
 	}
@@ -103,9 +105,17 @@ void Player::update(float dt) {
 			float m = fmin(heldFor, PLAYER_MAXSPACEMULT) / PLAYER_SPACEMULT;
 			//jump if still grounded
 			if (m_grounded) {
+				se::changeAnimation(m_entity, PLAYER_JUMP_ANIM);
+				m_entity->setCurrentTime(0.f);
 				m_velocity.y = PLAYER_JUMPFORCE + ((PLAYER_JUMPFORCE * 0.5f) * m);
 				m_grounded = false;
 			}
+		}
+	}
+
+	if (m_entity->currentAnimationName() == PLAYER_JUMP_ANIM) {
+		if (m_entity->animationJustLooped()) {
+			se::changeAnimation(m_entity, PLAYER_FALL_ANIM);
 		}
 	}
 
@@ -123,28 +133,9 @@ void Player::update(float dt) {
 	else //no x drag or accel 
 		m_velocity.x = 0.f;
 
-	//drag
-	//if (dir.x == 0.f) {
-	//	if (abs(m_velocity.x) > PLAYER_DRAGTHRESHOLD)
-	//		m_velocity.x *= (m_velocity.x < 0.f) ? -PLAYER_DRAG * dt : PLAYER_DRAG * dt;
-	//	else
-	//		m_velocity.x = 0.f;
-	//}
-
-	//limit max speed
-	//if (m_velocity.y != 0.f) {
-	//	if (m_velocity.y < PLAYER_SPEEDTHRESHOLD)
-	//		limit(m_velocity, PLAYER_MAXSPEED);
-	//	else
-	//		limit(m_velocity, PLAYER_MAXSPEED * 4.f); //if falling then max speed is greater
-	//}
-
-	//temp collision detected
-	//if (m_position.y > 800.f) {
-	//	m_position.y = 800.f;
-	//	m_velocity.y = 0.f;
-	//	m_grounded = true;
-	//}
+	if (!m_grounded && m_entity->currentAnimationName() == PLAYER_RUN_ANIM) {
+		se::changeAnimation(m_entity, PLAYER_FALL_ANIM);
+	}
 
 	//update position
 	m_position += m_velocity * dt;
