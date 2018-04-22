@@ -16,8 +16,5 @@ private:
 	sf::Sprite m_title;
 	sf::Sprite m_playLogo;
 	bool m_fade;
-	sf::Clock m_fadeTimer;
-
-	void fadeOut(float dt, sf::Sprite logo);
 	
 };
