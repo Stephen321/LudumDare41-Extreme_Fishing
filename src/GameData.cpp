@@ -30,7 +30,11 @@ void GameData::load(sf::RenderWindow* _window) {
 	addAsset<sf::Texture>("menu", "assets/sprites/menu.png");
 	addAsset<sf::Texture>("gameover", "assets/sprites/gameover.png");
 	addAsset<sf::Texture>("sky", "assets/sprites/sky.png");
+	addAsset<sf::Texture>("title", "assets/sprites/main/titlelogo.png");
+	addAsset<sf::Texture>("play", "assets/sprites/main/pressplay.png");
+	addAsset<sf::Texture>("gameover", "assets/sprites/gameover/gameover.png");
 
+	//add animations
 	addAsset<se::SpriterModel>("fisher", "assets/animations/Fisher/fisher.scon");
 	addAsset<se::SpriterModel>("platform", "assets/animations/Platform/platform.scon");
 	addAsset<se::SpriterModel>("fishingSpot", "assets/animations/FishingSpot/fishingSpot.scon");
