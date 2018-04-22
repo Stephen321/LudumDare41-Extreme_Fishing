@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "FishingSpot.h"
+#include "FishManager.h"
 
 class FishManager : public sf::Drawable{
 public:
@@ -10,7 +11,7 @@ public:
 	void start();
 	void update(float dt);
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-
+	bool attempt(const Player& player);
 private:
 	std::vector<FishingSpot> m_fishingSpots;
 	std::vector<int> m_possibleXLocations;

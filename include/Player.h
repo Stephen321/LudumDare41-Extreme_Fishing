@@ -12,6 +12,7 @@ public:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 	void checkCollisions(const std::vector<Platform>& platforms);
 	sf::IntRect getBoundingBox() const;
+	bool getAttemptingToFish();
 private:
 	se::EntityInstance* m_entity;
 	sf::Vector2f m_velocity;
@@ -22,4 +23,6 @@ private:
 	float m_lastY;
 	bool m_crouching;
 	bool m_blending;
+	bool m_fishing;
+	bool m_attemptToFish;
 };
