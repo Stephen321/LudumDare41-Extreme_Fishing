@@ -23,7 +23,6 @@ MenuScene::MenuScene(sf::RenderWindow* _window)
 }
 
 void MenuScene::start() {
-	m_fadeTimer.restart();
 }
 
 void MenuScene::stop() {
@@ -58,9 +57,3 @@ void MenuScene::render(sf::RenderStates states) const {
 	window->draw(m_playLogo);
 }
 
-void MenuScene::fadeOut(float dt, sf::Sprite logo)
-{
-	/*if (m_playLogo.getColor().a >= 255) {
-		m_playLogo.setColor(sf::Color(0,0,0,))
-	}*/
-}
