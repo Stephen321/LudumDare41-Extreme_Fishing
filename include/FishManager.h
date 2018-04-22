@@ -3,6 +3,7 @@
 #include <vector>
 #include "FishingSpot.h"
 #include "FishManager.h"
+#include "Player.h"
 
 class FishManager : public sf::Drawable{
 public:

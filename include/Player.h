@@ -24,5 +24,5 @@ private:
 	bool m_crouching;
 	bool m_blending;
 	bool m_fishing;
-	bool m_attemptToFish;
+	bool m_attemptingToFish;
 };

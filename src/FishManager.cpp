@@ -57,3 +57,7 @@ void FishManager::draw(sf::RenderTarget & target, sf::RenderStates states) const
 		target.draw(m_fishingSpots[i]);
 	}
 }
+
+bool FishManager::attempt(const Player & player) {
+	return false;
+}
