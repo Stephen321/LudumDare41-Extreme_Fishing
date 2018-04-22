@@ -26,6 +26,9 @@ void GameData::load(sf::RenderWindow* _window) {
 	//Add assets here
 	//--
 
+	//add font
+	addAsset<sf::Font>("font", "assets/font/BADABB.TTF");
+
 	//add textures
 	addAsset<sf::Texture>("menu", "assets/sprites/menu.png");
 	addAsset<sf::Texture>("gameover", "assets/sprites/gameover.png");
@@ -56,5 +59,11 @@ void GameData::addModel(const char * name, const char * path) {
 		return;
 	Asset<se::SpriterModel*>* a = new Asset<se::SpriterModel*>;
 	a->data = new se::SpriterModel(path, new se::ExampleFileFactory(window), new se::ExampleObjectFactory(window));
+	assets[std::string(name)] = a;
+}
+
+void GameData::addFont(const char * name, const char * path){
+	Asset<sf::Font>* a = new Asset<sf::Font>;
+	a->data.loadFromFile(path);
 	assets[std::string(name)] = a;
 }

@@ -310,6 +310,9 @@
     <ClCompile Include="src\Running.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\UIManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameData.h">
@@ -370,6 +373,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Running.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UIManager.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

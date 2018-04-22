@@ -5,7 +5,8 @@
 GameScene::GameScene(sf::RenderWindow* _window)
 	: Scene(Type::GameScene, _window)
 	, m_platformManager(_window)
-	, m_fishManager(_window) {
+	, m_fishManager(_window) 
+	, m_uiManager(_window) {
 	m_view = _window->getView();
 	debugCircle.setFillColor(sf::Color::Green);
 	debugCircle.setRadius(2);
@@ -16,6 +17,7 @@ GameScene::GameScene(sf::RenderWindow* _window)
 void GameScene::start() {
 	m_platformManager.start(); // call this first so it sets player start position
 	m_fishManager.start();
+	m_uiManager.start();
 	m_player.start(m_platformManager.getPlayerStartPosition());
 	m_view = window->getDefaultView();
 }
@@ -38,6 +40,7 @@ void GameScene::update(float dt) {
 	m_fishManager.update(dt);
 	m_player.checkCollisions(m_platformManager.getPlatforms());
 	m_player.update(dt);
+	m_uiManager.update(dt);
 	if (m_player.getAttemptingToFish()) { //todo: pass ref of player to fm or ref of fm to player?
 		m_fishManager.attempt(&m_player);
 	}
@@ -51,8 +54,8 @@ void GameScene::render(sf::RenderStates states) const{
 	window->draw(m_platformManager);
 	window->draw(m_player);
 	window->draw(m_fishManager);
+	window->draw(m_uiManager);
 	window->draw(debugCircle);
-
 
 	sf::RectangleShape d;
 	d.setFillColor(sf::Color(0,255,0,100));

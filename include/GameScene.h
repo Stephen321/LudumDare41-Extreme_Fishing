@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "PlatformManager.h"
 #include "FishManager.h"
+#include "UIManager.h"
 
 
 class GameScene : public Scene {
@@ -19,6 +20,7 @@ private:
 	Player m_player;
 	PlatformManager m_platformManager;
 	FishManager m_fishManager;
+	UIManager m_uiManager;
 	sf::CircleShape debugCircle;
 	sf::View m_view;
 	sf::Sprite m_background;

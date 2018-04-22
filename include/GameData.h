@@ -20,6 +20,7 @@ public:
 	template<class T> T& getAsset(const std::string& name);
 	template<class T> void addAsset(const char*  name, const char* path) {};
 	template<> void addAsset<sf::Texture>(const char*  name, const char* path) { addTexture(name, path); }
+	template<> void addAsset<sf::Font>(const char*  name, const char* path) { addFont(name, path); }
 	template<> void addAsset<se::SpriterModel>(const char*  name, const char* path) { addModel(name, path); }
 
 
@@ -40,6 +41,7 @@ private:
 	GameData();
 	void addTexture(const char*  name, const char* path);
 	void addModel(const char*  name, const char* path);
+	void addFont(const char* name, const char* path);
 	std::unordered_map<std::string, BaseAsset*> assets;
 	sf::RenderWindow* window;
 };

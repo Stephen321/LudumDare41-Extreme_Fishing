@@ -78,4 +78,4 @@ static const float FISHINGLINE_TIME = 0.35f;
 static const float FISHINGLINE_TIME_DIST = 300.f; //how far line should move in line time above
 
 //menu
-static const float FADE_TIME = 0.5f;
+static const float FADE_TIME = 2.f;
