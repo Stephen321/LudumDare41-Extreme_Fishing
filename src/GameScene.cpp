@@ -35,6 +35,9 @@ void GameScene::update(float dt) {
 	m_fishManager.update(dt);
 	m_player.checkCollisions(m_platformManager.getPlatforms());
 	m_player.update(dt);
+	if (m_player.getAttemptingToFish()) { //todo: pass ref of player to fm or ref of fm to player?
+		m_fishManager.attempt(m_player);
+	}
 	debugCircle.setPosition(m_player.getPosition().x, m_player.getPosition().y);
 	autoScroll(dt);
 }

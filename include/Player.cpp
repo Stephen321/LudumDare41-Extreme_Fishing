@@ -7,7 +7,9 @@ Player::Player()
 	, m_grounded(false)
 	, m_spaceHeld(false)
 	, m_blending(false)
-	, m_crouching(false) {
+	, m_crouching(false)
+	, m_fishing(false)
+	, m_attemptingToFish(false) {
 	m_entity = GameData::getInstance().getAsset<se::SpriterModel*>("fisher")->getNewEntityInstance("Player");
 }
 
@@ -16,6 +18,8 @@ void Player::start(const sf::Vector2f& start) {
 	m_grounded = false;
 	m_crouching = false;
 	m_crouching = false;
+	m_fishing = false;
+	m_attemptingToFish = false;
 	m_velocity.x = 0.f;
 	m_velocity.y = 0.f;
 	se::changeAnimation(m_entity, PLAYER_IDLE_ANIM);
@@ -26,6 +30,16 @@ void Player::update(float dt) {
 	m_lastY = bb.top + bb.height - (m_velocity.y * dt);
 	//user input
 	sf::Vector2f dir;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+		//attempt fishing!
+		if (m_attemptingToFish) {
+			m_attemptingToFish = true;
+			//play fish attempt animation here
+		}
+	}
+	else if (m_attemptingToFish) {
+		m_attemptingToFish = false;
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		dir.x = -1;
 	}
@@ -171,4 +185,8 @@ sf::IntRect Player::getBoundingBox() const {
 	bb.width = PLAYER_SIZE_X * TILE_SIZE;
 	bb.height = (int)(PLAYER_SIZE_Y * TILE_SIZE);
 	return bb;
+}
+
+bool Player::getAttemptingToFish() {
+	return m_attemptingToFish;
 }
