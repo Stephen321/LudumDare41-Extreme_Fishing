@@ -15,7 +15,7 @@ public:
 	sf::IntRect getBoundingBox() const;
 	bool getAttemptingToFish() const;
 	void setFailedAttempt();
-	void setSuccessfulAttempt();
+	void setSuccessfulAttempt(int length, float time);
 	const bool* getQte() const;
 	void handleEvents(const sf::Event& ev);
 	sf::Vector2f getRodEnd() const;

@@ -26,11 +26,15 @@
 #include "../../spriterengine/objectref/spriteref.h"
 #include "../../spriterengine/objectref/entityref.h"
 
+#include "Running.h"
+
 
 namespace SpriterEngine
 {
 	void SpriterDocumentLoader::loadFile(SpriterModel *model, SpriterFileDocumentWrapper *documentWrapper, const std::string &fileName)
 	{
+		if (!getRunning())
+			return;
 		documentWrapper->loadFile(fileName);
 
 		SpriterFileElementWrapper *spriterDataElement = documentWrapper->getFirstChildElement("spriter_data");
@@ -444,6 +448,8 @@ namespace SpriterEngine
 		SpriterFileElementWrapper *entityElement = spriterDataElement->getFirstChildElement("entity");
 		while (entityElement->isValid())
 		{
+			if (!getRunning())
+				return;
 			Entity *entity = getNewEntityFromEntityElement(entityElement, model);
 			if (entity)
 			{
@@ -675,6 +681,8 @@ namespace SpriterEngine
 		SpriterFileElementWrapper *animationElement = entityElement->getFirstChildElement("animation");
 		while (animationElement->isValid())
 		{
+			if (!getRunning())
+				return;
 			Animation *newAnimation = getNewAnimationFromAnimationElement(animationElement, entity);
 			if (newAnimation)
 			{

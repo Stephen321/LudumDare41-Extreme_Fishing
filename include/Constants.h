@@ -1,5 +1,7 @@
 #pragma once
 
+#include "SFML/Window/Keyboard.hpp"
+
 //misc
 static const char* TITLE = "starter";
 static const unsigned int SCREEN_WIDTH = 1920u;
@@ -14,6 +16,19 @@ static const float SCROLL_SPEED = 0;// -30.f;
 static const float MAX_FISHING_SPOTS = 5;
 static const int WATER_TILES = 2;
 static const int WATER_Y_OFFSET = (int)(SCREEN_HEIGHT * 0.5f) - (WATER_TILES * TILE_SIZE);
+
+//qte
+static const int QTE_MIN = 3;
+static const int QTE_MAX = 8;
+static const float QTE_MIN_TIME = 4.f; //this many seconds to do the min 
+static const float QTE_RAND_OFFSET = 2.f;
+static const int POSSIBLE_KEYS_SIZE = 4;
+static const sf::Keyboard::Key POSSIBLE_QTE_KEYS[POSSIBLE_KEYS_SIZE] = { //also change in Helpers
+	sf::Keyboard::Key::W,
+	sf::Keyboard::Key::A,
+	sf::Keyboard::Key::S,
+	sf::Keyboard::Key::D
+};
 
 //player
 static const float PLAYER_MAXSPEED = 300.f;

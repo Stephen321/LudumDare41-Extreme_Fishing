@@ -7,6 +7,7 @@
 class Scene {
 public:
 	enum class Type {
+		LoadScene,
 		MenuScene,
 		GameScene,
 		GameOverScene

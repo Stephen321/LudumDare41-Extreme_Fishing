@@ -1,4 +1,5 @@
 #include "GameData.h"
+#include "Running.h"
 #include <cassert>
 
 
@@ -39,12 +40,16 @@ void GameData::load(sf::RenderWindow* _window) {
 }
 
 void GameData::addTexture(const char * name, const char * path) {
+	if (!getRunning()) // only load if we are stilling running
+		return;
 	Asset<sf::Texture>* a = new Asset<sf::Texture>;
 	a->data.loadFromFile(path);
 	assets[std::string(name)] = a;
 }
 
 void GameData::addModel(const char * name, const char * path) {
+	if (!getRunning())
+		return;
 	Asset<se::SpriterModel*>* a = new Asset<se::SpriterModel*>;
 	a->data = new se::SpriterModel(path, new se::ExampleFileFactory(window), new se::ExampleObjectFactory(window));
 	assets[std::string(name)] = a;

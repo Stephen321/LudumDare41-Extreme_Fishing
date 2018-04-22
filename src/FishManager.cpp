@@ -54,7 +54,8 @@ void FishManager::update(float dt){
 				//float y = ((int)bottom - ((int)bottom % TILE_SIZE)) - (TILE_SIZE * WATER_TILES);
 				for (int i = 0; i < m_fishingSpots.size(); i++) {
 					if (!m_fishingSpots[i].getAlive()) {
-						m_fishingSpots[i].start(sf::Vector2f(x, currentWaterLevel), x, FISHINGSPOT_ACTIVE_TIME);
+						int qteMax = QTE_MAX; //todo: change the max depending on how long the player survives for
+						m_fishingSpots[i].start(sf::Vector2f(x, currentWaterLevel), x, qteMax);
 						break;
 					}
 				}
@@ -99,13 +100,25 @@ void FishManager::attempt(Player* player) {
 		m_fishingLine.setScale(1.f, s);
 	}
 	if (fishingTimeSec > m_timeNeededToAttempt) {
-		//success
-		m_success = true;
-		m_timer.restart();
-		player->setSuccessfulAttempt();
-		m_playerQte = player->getQte();
-		
-		//fail
-		//m_fishingLine.setPosition(-100.f, -100.f);
+		bool fishingSpotExists = false;
+		int lineX = m_fishingLine.getPosition().x - ((int)m_fishingLine.getPosition().x % TILE_SIZE);
+		int f = 0;
+		for (int i = 0; i < m_fishingSpots.size(); i++) {
+			if (m_fishingSpots[i].getAlive() && m_fishingSpots[i].getX() == lineX) {
+				f = i;
+				break;
+			}
+		}
+		if (fishingSpotExists) {
+			assert(f);
+			//success
+			m_success = true;
+			m_timer.restart();
+			player->setSuccessfulAttempt(m_fishingSpots[f].getLength(), m_fishingSpots[f].getTime());
+			m_playerQte = player->getQte();
+		}
+		else {//fail
+			m_fishingLine.setPosition(-100.f, -100.f);
+		}
 	}
 }

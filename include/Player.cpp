@@ -111,7 +111,7 @@ void Player::setFailedAttempt() {
 	}
 }
 
-void Player::setSuccessfulAttempt() {
+void Player::setSuccessfulAttempt(int length, float time) {
 	if (m_attemptingToFish) {
 		m_attemptingToFish = false;
 		//success animation here
@@ -120,13 +120,12 @@ void Player::setSuccessfulAttempt() {
 		m_qteTimer.restart();
 		m_qte = true;
 		//todo: make time and keys harder and determined by type of fishing spot
-		m_qteTime = PLAYER_QTE_TIME; 
+		m_qteTime = time;
 		//set up qte keys 
 		m_qteKeys.clear();
-		m_qteKeys.push_back(sf::Keyboard::Key::W);
-		m_qteKeys.push_back(sf::Keyboard::Key::A);
-		m_qteKeys.push_back(sf::Keyboard::Key::S);
-		m_qteKeys.push_back(sf::Keyboard::Key::D);
+		for (int i = 0; i < length; i++) {
+
+		}
 	}
 }
 
@@ -138,7 +137,7 @@ void Player::handleEvents(const sf::Event & ev) {
 	if (m_qte) {
 		if (ev.type == sf::Event::KeyReleased && ev.key.code == m_qteKeys.front()){
 			m_qteKeys.pop_front();
-			cout << "popping: " << ev.key.code << endl;
+			cout << "popping: " << keyToStr(ev.key.code) << endl;
 			if (m_qteKeys.size() == 0) {
 				//qte successful!
 				cout << "qte success" << endl;
@@ -149,7 +148,7 @@ void Player::handleEvents(const sf::Event & ev) {
 		else if (ev.type == sf::Event::KeyPressed && ev.key.code != m_qteKeys.front()) {
 			//qte failed! wrong key
 			m_qte = false;
-			cout << "qte fail, wrong key: " << ev.key.code << endl;
+			cout << "qte fail, wrong key: " << keyToStr(ev.key.code) << endl;
 			return;
 		}
 	}
@@ -296,7 +295,7 @@ void Player::updateCoreLogic(float dt) {
 void Player::updateQTE(float dt) {
 	cout << "QTE: ";
 	for (int i = 0; i < m_qteKeys.size(); i++) {
-		cout << m_qteKeys[i] << " ";
+		cout << keyToStr(m_qteKeys[i]) << " ";
 	}
 	cout << endl;
 	

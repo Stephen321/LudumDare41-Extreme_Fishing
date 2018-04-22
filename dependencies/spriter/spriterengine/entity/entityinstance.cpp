@@ -69,9 +69,6 @@ namespace SpriterEngine
 	{
 		//Stephen321 addition:
 		timeElapsed *= 1000;
-		if (currentAnimationName() == "FishingLauch") {
-			int i = 0;
-		}
 		//end
 		justFinished = false;
 		if (currentAnimation)

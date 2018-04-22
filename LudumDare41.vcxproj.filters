@@ -304,6 +304,12 @@
     <ClCompile Include="src\FishingSpot.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\LoadScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Running.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameData.h">
@@ -358,6 +364,12 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\FishingSpot.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LoadScene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Running.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

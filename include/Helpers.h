@@ -2,7 +2,20 @@
 #include <vector>
 #include "SFML\Graphics.hpp"
 
+#define KEY_TO_CHARS(k) \
+		case sf::Keyboard::Key:: ## k:\
+		return #k;
+
 namespace Helpers {
+	inline const char* keyToStr(sf::Keyboard::Key k) {
+		switch (k) {
+			KEY_TO_CHARS(W);
+			KEY_TO_CHARS(A);
+			KEY_TO_CHARS(S);
+			KEY_TO_CHARS(D)
+		}
+	}
+
 	//clamps a value between min and max-1
 	inline int clamp(int value, int min, int max) {
 		if (value < 0) {

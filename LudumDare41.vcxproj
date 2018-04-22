@@ -177,11 +177,13 @@ xcopy /Y "$(ProjectDir)dependencies\sfml\bin\*.dll" "$(TargetDir)"</Command>
     <ClInclude Include="include\GameOverScene.h" />
     <ClInclude Include="include\GameScene.h" />
     <ClInclude Include="include\Helpers.h" />
+    <ClInclude Include="include\LoadScene.h" />
     <ClInclude Include="include\MenuScene.h" />
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\Platform.h" />
     <ClInclude Include="include\PlatformManager.h" />
     <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\Running.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\Screen.h" />
@@ -279,6 +281,7 @@ xcopy /Y "$(ProjectDir)dependencies\sfml\bin\*.dll" "$(TargetDir)"</Command>
     <ClCompile Include="src\FishingSpot.cpp" />
     <ClCompile Include="src\FishManager.cpp" />
     <ClCompile Include="src\GameScene.cpp" />
+    <ClCompile Include="src\LoadScene.cpp" />
     <ClCompile Include="src\main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -302,6 +305,7 @@ xcopy /Y "$(ProjectDir)dependencies\sfml\bin\*.dll" "$(TargetDir)"</Command>
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Platform.cpp" />
     <ClCompile Include="src\PlatformManager.cpp" />
+    <ClCompile Include="src\Running.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

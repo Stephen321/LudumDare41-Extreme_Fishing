@@ -1,37 +1,31 @@
 #include "SceneManager.h"
+#include "LoadScene.h"
 #include "MenuScene.h"
 #include "GameScene.h"
 #include "GameOverScene.h"
-#include "GameData.h"
 
 SceneManager::SceneManager()
 	: m_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32), TITLE)
-	, m_running(true)
-	, m_pause(false) {
+	, m_pause(false)
+	, m_currentScene(nullptr) {
 	se::Settings::setErrorFunction(SpriterEngine::Settings::simpleError);
-	GameData::getInstance().load(&m_window);
-
-	m_scenes.push_back(new MenuScene(&m_window));
-	m_scenes.push_back(new GameScene(&m_window));
-	m_scenes.push_back(new GameOverScene(&m_window));
-	m_currentScene = m_scenes[1];
-	m_currentScene->start();
+	m_scenes.push_back(new LoadScene(&m_window));
+	loadThread = std::thread(&LoadScene::loadData, dynamic_cast<LoadScene*>(m_scenes.back()), std::ref(m_window));
+	changeScene(Scene::Type::LoadScene);
 	m_clock.restart();
 }
 
 SceneManager::~SceneManager() {
+	for (int i = 0; i < m_scenes.size(); i++) {
+		delete m_scenes[i];
+	}
 }
-
-bool SceneManager::getRunning() const {
-	return m_running;
-}
-
 void SceneManager::handleEvents() {
 	sf::Event ev;
 	while (m_window.pollEvent(ev)) {
 		if (ev.type == sf::Event::Closed ||
 			(ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Escape)) {
-			m_running = false;
+			setRunning(false);
 		}
 		if (ev.type == sf::Event::LostFocus) {
 			m_pause = true;
@@ -44,6 +38,10 @@ void SceneManager::handleEvents() {
 }
 
 void SceneManager::update() {
+	if (!getRunning()) {
+		loadThread.join();
+		return;
+	}
 	float dt = m_clock.restart().asSeconds();
 	if (dt > 1.f || m_pause)
 		dt = 0.f;
@@ -59,7 +57,8 @@ void SceneManager::render() {
 void SceneManager::changeScene(Scene::Type type) {
 	for (int i = 0; i < m_scenes.size(); ++i) {
 		if (m_scenes[i]->getType() == type) {
-			m_currentScene->stop();
+			if (m_currentScene != nullptr)
+				m_currentScene->stop();
 			m_currentScene = m_scenes[i];
 			m_currentScene->start();
 			m_clock.restart();
@@ -67,4 +66,12 @@ void SceneManager::changeScene(Scene::Type type) {
 		}
 	}
 	assert(false && "No scene of that type could be found.");
+}
+
+void SceneManager::finishedLoading() {
+	m_scenes.push_back(new MenuScene(&m_window));
+	m_scenes.push_back(new GameScene(&m_window));
+	m_scenes.push_back(new GameOverScene(&m_window));
+	//todo this should go to menuscene
+	changeScene(Scene::Type::GameScene);
 }

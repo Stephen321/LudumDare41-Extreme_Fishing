@@ -7,14 +7,18 @@
 class FishingSpot : public GameObject, public sf::Drawable {
 public:
 	FishingSpot();
-	void start(const sf::Vector2f start, int x, float timeToBeActive = FISHINGSPOT_MAXACTIVE);
+	void start(const sf::Vector2f start, int x, int qteMax);
 	void update(float dt) override;
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 	int getX() const;
 	sf::IntRect getBoundingBox() const;
+	int getLength() const;
+	float getTime() const;
 private:
 	se::EntityInstance* m_entity;
 	sf::Clock m_activeTimer;
 	float m_timeToBeActive;
 	int m_x;
+	int m_length;
+	float m_time;
 };
