@@ -9,12 +9,19 @@
 					"mainline": {
 						"key": [
 							{
-								"bone_ref": [],
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
 								"id": 0,
 								"object_ref": [
 									{
 										"id": 0,
 										"key": 0,
+										"parent": 0,
 										"timeline": "0",
 										"z_index": "0"
 									}
@@ -30,6 +37,7 @@
 								{
 									"id": 0,
 									"object": {
+										"angle": 45.233859025873244,
 										"file": 0,
 										"folder": 0
 									},
@@ -37,6 +45,21 @@
 								}
 							],
 							"name": "fishingSpot"
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"bone": {
+										"angle": 314.76614097412676
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 0,
+							"object_type": "bone"
 						}
 					]
 				}
@@ -44,7 +67,14 @@
 			"character_map": [],
 			"id": 0,
 			"name": "FishingSpot",
-			"obj_info": []
+			"obj_info": [
+				{
+					"h": 10,
+					"name": "bone_000",
+					"type": "bone",
+					"w": 42.988239320039085
+				}
+			]
 		}
 	],
 	"folder": [

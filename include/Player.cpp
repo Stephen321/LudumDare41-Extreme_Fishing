@@ -5,16 +5,20 @@
 Player::Player()
 	: m_speed(PLAYER_MAXSPEED)
 	, m_grounded(false)
-	, m_spaceHeld(false) {
-	m_entity = GameData::getInstance().getAsset<se::EntityInstance*>("Player");
+	, m_spaceHeld(false)
+	, m_blending(false)
+	, m_crouching(false) {
+	m_entity = GameData::getInstance().getAsset<se::SpriterModel*>("fisher")->getNewEntityInstance("Player");
 }
 
 void Player::start(const sf::Vector2f& start) {
 	m_position = start;
 	m_grounded = false;
+	m_crouching = false;
+	m_crouching = false;
 	m_velocity.x = 0.f;
 	m_velocity.y = 0.f;
-	m_entity->setCurrentAnimation("Idle");
+	se::changeAnimation(m_entity, PLAYER_IDLE_ANIM);
 }
 
 void Player::update(float dt) {
@@ -28,12 +32,41 @@ void Player::update(float dt) {
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		dir.x = 1;
 	}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-	//	dir.y = -1;
-	//}
-	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-	//	dir.y = 1;
-	//}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		if (m_crouching == false) {
+			m_crouching = true;
+			if (m_entity->currentAnimationName() == PLAYER_RUN_ANIM) {
+				se::changeAnimation(m_entity, PLAYER_IDLE_CROUCH_ANIM);
+			}
+			else if (m_entity->currentAnimationName() == PLAYER_IDLE_ANIM) {
+				se::changeAnimation(m_entity, PLAYER_IDLE_CROUCH_ANIM, 200.f);
+			}
+		}
+	}
+	else if (m_crouching) {
+		m_crouching = false;
+		m_blending = false;
+	}
+	if (m_grounded && m_crouching) {
+		dir.x = 0; //cant move left or right while crouching
+	}
+
+	if (dir.x != 0.f) {
+		m_entity->setScale(se::point(-dir.x, 1.f));
+		if (m_grounded) {
+			se::changeAnimation(m_entity, PLAYER_RUN_ANIM);
+		}
+	}
+	else if(m_grounded && m_crouching == false) {
+		if (m_blending == false && m_entity->currentAnimationName() == PLAYER_IDLE_CROUCH_ANIM) {
+			se::changeAnimation(m_entity, PLAYER_IDLE_ANIM, 200.f);
+			m_blending = true;
+		}
+		else if (m_entity->currentAnimationName() == PLAYER_RUN_ANIM) {
+			se::changeAnimation(m_entity, PLAYER_IDLE_ANIM);
+		}
+	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		if (m_grounded) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
@@ -54,9 +87,11 @@ void Player::update(float dt) {
 			m_spaceHeld = false;
 			float heldFor = m_spaceTimer.getElapsedTime().asSeconds();
 			float m = fmin(heldFor, PLAYER_MAXSPACEMULT) / PLAYER_SPACEMULT;
-			//jump
-			m_velocity.y = PLAYER_JUMPFORCE + ((PLAYER_JUMPFORCE * 0.5f) * m);
-			m_grounded = false;
+			//jump if still grounded
+			if (m_grounded) {
+				m_velocity.y = PLAYER_JUMPFORCE + ((PLAYER_JUMPFORCE * 0.5f) * m);
+				m_grounded = false;
+			}
 		}
 	}
 
@@ -109,13 +144,20 @@ void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 
 void Player::checkCollisions(const std::vector<Platform>& platforms) {
 	bool falling = true;
+	cout << "lastY: " << m_lastY << endl;
 	for (int i = 0; i < platforms.size(); i++) {
 		sf::IntRect bb = platforms[i].getBoundingBox();
 		sf::IntRect playerBB = getBoundingBox();
 		if (bb.intersects(playerBB)) {
+			cout << "bb.top:: " << bb.top << endl;
 			falling = false;
-			if (m_lastY < bb.top)
+			if (m_lastY < bb.top) {
 				m_grounded = true;
+				break;
+			}
+			else if (m_position.y > bb.top + bb.height) {
+				falling = true; //special case
+			}
 		}
 	}
 	if (falling)

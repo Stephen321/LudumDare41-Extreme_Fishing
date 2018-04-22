@@ -20,4 +20,6 @@ private:
 	float m_speed;
 	bool m_grounded;
 	float m_lastY;
+	bool m_crouching;
+	bool m_blending;
 };
