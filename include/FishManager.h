@@ -13,6 +13,7 @@ public:
 	void update(float dt);
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 	void attempt(Player* player);
+	sf::Vector2f getQteFishSpot() const;
 private:
 	std::vector<FishingSpot> m_fishingSpots;
 	std::vector<int> m_possibleXLocations;

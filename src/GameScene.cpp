@@ -44,6 +44,9 @@ void GameScene::update(float dt) {
 	if (m_player.getAttemptingToFish()) { //todo: pass ref of player to fm or ref of fm to player?
 		m_fishManager.attempt(&m_player);
 	}
+	else if (*m_player.getQte()) {
+		m_player.setQteFishSpot(m_fishManager.getQteFishSpot());
+	}
 	debugCircle.setPosition(m_player.getPosition().x, m_player.getPosition().y);
 	m_background.setPosition(m_view.getCenter().x - (SCREEN_WIDTH * 0.5f), m_view.getCenter().y - (SCREEN_HEIGHT * 0.5f));
 	autoScroll(dt);

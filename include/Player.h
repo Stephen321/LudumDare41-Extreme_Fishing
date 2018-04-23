@@ -19,12 +19,17 @@ public:
 	const bool* getQte() const;
 	void handleEvents(const sf::Event& ev);
 	sf::Vector2f getRodEnd() const;
+	void setQteFishSpot(const sf::Vector2f& qteFishSpot);
 private:
 	void updateCoreLogic(float dt);
 	void updateQTE(float dt);
 	se::EntityInstance* m_entity;
+	se::EntityInstance* m_qteEnt;
+	se::EntityInstance* m_speechEnt;
+	sf::Vector2f m_qteFishSpot;
+
 	sf::Vector2f m_velocity;
-	sf::Clock m_spaceTimer;
+	sf::Clock m_jumpTimer;
 	sf::Clock m_launchFisherTimer;
 	sf::Clock m_qteTimer;
 	bool m_spaceHeld;
@@ -38,5 +43,6 @@ private:
 	bool m_launchFish;
 	bool m_qte;
 	float m_qteTime;
+	float m_jumpForce;
 	std::deque<sf::Keyboard::Key> m_qteKeys;
 };

@@ -13,6 +13,8 @@ Player::Player()
 	, m_attemptingToFish(false) 
 	, m_qte(false) {
 	m_entity = GameData::getInstance().getAsset<se::SpriterModel*>("fisher")->getNewEntityInstance("Player");
+	m_qteEnt = GameData::getInstance().getAsset<se::SpriterModel*>("QTE")->getNewEntityInstance("QTE");
+	m_speechEnt = GameData::getInstance().getAsset<se::SpriterModel*>("QTE")->getNewEntityInstance("QTE");
 }
 
 void Player::start(const sf::Vector2f& start) {
@@ -27,6 +29,7 @@ void Player::start(const sf::Vector2f& start) {
 	m_velocity.x = 0.f;
 	m_velocity.y = 0.f;
 	se::changeAnimation(m_entity, PLAYER_IDLE_ANIM);
+	m_jumpForce = PLAYER_JUMPFORCE_EXTRA;
 }
 
 void Player::update(float dt) {
@@ -39,7 +42,7 @@ void Player::update(float dt) {
 		if (m_attemptingToFish == false) {
 			m_launchFish = true;
 			m_launchFisherTimer.restart();
-			//play fish launch animation here
+			se::changeAnimation(m_speechEnt, QTE_ATTEMPT_ANIM);
 			se::changeAnimation(m_entity, PLAYER_FISHLAUNCH_ANIM);
 			m_entity->setCurrentTime(0.f);
 		}
@@ -62,10 +65,35 @@ void Player::update(float dt) {
 
 	m_entity->setPosition(se::vectorToPoint(m_position));
 	m_entity->setTimeElapsed(dt);
+
+
+	if (m_qte) {
+		m_qteEnt->setPosition(se::vectorToPoint(
+			sf::Vector2f(
+				m_qteFishSpot.x + 5.f,
+				m_qteFishSpot.y - ((1.1f + FISHINGSPOT_SIZE_Y) * TILE_SIZE)
+			)
+		));
+	}
+	m_qteEnt->setTimeElapsed(dt);
+
+	if (m_launchFish || m_attemptingToFish || m_qte)
+		m_speechEnt->setPosition(se::vectorToPoint(
+			sf::Vector2f(
+				m_position.x + 5.f,
+				m_position.y - ((1.1f + PLAYER_SIZE_Y) * TILE_SIZE)
+			)
+		));
+	m_speechEnt->setTimeElapsed(dt);
 }
 
 void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	m_entity->render();
+	if (m_qte)
+		m_qteEnt->render();
+	if (m_entity->currentAnimationName() == PLAYER_IDLE_FISHING_ANIM ||
+		m_entity->currentAnimationName() == PLAYER_FISHLAUNCH_ANIM)
+		m_speechEnt->render();
 }
 
 void Player::checkCollisions(const std::vector<Platform>& platforms) {
@@ -107,7 +135,7 @@ bool Player::getAttemptingToFish() const {
 void Player::setFailedAttempt() {
 	if (m_attemptingToFish) {
 		m_attemptingToFish = false;
-		//fail animation here
+		se::changeAnimation(m_speechEnt, QTE_FAIL_ANIM);
 	}
 }
 
@@ -119,7 +147,6 @@ void Player::setSuccessfulAttempt(int length, float time) {
 		//start qte
 		m_qteTimer.restart();
 		m_qte = true;
-		//todo: make time and keys harder and determined by type of fishing spot
 		m_qteTime = time;
 		//set up qte keys 
 		m_qteKeys.clear();
@@ -127,6 +154,7 @@ void Player::setSuccessfulAttempt(int length, float time) {
 			int k = rand() % POSSIBLE_KEYS_SIZE;
 			m_qteKeys.push_back(POSSIBLE_QTE_KEYS[k]);
 		}
+		se::changeAnimation(m_qteEnt, QTE_ANIM_PREFIX + keyToStr(m_qteKeys.front()));
 	}
 }
 
@@ -141,15 +169,18 @@ void Player::handleEvents(const sf::Event & ev) {
 			cout << "popping: " << keyToStr(ev.key.code) << endl;
 			if (m_qteKeys.size() == 0) {
 				//qte successful!
-				cout << "qte success" << endl;
+				se::changeAnimation(m_speechEnt, QTE_SUCCESS_ANIM);
 				m_qte = false;
 				return;
+			}
+			else {
+				se::changeAnimation(m_qteEnt, QTE_ANIM_PREFIX + keyToStr(m_qteKeys.front()));
 			}
 		}
 		else if (ev.type == sf::Event::KeyPressed && ev.key.code != m_qteKeys.front()) {
 			//qte failed! wrong key
 			m_qte = false;
-			cout << "qte fail, wrong key: " << keyToStr(ev.key.code) << endl;
+			se::changeAnimation(m_speechEnt, QTE_FAIL_ANIM);
 			return;
 		}
 	}
@@ -159,8 +190,14 @@ sf::Vector2f Player::getRodEnd() const {
 	return sf::Vector2f(m_position.x + (-m_entity->getScale().x * PLAYER_ROD_OFFSET_X), getBoundingBox().top - PLAYER_ROD_OFFSET_Y);
 }
 
+void Player::setQteFishSpot(const sf::Vector2f & qteFishSpot) {
+	m_qteFishSpot = qteFishSpot;
+}
+
 
 void Player::updateCoreLogic(float dt) {
+	m_launchFish = false;
+
 	//user input
 	sf::Vector2f dir;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
@@ -217,25 +254,19 @@ void Player::updateCoreLogic(float dt) {
 				m_entity->setCurrentTime(0.f);
 			}
 			else {
-				if (m_spaceHeld == false) {
-					m_spaceHeld = true;
-					m_spaceTimer.restart();
-				}
-			}
-		}
-	}
-	else {
-		if (m_spaceHeld) { //space released!
-			m_spaceHeld = false;
-			float heldFor = m_spaceTimer.getElapsedTime().asSeconds();
-			float m = fmin(heldFor, PLAYER_MAXSPACEMULT) / PLAYER_SPACEMULT;
-			//jump if still grounded
-			if (m_grounded) {
+				//first time jumping
+				m_jumpForce = PLAYER_JUMPFORCE_EXTRA;
+				m_velocity.y = PLAYER_JUMPFORCE;
 				se::changeAnimation(m_entity, PLAYER_JUMP_ANIM);
 				m_entity->setCurrentTime(0.f);
-				m_velocity.y = PLAYER_JUMPFORCE + ((PLAYER_JUMPFORCE * 0.5f) * m);
 				m_grounded = false;
+				m_jumpTimer.restart();
 			}
+		}
+		else if (m_jumpTimer.getElapsedTime().asSeconds() < PLAYER_MAX_SPACEHOLD) {
+			//we can increase our jump force here
+			m_jumpForce += (PLAYER_JUMPFORCE_INC * dt);
+			m_velocity.y += m_jumpForce * dt;
 		}
 	}
 
@@ -245,7 +276,7 @@ void Player::updateCoreLogic(float dt) {
 		}
 	}
 	else if (m_entity->currentAnimationName() == PLAYER_LAND_ANIM) {
-		if (m_entity->animationJustLooped()) {
+		if (m_entity->animationJustLooped() || m_crouching) {
 			if (m_crouching)
 				se::changeAnimation(m_entity, PLAYER_IDLE_CROUCH_ANIM);
 			else
@@ -301,8 +332,8 @@ void Player::updateQTE(float dt) {
 	cout << endl;
 	
 	if (m_qteTimer.getElapsedTime().asSeconds() > m_qteTime) {
-		//qte fauked! ran out of time
-		cout << "qte fail, time ran out" << endl;
+		//qte failed! ran out of time
+		se::changeAnimation(m_speechEnt, QTE_FAIL_ANIM);
 		m_qte = false;
 	}
 }

@@ -3,7 +3,7 @@
 #include "SFML/Window/Keyboard.hpp"
 
 //misc
-static const char* TITLE = "starter";
+static const char* TITLE = "Ludum Dare 41";
 static const unsigned int SCREEN_WIDTH = 1920u;
 static const unsigned int SCREEN_HEIGHT = 1080u;
 
@@ -13,15 +13,20 @@ static const int TILE_SIZE = 60;
 static const int TILES_X = SCREEN_WIDTH / TILE_SIZE; 
 static const int TILES_Y = SCREEN_HEIGHT / TILE_SIZE;
 static const float SCROLL_SPEED = 0;// -30.f;
-static const float MAX_FISHING_SPOTS = 5;
+static const float MAX_FISHING_SPOTS = 6;
 static const int WATER_TILES = 2;
 static const int WATER_Y_OFFSET = (int)(SCREEN_HEIGHT * 0.5f) - (WATER_TILES * TILE_SIZE);
 
 //qte
+static const const char* QTE_SUCCESS_ANIM = "KeyWin";
+static const const char* QTE_FAIL_ANIM = "KeyLose";
+static const const char* QTE_ATTEMPT_ANIM = "Key!";
+static const std::string QTE_ANIM_PREFIX = "Key";
+//static const int QTE_SPEECH_OFF_X = 1;
 static const int QTE_MIN = 3;
 static const int QTE_MAX = 8;
-static const float QTE_MIN_TIME = 5.f; //this many seconds to do the min 
-static const float QTE_RAND_OFFSET = 1.f;
+static const float QTE_TIME_PER_KEY = 1.f; 
+static const int QTE_RAND_OFFSET = 2;
 static const int POSSIBLE_KEYS_SIZE = 4;
 static const sf::Keyboard::Key POSSIBLE_QTE_KEYS[POSSIBLE_KEYS_SIZE] = { //also change in Helpers
 	sf::Keyboard::Key::W,
@@ -34,13 +39,14 @@ static const sf::Keyboard::Key POSSIBLE_QTE_KEYS[POSSIBLE_KEYS_SIZE] = { //also 
 static const float PLAYER_MAXSPEED = 300.f;
 static const float PLAYER_SPEED = 200.f;
 static const float PLAYER_SPEEDTHRESHOLD = 10.f;
-static const float PLAYER_JUMPFORCE = -700.f;
-static const float PLAYER_DRAGTHRESHOLD = 1.f;
+static const float PLAYER_JUMPFORCE = -550.f;
+static const float PLAYER_JUMPFORCE_EXTRA = PLAYER_JUMPFORCE * 0.9f;
+static const float PLAYER_JUMPFORCE_INC = 175.f;
 static const float PLAYER_DRAG = 0.99f;
 static const float PLAYER_SIZE_X = 1.f;
 static const float PLAYER_SIZE_Y = 2.f;
-static const float PLAYER_SPACEMULT = 2.f;
-static const float PLAYER_MAXSPACEMULT = 2.f; //seconds max you can hold space
+static const float PLAYER_MIN_SPACEHOLD = 0.3f;
+static const float PLAYER_MAX_SPACEHOLD = 1.4f; //seconds max you can hold space
 static const const char* PLAYER_RUN_ANIM = "Run";
 static const const char* PLAYER_IDLE_ANIM = "Idle";
 static const const char* PLAYER_IDLE_CROUCH_ANIM = "Idle Crouch";
@@ -65,12 +71,17 @@ static const int PLATFORM_START_Y_SIZE = 9;
 static const int PLATFORM_START_Y[PLATFORM_START_Y_SIZE]{ 0, 2, 5, 6, 7, 8, 9 ,10, 12};
 
 //fishing spots
+static const float FISHINGSPOT_Y_OFFSET = 5.f; //place them below top of water
 static const float FISHINGSPOT_SIZE_X = 1.f;
 static const float FISHINGSPOT_SIZE_Y = 1.f;
-static const int FISHINGSPOT_MAXACTIVE = 5;
+static const int FISHINGSPOT_MAXACTIVE = 16;
 static const float FISHINGSPOT_SPAWN_TIME = 0.65f;
-static const float FISHINGSPOT_ACTIVE_TIME = 3.f;
+static const int FISHINGSPOT_ACTIVE_OFFSET = 2;
+static const int FISHINGSPOT_ACTIVE_TIME_MULTIPLE = 4;
+//static const float FISHINGSPOT_ACTIVE_TIME = 3.f;
 static const int FISHINGSPOT_SPAWN_CHANCE = 5;
+static const char* FISHINGSPOT_FADEIN_ANIM = "BubblesFadeIn";
+static const char*FISHINGSPOT_BUBBLE_ANIM = "Bubbles";
 
 //fishing line
 static const int FISHINGLINE_THICKNESS = 2;

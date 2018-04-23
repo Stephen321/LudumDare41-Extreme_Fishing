@@ -55,7 +55,7 @@ void FishManager::update(float dt){
 				for (int i = 0; i < m_fishingSpots.size(); i++) {
 					if (!m_fishingSpots[i].getAlive()) {
 						int qteMax = QTE_MAX; //todo: change the max depending on how long the player survives for
-						m_fishingSpots[i].start(sf::Vector2f(x, currentWaterLevel), x, qteMax);
+						m_fishingSpots[i].start(sf::Vector2f(x, currentWaterLevel + FISHINGSPOT_Y_OFFSET), x, qteMax);
 						break;
 					}
 				}
@@ -77,11 +77,11 @@ void FishManager::update(float dt){
 }
 
 void FishManager::draw(sf::RenderTarget & target, sf::RenderStates states) const {
+	target.draw(m_fishingLine);
+	m_water->render();
 	for (int i = 0; i < m_fishingSpots.size(); i++) {
 		target.draw(m_fishingSpots[i]);
 	}
-	target.draw(m_fishingLine);
-	m_water->render();
 }
 
 void FishManager::attempt(Player* player) {
@@ -129,4 +129,11 @@ void FishManager::attempt(Player* player) {
 			m_fishingLine.setPosition(-100.f, -100.f);
 		}
 	}
+}
+
+sf::Vector2f FishManager::getQteFishSpot() const {
+	if (m_fishedSpot != -1 && *m_playerQte) { //already done in gamescene
+		return m_fishingSpots[m_fishedSpot].getPosition();
+	}
+	return sf::Vector2f();
 }

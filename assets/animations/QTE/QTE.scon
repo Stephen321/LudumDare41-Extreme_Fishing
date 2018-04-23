@@ -1,0 +1,512 @@
+{
+	"entity": [
+		{
+			"animation": [
+				{
+					"id": 0,
+					"interval": 100,
+					"length": 1000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 0
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "0"
+									}
+								]
+							}
+						]
+					},
+					"name": "KeyW",
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"bone": {
+										"angle": 322.76516601842536
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 0,
+							"object_type": "bone"
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 37.23483398157464,
+										"file": 0,
+										"folder": 0
+									},
+									"spin": 0
+								}
+							],
+							"name": "W"
+						}
+					]
+				},
+				{
+					"id": 1,
+					"interval": 100,
+					"length": 1000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 0
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "0"
+									}
+								]
+							}
+						]
+					},
+					"name": "KeyA",
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"bone": {
+										"angle": 322.76516601842536
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 0,
+							"object_type": "bone"
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 37.23483398157464,
+										"file": 1,
+										"folder": 0
+									},
+									"spin": 0
+								}
+							],
+							"name": "A"
+						}
+					]
+				},
+				{
+					"id": 2,
+					"interval": 100,
+					"length": 1000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 0
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "0"
+									}
+								]
+							}
+						]
+					},
+					"name": "KeyS",
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"bone": {
+										"angle": 320.1944289077348
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 0,
+							"object_type": "bone"
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 39.80557109226521,
+										"file": 2,
+										"folder": 0
+									},
+									"spin": 0
+								}
+							],
+							"name": "S"
+						}
+					]
+				},
+				{
+					"id": 3,
+					"interval": 100,
+					"length": 1000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 0
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "0"
+									}
+								]
+							}
+						]
+					},
+					"name": "KeyD",
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"bone": {
+										"angle": 322.76516601842536
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 0,
+							"object_type": "bone"
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 37.23483398157464,
+										"file": 3,
+										"folder": 0
+									},
+									"spin": 0
+								}
+							],
+							"name": "D"
+						}
+					]
+				},
+				{
+					"id": 4,
+					"interval": 100,
+					"length": 1000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 0
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "0"
+									}
+								]
+							}
+						]
+					},
+					"name": "Key!",
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"bone": {
+										"angle": 322.76516601842536
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 0,
+							"object_type": "bone"
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 37.23483398157464,
+										"file": 4,
+										"folder": 0
+									},
+									"spin": 0
+								}
+							],
+							"name": "!"
+						}
+					]
+				},
+				{
+					"id": 5,
+					"interval": 100,
+					"length": 1000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 0
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "0"
+									}
+								]
+							}
+						]
+					},
+					"name": "KeyWin",
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"bone": {
+										"angle": 322.76516601842536
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 0,
+							"object_type": "bone"
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 37.23483398157464,
+										"file": 5,
+										"folder": 0
+									},
+									"spin": 0
+								}
+							],
+							"name": "win"
+						}
+					]
+				},
+				{
+					"id": 6,
+					"interval": 100,
+					"length": 1000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 0
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "0"
+									}
+								]
+							}
+						]
+					},
+					"name": "KeyLose",
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"bone": {
+										"angle": 322.76516601842536
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 0,
+							"object_type": "bone"
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 37.23483398157464,
+										"file": 6,
+										"folder": 0
+									},
+									"spin": 0
+								}
+							],
+							"name": "lose"
+						}
+					]
+				}
+			],
+			"character_map": [],
+			"id": 0,
+			"name": "QTE",
+			"obj_info": [
+				{
+					"h": 10,
+					"name": "bone_000",
+					"type": "bone",
+					"w": 31.400636936215164
+				}
+			]
+		}
+	],
+	"folder": [
+		{
+			"file": [
+				{
+					"height": 60,
+					"id": 0,
+					"name": "W.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 60
+				},
+				{
+					"height": 60,
+					"id": 1,
+					"name": "A.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 60
+				},
+				{
+					"height": 60,
+					"id": 2,
+					"name": "S.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 60
+				},
+				{
+					"height": 60,
+					"id": 3,
+					"name": "D.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 60
+				},
+				{
+					"height": 60,
+					"id": 4,
+					"name": "!.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 60
+				},
+				{
+					"height": 60,
+					"id": 5,
+					"name": "win.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 60
+				},
+				{
+					"height": 60,
+					"id": 6,
+					"name": "lose.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 60
+				}
+			],
+			"id": 0
+		}
+	],
+	"generator": "BrashMonkey Spriter",
+	"generator_version": "r11",
+	"scon_version": "1.0"
+}

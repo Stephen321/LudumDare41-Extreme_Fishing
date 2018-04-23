@@ -7,7 +7,7 @@
 		return #k;
 
 namespace Helpers {
-	inline const char* keyToStr(sf::Keyboard::Key k) {
+	inline std::string keyToStr(sf::Keyboard::Key k) {
 		switch (k) {
 			KEY_TO_CHARS(W);
 			KEY_TO_CHARS(A);

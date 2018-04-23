@@ -30,8 +30,7 @@ void GameData::load(sf::RenderWindow* _window) {
 	addAsset<sf::Font>("font", "assets/font/BADABB.TTF");
 
 	//add textures
-	addAsset<sf::Texture>("menu", "assets/sprites/menu.png");
-	addAsset<sf::Texture>("gameover", "assets/sprites/gameover.png");
+	addAsset<sf::Texture>("menu", "assets/sprites/main/menu.png");
 	addAsset<sf::Texture>("sky", "assets/sprites/sky.png");
 	addAsset<sf::Texture>("title", "assets/sprites/main/titlelogo.png");
 	addAsset<sf::Texture>("play", "assets/sprites/main/pressplay.png");
@@ -42,6 +41,7 @@ void GameData::load(sf::RenderWindow* _window) {
 	addAsset<se::SpriterModel>("platform", "assets/animations/Platform/platform.scon");
 	addAsset<se::SpriterModel>("fishingSpot", "assets/animations/FishingSpot/fishingSpot.scon");
 	addAsset<se::SpriterModel>("water", "assets/animations/Ocean/water.scon");
+	addAsset<se::SpriterModel>("QTE", "assets/animations/QTE/QTE.scon");
 
 	assert(assets.size() && "no asserts were loaded");
 }

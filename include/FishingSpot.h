@@ -18,7 +18,7 @@ public:
 private:
 	se::EntityInstance* m_entity;
 	sf::Clock m_activeTimer;
-	float m_timeToBeActive;
+	int m_timeToBeActive;
 	int m_x;
 	int m_length;
 	float m_time;
