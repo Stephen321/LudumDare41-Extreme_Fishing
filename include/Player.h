@@ -20,6 +20,9 @@ public:
 	void handleEvents(const sf::Event& ev);
 	sf::Vector2f getRodEnd() const;
 	void setQteFishSpot(const sf::Vector2f& qteFishSpot);
+	const sf::Vector2f* getPositionPtr() const;
+	int getScore();
+	float getQteTime() const;
 private:
 	void updateCoreLogic(float dt);
 	void updateQTE(float dt);
@@ -27,7 +30,9 @@ private:
 	se::EntityInstance* m_qteEnt;
 	se::EntityInstance* m_speechEnt;
 	sf::Vector2f m_qteFishSpot;
-
+	sf::Clock m_displaySpeechTimer;
+	bool m_hasScore;
+	int m_score;
 	sf::Vector2f m_velocity;
 	sf::Clock m_jumpTimer;
 	sf::Clock m_launchFisherTimer;
@@ -44,5 +49,6 @@ private:
 	bool m_qte;
 	float m_qteTime;
 	float m_jumpForce;
+	int m_qteLength;
 	std::deque<sf::Keyboard::Key> m_qteKeys;
 };

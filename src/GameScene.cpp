@@ -5,8 +5,8 @@
 GameScene::GameScene(sf::RenderWindow* _window)
 	: Scene(Type::GameScene, _window)
 	, m_platformManager(_window)
-	, m_fishManager(_window) 
-	, m_uiManager(_window) {
+	, m_fishManager(_window, m_player.getPositionPtr())
+	, m_uiManager(_window, &m_player) {
 	m_view = _window->getView();
 	debugCircle.setFillColor(sf::Color::Green);
 	debugCircle.setRadius(2);
@@ -47,6 +47,7 @@ void GameScene::update(float dt) {
 	else if (*m_player.getQte()) {
 		m_player.setQteFishSpot(m_fishManager.getQteFishSpot());
 	}
+	m_uiManager.addToScore(m_player.getScore());
 	debugCircle.setPosition(m_player.getPosition().x, m_player.getPosition().y);
 	m_background.setPosition(m_view.getCenter().x - (SCREEN_WIDTH * 0.5f), m_view.getCenter().y - (SCREEN_HEIGHT * 0.5f));
 	autoScroll(dt);

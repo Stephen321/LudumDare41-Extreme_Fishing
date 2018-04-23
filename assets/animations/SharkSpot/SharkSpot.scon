@@ -1,0 +1,663 @@
+{
+	"entity": [
+		{
+			"animation": [
+				{
+					"id": 0,
+					"interval": 100,
+					"length": 1000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"parent": 0,
+										"timeline": "0",
+										"z_index": "0"
+									}
+								]
+							}
+						]
+					},
+					"name": "Surface",
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 0,
+										"folder": 0
+									},
+									"spin": 0
+								}
+							],
+							"name": "DrosalFin"
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"bone": {
+										"angle": 348.17851165939277
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 0,
+							"object_type": "bone"
+						}
+					]
+				},
+				{
+					"id": 1,
+					"interval": 100,
+					"length": 4000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 0
+									}
+								],
+								"c1": 0,
+								"c2": 0.75,
+								"curve_type": "cubic",
+								"id": 0,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 1,
+										"parent": 0,
+										"timeline": "2",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 0,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "1"
+									}
+								]
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 0
+									}
+								],
+								"c1": 0,
+								"c2": 0.75,
+								"curve_type": "cubic",
+								"id": 1,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 2,
+										"parent": 0,
+										"timeline": "2",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 1,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "1"
+									}
+								],
+								"time": 1000
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 1,
+										"timeline": 0
+									}
+								],
+								"c1": 0,
+								"c2": 0.75,
+								"curve_type": "cubic",
+								"id": 2,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 2,
+										"parent": 0,
+										"timeline": "2",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 1,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "1"
+									}
+								],
+								"time": 1999
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 2,
+										"timeline": 0
+									}
+								],
+								"id": 3,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"parent": 0,
+										"timeline": "3",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 4,
+										"parent": 0,
+										"timeline": "2",
+										"z_index": "1"
+									},
+									{
+										"id": 2,
+										"key": 2,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "2"
+									}
+								],
+								"time": 2000
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 3,
+										"timeline": 0
+									}
+								],
+								"id": 4,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 1,
+										"parent": 0,
+										"timeline": "3",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 3,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "1"
+									}
+								],
+								"time": 2001
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 4,
+										"timeline": 0
+									}
+								],
+								"c1": 0,
+								"c2": 0.75,
+								"curve_type": "cubic",
+								"id": 5,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 2,
+										"parent": 0,
+										"timeline": "3",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 4,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "1"
+									}
+								],
+								"time": 3000
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 5,
+										"timeline": 0
+									}
+								],
+								"c1": 0,
+								"c2": 0.75,
+								"curve_type": "cubic",
+								"id": 6,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 3,
+										"parent": 0,
+										"timeline": "3",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 5,
+										"parent": 0,
+										"timeline": "1",
+										"z_index": "1"
+									}
+								],
+								"time": 4000
+							}
+						]
+					},
+					"name": "Idle",
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"bone": {
+										"angle": 348.17851165939277
+									},
+									"id": 0,
+									"spin": 0
+								},
+								{
+									"bone": {
+										"angle": 348.17851165939277
+									},
+									"id": 1,
+									"spin": 0,
+									"time": 1999
+								},
+								{
+									"bone": {
+										"angle": 348.17851165939277
+									},
+									"id": 2,
+									"spin": 0,
+									"time": 2000
+								},
+								{
+									"bone": {
+										"angle": 348.17851165939277
+									},
+									"id": 3,
+									"spin": 0,
+									"time": 2001
+								},
+								{
+									"bone": {
+										"angle": 348.17851165939277
+									},
+									"id": 4,
+									"spin": 0,
+									"time": 3000
+								},
+								{
+									"bone": {
+										"angle": 348.17851165939277
+									},
+									"id": 5,
+									"spin": 0,
+									"time": 4000
+								}
+							],
+							"name": "bone_000",
+							"obj": 0,
+							"object_type": "bone"
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 1,
+										"folder": 0,
+										"x": 117.4548750303442,
+										"y": 24.583578494723152
+									},
+									"spin": 0
+								},
+								{
+									"id": 1,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 0,
+										"x": 240.03132891375583,
+										"y": 24.69739135812461
+									},
+									"spin": 0,
+									"time": 1000
+								},
+								{
+									"id": 2,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 1,
+										"folder": 0,
+										"scale_x": -1,
+										"x": 127.69803273647888,
+										"y": -24.355952767920268
+									},
+									"spin": 0,
+									"time": 2000
+								},
+								{
+									"id": 3,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 1,
+										"folder": 0,
+										"scale_x": -0.999,
+										"x": 127.57545628259545,
+										"y": -24.35606658078367
+									},
+									"spin": 0,
+									"time": 2001
+								},
+								{
+									"id": 4,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 0,
+										"x": 5.121578853067332,
+										"y": -24.469765631321724
+									},
+									"spin": 0,
+									"time": 3000
+								},
+								{
+									"id": 5,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 1,
+										"folder": 0,
+										"x": 117.4548750303442,
+										"y": 24.583578494723152
+									},
+									"spin": 0,
+									"time": 4000
+								}
+							],
+							"name": "_0002_DorsalSide"
+						},
+						{
+							"id": 2,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 3,
+										"folder": 0,
+										"x": 101.83512430010653,
+										"y": 17.37835563594141
+									},
+									"spin": 0
+								},
+								{
+									"id": 1,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 3,
+										"folder": 0,
+										"x": 108.0471880474013,
+										"y": 21.98386787910034
+									},
+									"spin": 0
+								},
+								{
+									"id": 2,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 3,
+										"folder": 0,
+										"x": 240.03132891375583,
+										"y": 24.697391358124598
+									},
+									"spin": 0,
+									"time": 1000
+								},
+								{
+									"id": 3,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 3,
+										"folder": 0,
+										"pivot_x": 0.5,
+										"pivot_y": 1,
+										"x": 143.78308560164976,
+										"y": -21.974049480750818
+									},
+									"spin": 0,
+									"time": 2000
+								},
+								{
+									"id": 4,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 3,
+										"folder": 0,
+										"pivot_x": 0.23985890652557224,
+										"pivot_y": 0.9574314574314575,
+										"x": 137.57102185435502,
+										"y": -26.57956172390974
+									},
+									"spin": 0,
+									"time": 2000
+								}
+							],
+							"name": "_0001_Dorsalront"
+						},
+						{
+							"id": 3,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 2,
+										"folder": 0,
+										"x": 143.53431949602742,
+										"y": -19.868351904336414
+									},
+									"spin": 0,
+									"time": 2000
+								},
+								{
+									"id": 1,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 2,
+										"folder": 0,
+										"x": 143.24552358389042,
+										"y": -20.593631214166088
+									},
+									"spin": 0,
+									"time": 2001
+								},
+								{
+									"id": 2,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 2,
+										"folder": 0,
+										"x": 5.121578853067331,
+										"y": -24.46976563132172
+									},
+									"spin": 0,
+									"time": 3000
+								},
+								{
+									"id": 3,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 2,
+										"folder": 0,
+										"x": 104.39871297198988,
+										"y": 22.48155326449306
+									},
+									"spin": 0,
+									"time": 4000
+								}
+							],
+							"name": "_0000_DorsalBack"
+						}
+					]
+				},
+				{
+					"id": 2,
+					"interval": 100,
+					"length": 1000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"parent": 0,
+										"timeline": "0",
+										"z_index": "0"
+									}
+								]
+							}
+						]
+					},
+					"name": "Submerge",
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 11.821488340607232,
+										"file": 0,
+										"folder": 0
+									},
+									"spin": 0
+								}
+							],
+							"name": "DrosalFin"
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"bone": {
+										"angle": 348.17851165939277
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 0,
+							"object_type": "bone"
+						}
+					]
+				}
+			],
+			"character_map": [],
+			"id": 0,
+			"name": "SharkSpot",
+			"obj_info": [
+				{
+					"h": 10,
+					"name": "bone_000",
+					"type": "bone",
+					"w": 125.51932935136453
+				}
+			]
+		}
+	],
+	"folder": [
+		{
+			"file": [
+				{
+					"height": 60,
+					"id": 0,
+					"name": "DrosalFin.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 240
+				},
+				{
+					"height": 78,
+					"id": 1,
+					"name": "_0002_DorsalSide.png",
+					"pivot_x": 0.5,
+					"pivot_y": 1,
+					"width": 118
+				},
+				{
+					"height": 79,
+					"id": 2,
+					"name": "_0000_DorsalBack.png",
+					"pivot_x": 0.5,
+					"pivot_y": 1,
+					"width": 28
+				},
+				{
+					"height": 76,
+					"id": 3,
+					"name": "_0001_Dorsalront.png",
+					"pivot_x": 0.5,
+					"pivot_y": 1,
+					"width": 27
+				}
+			],
+			"id": 0
+		}
+	],
+	"generator": "BrashMonkey Spriter",
+	"generator_version": "r11",
+	"scon_version": "1.0"
+}

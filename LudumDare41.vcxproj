@@ -187,6 +187,7 @@ xcopy /Y "$(ProjectDir)dependencies\sfml\bin\*.dll" "$(TargetDir)"</Command>
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\Screen.h" />
+    <ClInclude Include="include\Shark.h" />
     <ClInclude Include="include\Spriter.h" />
     <ClInclude Include="include\UIManager.h" />
   </ItemGroup>
@@ -308,6 +309,7 @@ xcopy /Y "$(ProjectDir)dependencies\sfml\bin\*.dll" "$(TargetDir)"</Command>
     <ClCompile Include="src\PlatformManager.cpp" />
     <ClCompile Include="src\Running.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
+    <ClCompile Include="src\Shark.cpp" />
     <ClCompile Include="src\UIManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

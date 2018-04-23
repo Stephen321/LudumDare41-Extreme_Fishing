@@ -79,4 +79,18 @@ namespace Helpers {
 		}
 		return -1; //not found
 	}
+	inline sf::Vector2f rotate_point(float cx, float cy, float angle, sf::Vector2f p) {
+		float s = sin(angle);
+		float c = cos(angle);
+
+		p.x -= cx;
+		p.y -= cy;
+
+		float xnew = p.x * c - p.y * s;
+		float ynew = p.x * s + p.y * c;
+
+		p.x = xnew + cx;
+		p.y = ynew + cy;
+		return p;
+	}
 }

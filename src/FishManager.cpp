@@ -2,11 +2,15 @@
 #include "Constants.h"
 #include "GameData.h"
 
-FishManager::FishManager(const sf::RenderWindow* _window)
+FishManager::FishManager(const sf::RenderWindow* _window, const sf::Vector2f* playerPos)
 	: window(_window)
-	, m_success(false) {
+	, m_success(false)
+	, playerPos(playerPos) {
 	for (int i = 0; i < MAX_FISHING_SPOTS; i++) {
 		m_fishingSpots.emplace_back(FishingSpot());
+	}
+	for (int i = 0; i < MAX_SHARKS_ACTIVE; i++) {
+		m_sharks.emplace_back(Shark());
 	}
 	for (int i = 0; i < TILES_X; i++) {
 		m_possibleXLocations.push_back(i);
@@ -24,6 +28,9 @@ void FishManager::start(){
 	for (int i = 0; i < m_fishingSpots.size(); i++) {
 		m_fishingSpots[i].setAlive(false);
 	}
+	for (int i = 0; i < m_sharks.size(); i++) {
+		m_sharks[i].setAlive(false);
+	}
 	m_spawnTimer.restart();
 	m_timeNeededToAttempt = 0.f;
 	m_playerQte = false;
@@ -32,30 +39,99 @@ void FishManager::start(){
 
 void FishManager::update(float dt){
 	m_xActive.clear();
+
+	m_allSharksActive = true;
+	for (int i = 0; i < m_sharks.size(); i++) {
+		m_sharks[i].update(dt);
+		if (m_sharks[i].getAlive() == false) {
+			m_allSharksActive = false;
+		}
+	}
 	for (int i = 0; i < m_fishingSpots.size(); i++) {
 		if (m_fishingSpots[i].getAlive()) {
 			m_fishingSpots[i].update(dt);
-			m_xActive.push_back(m_fishingSpots[i].getX());
+			if (m_fishingSpots[i].getIsShark()) {
+				for (int j = 0; j < SHARK_SIZE_X; j++) {
+					m_xActive.push_back(m_fishingSpots[i].getX() + j);
+				}
+				if (m_fishingSpots[i].justDied() && m_allSharksActive == false) {
+					//shark spawn!
+					int sharkToSpawn = -1;
+					for (int j = 0; j < m_sharks.size(); j++) {
+						if (m_sharks[j].getAlive() == false) {
+							sharkToSpawn = j;
+							break;
+						}
+					}
+					if (sharkToSpawn != -1) {
+						//there is a shark object that is not alive then we can spawn a shark !
+						m_sharks[sharkToSpawn].start(
+							sf::Vector2f(
+								m_fishingSpots[i].getPosition().x + ((SHARK_SIZE_X / 2) * TILE_SIZE),
+								m_fishingSpots[i].getPosition().y + (WATER_TILES * TILE_SIZE)
+							), *playerPos);
+						m_fishingSpots[i].setX(-100.f);
+					}
+				}
+			}
+			else {
+				m_xActive.push_back(m_fishingSpots[i].getX());
+			}
 		}
 	}
 	float currentWaterLevel= window->getView().getCenter().y + WATER_Y_OFFSET;
 	if (m_xActive.size() < FISHINGSPOT_MAXACTIVE) {
 		if (m_spawnTimer.getElapsedTime().asSeconds() > FISHINGSPOT_SPAWN_TIME) {
 			m_spawnTimer.restart();
-			if (rand() % FISHINGSPOT_SPAWN_CHANCE == 0) {
-				int spawnSpot = -1;
-				while (spawnSpot < 0) {
-					spawnSpot = rand() % TILES_X;
-					if (std::find(m_xActive.begin(), m_xActive.end(), spawnSpot) != m_xActive.end())
-						spawnSpot = -1;
+			int spawnSpot = -1;
+			bool shark = false;
+			if (m_allSharksActive == false) {
+				if (rand() % 2 == 0) { //spawn a fish spot
+					if (rand() % FISHINGSPOT_SPAWN_CHANCE == 0) {
+						while (spawnSpot < 0) {
+							spawnSpot = rand() % TILES_X;
+							if (std::find(m_xActive.begin(), m_xActive.end(), spawnSpot) != m_xActive.end())
+								spawnSpot = -1;
+						}
+					}
 				}
+				else if (rand() % SHARKSPOT_SPAWN_CHANCE) { //spawn a shark!
+					const int MAX_LOOPS = 1000; //if we couldnt spawn a shark after this many loops then there must be no available space currently..
+					int m_loop = 0;
+					while (spawnSpot < 0 || m_loop > MAX_LOOPS) {
+						spawnSpot = rand() % (TILES_X - SHARK_SIZE_X);
+						if (std::find(m_xActive.begin(), m_xActive.end(), spawnSpot) != m_xActive.end())
+							spawnSpot = -1; //dont choose a spot that has a fishing spot active
+						else {
+							//make sure it wont overlap with  an active fishing spot
+							for (int i = 0; i < SHARK_SIZE_X; i++) {
+								if (std::find(m_xActive.begin(), m_xActive.end(), spawnSpot + i) != m_xActive.end()) {
+									spawnSpot = -1;
+									break;
+								}
+							}
+						}
+						m_loop++;
+					}
+					if (spawnSpot != -1)
+						shark = true;
+				}
+			}
+			else { //spawn a fish spot
+				if (rand() % FISHINGSPOT_SPAWN_CHANCE == 0) {
+					while (spawnSpot < 0) {
+						spawnSpot = rand() % TILES_X;
+						if (std::find(m_xActive.begin(), m_xActive.end(), spawnSpot) != m_xActive.end())
+							spawnSpot = -1;
+					}
+				}
+			}
+			if (spawnSpot != -1) {
 				float x = spawnSpot * TILE_SIZE;
-				//float bottom = window->getView().getCenter().y + (SCREEN_HEIGHT * 0.5f);
-				//float y = ((int)bottom - ((int)bottom % TILE_SIZE)) - (TILE_SIZE * WATER_TILES);
 				for (int i = 0; i < m_fishingSpots.size(); i++) {
 					if (!m_fishingSpots[i].getAlive()) {
 						int qteMax = QTE_MAX; //todo: change the max depending on how long the player survives for
-						m_fishingSpots[i].start(sf::Vector2f(x, currentWaterLevel + FISHINGSPOT_Y_OFFSET), x, qteMax);
+						m_fishingSpots[i].start(sf::Vector2f(x, currentWaterLevel + FISHINGSPOT_Y_OFFSET), spawnSpot, qteMax, shark);
 						break;
 					}
 				}
@@ -68,7 +144,7 @@ void FishManager::update(float dt){
 			m_fishingLine.setPosition(-100.f, -100.f);
 		}
 		if (m_fishedSpot != -1) {
-			m_fishingSpots[m_fishedSpot].setAlive(false);
+			m_fishingSpots[m_fishedSpot].setDying();
 			m_fishedSpot = -1;
 		}
 	}
@@ -79,9 +155,20 @@ void FishManager::update(float dt){
 void FishManager::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	target.draw(m_fishingLine);
 	m_water->render();
+	for (int i = 0; i < m_sharks.size(); i++) {
+		target.draw(m_sharks[i]);
+	}
 	for (int i = 0; i < m_fishingSpots.size(); i++) {
 		target.draw(m_fishingSpots[i]);
 	}
+	//sf::RectangleShape d;
+	//d.setFillColor(sf::Color(0, 255, 0, 100));
+	//d.setSize(sf::Vector2f(TILE_SIZE, TILE_SIZE));
+	//for (int i = 0; i < m_xActive.size(); i++) {
+	//	float x = m_xActive[i] * TILE_SIZE;
+	//	d.setPosition(x, m_water->getPosition().y);
+	//	target.draw(d);
+	//}
 }
 
 void FishManager::attempt(Player* player) {
@@ -108,8 +195,9 @@ void FishManager::attempt(Player* player) {
 	if (fishingTimeSec > m_timeNeededToAttempt) {
 		bool fishingSpotExists = false;
 		int lineX = m_fishingLine.getPosition().x - ((int)m_fishingLine.getPosition().x % TILE_SIZE);
+		lineX /= TILE_SIZE;
 		for (int i = 0; i < m_fishingSpots.size(); i++) {
-			if (m_fishingSpots[i].getAlive() && m_fishingSpots[i].getX() == lineX) {
+			if (m_fishingSpots[i].getIsShark() == false && m_fishingSpots[i].getAlive() && m_fishingSpots[i].getX() == lineX) {
 				m_fishedSpot = i;
 				fishingSpotExists = true;
 				break;

@@ -12,16 +12,20 @@ static const float GRAVITY = 900.f;
 static const int TILE_SIZE = 60;
 static const int TILES_X = SCREEN_WIDTH / TILE_SIZE; 
 static const int TILES_Y = SCREEN_HEIGHT / TILE_SIZE;
-static const float SCROLL_SPEED = 0;// -30.f;
+static const float SCROLL_SPEED = 0;// -20.f;
 static const float MAX_FISHING_SPOTS = 6;
 static const int WATER_TILES = 2;
 static const int WATER_Y_OFFSET = (int)(SCREEN_HEIGHT * 0.5f) - (WATER_TILES * TILE_SIZE);
+static const int BASE_SCORE = 150;
+static const int DECR_SCORE = 50; //taking full qte time loses this much score per key
+
 
 //qte
 static const const char* QTE_SUCCESS_ANIM = "KeyWin";
 static const const char* QTE_FAIL_ANIM = "KeyLose";
 static const const char* QTE_ATTEMPT_ANIM = "Key!";
 static const std::string QTE_ANIM_PREFIX = "Key";
+static const float QTE_STATUS_DISPLAY_TIME = 2.f;
 //static const int QTE_SPEECH_OFF_X = 1;
 static const int QTE_MIN = 3;
 static const int QTE_MAX = 8;
@@ -76,12 +80,17 @@ static const float FISHINGSPOT_SIZE_X = 1.f;
 static const float FISHINGSPOT_SIZE_Y = 1.f;
 static const int FISHINGSPOT_MAXACTIVE = 16;
 static const float FISHINGSPOT_SPAWN_TIME = 0.65f;
+static const int SHARKSPOT_SPAWN_CHANCE = 2; //todo find a good value for this
 static const int FISHINGSPOT_ACTIVE_OFFSET = 2;
 static const int FISHINGSPOT_ACTIVE_TIME_MULTIPLE = 4;
 //static const float FISHINGSPOT_ACTIVE_TIME = 3.f;
 static const int FISHINGSPOT_SPAWN_CHANCE = 5;
 static const char* FISHINGSPOT_FADEIN_ANIM = "BubblesFadeIn";
-static const char*FISHINGSPOT_BUBBLE_ANIM = "Bubbles";
+static const char* FISHINGSPOT_BUBBLE_ANIM = "Bubbles";
+static const char* FISHINGSPOT_FADEOUT_ANIM = "BubblesFadeOut";
+static const char* SHARKSPOT_FADEIN_ANIM = "Surface";
+static const char* SHARKSPOT_BUBBLE_ANIM = "Idle";
+static const char* SHARKSPOT_FADEOUT_ANIM = "Submerge";
 
 //fishing line
 static const int FISHINGLINE_THICKNESS = 2;
@@ -90,3 +99,22 @@ static const float FISHINGLINE_TIME_DIST = 300.f; //how far line should move in 
 
 //menu
 static const float FADE_TIME = 2.f;
+
+//shark
+static const int SHARK_SIZE_X = 4;
+static const int SHARK_SIZE_Y = 12;
+static const char* SHARK_IDLE_ANIM = "Idle";
+static const int SHARK_SPEED = 250.f;
+static const int MAX_SHARKS_ACTIVE = MAX_FISHING_SPOTS;
+static const int SHARK_COL_CIRCLES = 6;
+static const float SHARK_COL_RAD = SHARK_SIZE_X * 0.35f * TILE_SIZE;
+
+//ui
+static const int UI_X = SCREEN_WIDTH / 96;
+static const int UI_Y = SCREEN_HEIGHT / 47;
+static const const char* UI_SCORE_PREFIX = "Score: ";
+static const const char* UI_TIMER_PREFIX = "Timer: ";
+static const const char* UI_QTE_TIMER_SUFFIX = "!";
+static const int UI_FONT_SIZE = 25;
+static const int UI_SCORE_X_OFFS = -TILE_SIZE;
+static const int UI_SCORE_Y_OFFS = -TILE_SIZE * PLAYER_SIZE_Y * 1.5f;

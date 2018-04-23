@@ -38,8 +38,10 @@ void GameData::load(sf::RenderWindow* _window) {
 
 	//add animations
 	addAsset<se::SpriterModel>("fisher", "assets/animations/Fisher/fisher.scon");
+	addAsset<se::SpriterModel>("Shark", "assets/animations/Shark/Shark.scon");
 	addAsset<se::SpriterModel>("platform", "assets/animations/Platform/platform.scon");
 	addAsset<se::SpriterModel>("fishingSpot", "assets/animations/FishingSpot/fishingSpot.scon");
+	addAsset<se::SpriterModel>("SharkSpot", "assets/animations/SharkSpot/SharkSpot.scon");
 	addAsset<se::SpriterModel>("water", "assets/animations/Ocean/water.scon");
 	addAsset<se::SpriterModel>("QTE", "assets/animations/QTE/QTE.scon");
 

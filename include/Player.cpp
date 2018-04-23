@@ -21,7 +21,6 @@ void Player::start(const sf::Vector2f& start) {
 	m_position = start;
 	m_grounded = true;
 	m_crouching = false;
-	m_crouching = false;
 	m_fishing = false;
 	m_attemptingToFish = false;
 	m_qte = false;
@@ -30,6 +29,7 @@ void Player::start(const sf::Vector2f& start) {
 	m_velocity.y = 0.f;
 	se::changeAnimation(m_entity, PLAYER_IDLE_ANIM);
 	m_jumpForce = PLAYER_JUMPFORCE_EXTRA;
+	m_hasScore = false;
 }
 
 void Player::update(float dt) {
@@ -67,6 +67,7 @@ void Player::update(float dt) {
 	m_entity->setTimeElapsed(dt);
 
 
+
 	if (m_qte) {
 		m_qteEnt->setPosition(se::vectorToPoint(
 			sf::Vector2f(
@@ -77,7 +78,10 @@ void Player::update(float dt) {
 	}
 	m_qteEnt->setTimeElapsed(dt);
 
-	if (m_launchFish || m_attemptingToFish || m_qte)
+	if (m_launchFish || m_attemptingToFish || m_qte || 
+		((m_speechEnt->currentAnimationName() == QTE_SUCCESS_ANIM ||
+		  m_speechEnt->currentAnimationName() == QTE_FAIL_ANIM) &&
+		 m_displaySpeechTimer.getElapsedTime().asSeconds() < QTE_STATUS_DISPLAY_TIME))
 		m_speechEnt->setPosition(se::vectorToPoint(
 			sf::Vector2f(
 				m_position.x + 5.f,
@@ -92,7 +96,10 @@ void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	if (m_qte)
 		m_qteEnt->render();
 	if (m_entity->currentAnimationName() == PLAYER_IDLE_FISHING_ANIM ||
-		m_entity->currentAnimationName() == PLAYER_FISHLAUNCH_ANIM)
+		m_entity->currentAnimationName() == PLAYER_FISHLAUNCH_ANIM || 
+		((m_speechEnt->currentAnimationName() == QTE_SUCCESS_ANIM ||
+		  m_speechEnt->currentAnimationName() == QTE_FAIL_ANIM) && 
+		 m_displaySpeechTimer.getElapsedTime().asSeconds() < QTE_STATUS_DISPLAY_TIME))
 		m_speechEnt->render();
 }
 
@@ -150,9 +157,14 @@ void Player::setSuccessfulAttempt(int length, float time) {
 		m_qteTime = time;
 		//set up qte keys 
 		m_qteKeys.clear();
+		int k = -1;
 		for (int i = 0; i < length; i++) {
-			int k = rand() % POSSIBLE_KEYS_SIZE;
+			int newK = rand() % POSSIBLE_KEYS_SIZE;
+			while (newK == k) {
+				newK = rand() % POSSIBLE_KEYS_SIZE;
+			}
 			m_qteKeys.push_back(POSSIBLE_QTE_KEYS[k]);
+			k = newK;
 		}
 		se::changeAnimation(m_qteEnt, QTE_ANIM_PREFIX + keyToStr(m_qteKeys.front()));
 	}
@@ -170,7 +182,10 @@ void Player::handleEvents(const sf::Event & ev) {
 			if (m_qteKeys.size() == 0) {
 				//qte successful!
 				se::changeAnimation(m_speechEnt, QTE_SUCCESS_ANIM);
+				m_displaySpeechTimer.restart();
 				m_qte = false;
+				m_hasScore = true;
+				m_score = (m_qteLength * BASE_SCORE) - (m_qteLength * DECR_SCORE * (m_qteTimer.getElapsedTime().asSeconds() / m_qteTime));
 				return;
 			}
 			else {
@@ -180,6 +195,7 @@ void Player::handleEvents(const sf::Event & ev) {
 		else if (ev.type == sf::Event::KeyPressed && ev.key.code != m_qteKeys.front()) {
 			//qte failed! wrong key
 			m_qte = false;
+			m_displaySpeechTimer.restart();
 			se::changeAnimation(m_speechEnt, QTE_FAIL_ANIM);
 			return;
 		}
@@ -192,6 +208,22 @@ sf::Vector2f Player::getRodEnd() const {
 
 void Player::setQteFishSpot(const sf::Vector2f & qteFishSpot) {
 	m_qteFishSpot = qteFishSpot;
+}
+
+const sf::Vector2f * Player::getPositionPtr() const {
+	return &m_position;
+}
+
+int Player::getScore() {
+	if (m_hasScore) {
+		m_hasScore = false;
+		return m_score;
+	}
+	return 0;
+}
+
+float Player::getQteTime() const {
+	return m_qteTime - m_qteTimer.getElapsedTime().asSeconds();
 }
 
 
@@ -243,6 +275,7 @@ void Player::updateCoreLogic(float dt) {
 	}
 
 	bool crouchFell = false;
+	bool justJumped = false;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		if (m_grounded) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
@@ -260,6 +293,7 @@ void Player::updateCoreLogic(float dt) {
 				se::changeAnimation(m_entity, PLAYER_JUMP_ANIM);
 				m_entity->setCurrentTime(0.f);
 				m_grounded = false;
+				justJumped = true;
 				m_jumpTimer.restart();
 			}
 		}
@@ -291,7 +325,7 @@ void Player::updateCoreLogic(float dt) {
 				se::changeAnimation(m_entity, PLAYER_LAND_ANIM);
 		}
 	}
-	else if (m_entity->currentAnimationName() == PLAYER_IDLE_FISHING_ANIM) {
+	else if (justJumped == false && m_entity->currentAnimationName() == PLAYER_IDLE_FISHING_ANIM) {
 		se::changeAnimation(m_entity, PLAYER_IDLE_ANIM);
 	}
 	//else if (m_entity->currentAnimationName() == PLAYER_FISH_ANIM) {
@@ -333,6 +367,7 @@ void Player::updateQTE(float dt) {
 	
 	if (m_qteTimer.getElapsedTime().asSeconds() > m_qteTime) {
 		//qte failed! ran out of time
+		m_displaySpeechTimer.restart();
 		se::changeAnimation(m_speechEnt, QTE_FAIL_ANIM);
 		m_qte = false;
 	}
