@@ -80,7 +80,7 @@ static const float FISHINGSPOT_SIZE_X = 1.f;
 static const float FISHINGSPOT_SIZE_Y = 1.f;
 static const int FISHINGSPOT_MAXACTIVE = 16;
 static const float FISHINGSPOT_SPAWN_TIME = 0.65f;
-static const int SHARKSPOT_SPAWN_CHANCE = 2; //todo find a good value for this
+static const int SHARKSPOT_SPAWN_CHANCE = 8; //todo find a good value for this
 static const int FISHINGSPOT_ACTIVE_OFFSET = 2;
 static const int FISHINGSPOT_ACTIVE_TIME_MULTIPLE = 4;
 //static const float FISHINGSPOT_ACTIVE_TIME = 3.f;
@@ -106,8 +106,8 @@ static const int SHARK_SIZE_Y = 12;
 static const char* SHARK_IDLE_ANIM = "Idle";
 static const int SHARK_SPEED = 250.f;
 static const int MAX_SHARKS_ACTIVE = MAX_FISHING_SPOTS;
-static const int SHARK_COL_CIRCLES = 6;
-static const float SHARK_COL_RAD = SHARK_SIZE_X * 0.35f * TILE_SIZE;
+static const int SHARK_COL_CIRCLES = 1;
+static const float SHARK_COL_RAD = SHARK_SIZE_X * 0.33f * TILE_SIZE;
 
 //ui
 static const int UI_X = SCREEN_WIDTH / 96;

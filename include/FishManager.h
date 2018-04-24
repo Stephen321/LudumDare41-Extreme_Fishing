@@ -8,7 +8,7 @@
 
 class FishManager : public sf::Drawable{
 public:
-	FishManager(const sf::RenderWindow* _window, const sf::Vector2f* playerPos);
+	FishManager(const sf::RenderWindow* _window, Player* _player);
 
 	void start();
 	void update(float dt);
@@ -31,4 +31,5 @@ private:
 	int m_fishedSpot;
 	std::vector<int> m_xActive;
 	bool m_allSharksActive;
+	int m_playerLives;
 };

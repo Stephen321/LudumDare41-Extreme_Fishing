@@ -5,6 +5,7 @@
 #include "PlatformManager.h"
 #include "FishManager.h"
 #include "UIManager.h"
+#include "SFML\Audio.hpp"
 
 
 class GameScene : public Scene {
@@ -24,6 +25,7 @@ private:
 	sf::CircleShape debugCircle;
 	sf::View m_view;
 	sf::Sprite m_background;
+	sf::Music music;
 	
 	void autoScroll(float dt);
 };

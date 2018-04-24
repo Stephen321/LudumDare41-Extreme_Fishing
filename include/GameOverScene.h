@@ -13,4 +13,5 @@ public:
 
 private:
 	sf::Sprite m_background;
+	sf::Text m_scoreDisplay;
 };

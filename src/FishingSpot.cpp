@@ -64,9 +64,6 @@ void FishingSpot::start(const sf::Vector2f start, int x, int qteMax, bool isShar
 	m_timeToBeActive = m_timeToBeActive + (m_timeToBeActive % FISHINGSPOT_ACTIVE_TIME_MULTIPLE);
 	if (m_timeToBeActive > FISHINGSPOT_MAXACTIVE)
 		m_timeToBeActive = FISHINGSPOT_MAXACTIVE;
-	cout << "m_length: " << m_length;
-	cout << ", m_time: " << m_time;
-	cout << ", m_timeToBeActive: " << m_timeToBeActive << endl;
 }
 
 void FishingSpot::update(float dt) {

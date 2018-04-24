@@ -11,14 +11,13 @@ public:
 	void start();
 	void update(float dt);
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-	void addToScore(int score);
 
 private:
 	const sf::RenderWindow* window;
 	sf::Text m_qteTimeRemaining;
 	sf::Text m_scoreDisplay;
 	sf::Text m_timerDisplay;
+	sf::Text m_lives;
 	const Player* player;
-	int m_score;
 	float m_timer;
 };

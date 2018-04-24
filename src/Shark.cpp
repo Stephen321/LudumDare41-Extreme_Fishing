@@ -2,9 +2,12 @@
 #include "GameData.h"
 #include "Constants.h"
 #include "Helpers.h"
+#include "GameData.h"
+#include "SceneManager.h"
 
-Shark::Shark()
-	: m_speed(SHARK_SPEED) {
+Shark::Shark(Player* _player)
+	: m_speed(SHARK_SPEED) 
+	, player(_player) {
 	m_entity = GameData::getInstance().getAsset<se::SpriterModel*>("Shark")->getNewEntityInstance("Shark");
 }
 
@@ -63,10 +66,12 @@ void Shark::start(const sf::Vector2f& start, sf::Vector2f target) {
 
 	//set up collision circles
 	float rad = SHARK_COL_RAD;
-	sf::Vector2f centre = m_position - sf::Vector2f(0.f, (TILE_SIZE * ((SHARK_SIZE_Y - 1) * 0.5f)) - rad);
+	float off = se::toRadians(25);
+	sf::Vector2f centre = m_position + sf::Vector2f(0.f, (-TILE_SIZE * (SHARK_SIZE_Y * 0.5f)) + rad);
 	for (int i = 0; i < SHARK_COL_CIRCLES; i++) {
 		m_colRads[i] = rad;
-		m_colCentres[i] = centre;
+		m_colCentres[i] = m_position;// centre;
+		//m_colCentres[i] = Helpers::rotate_point(m_position.x, m_position.y, off, m_colCentres[i]);
 		centre.y += rad;
 		rad *= 0.9f;
 	}
@@ -79,15 +84,28 @@ void Shark::update(float dt) {
 	m_position += m_velocity * dt;
 	m_position.y += SCROLL_SPEED * dt;
 
-	float off = se::toRadians(25);
-	float angleBefore = m_angle + off;
+	float angleBefore = m_angle;
 	float l = Helpers::getLength(m_velocity);
-	m_angle = atan2(m_velocity.y / l, m_velocity.x / l) + off;
+	m_angle = atan2(m_velocity.y / l, m_velocity.x / l);
 	float angleChange = m_angle - angleBefore;
 	for (int i = 0; i < SHARK_COL_CIRCLES; i++) { //better if these were just offsets to position...
 		m_colCentres[i] += m_velocity * dt;
 		m_colCentres[i].y += SCROLL_SPEED * dt;
-		m_colCentres[i] = Helpers::rotate_point(m_position.x, m_position.y, angleChange, m_colCentres[i]);
+		//m_colCentres[i] = Helpers::rotate_point(m_position.x, m_position.y, angleChange, m_colCentres[i]);
+		//check if collide with player
+		sf::IntRect bb = player->getBoundingBox();
+		sf::Vector2f pC = player->getPosition() - sf::Vector2f(0.f, PLAYER_SIZE_Y * 0.5 * TILE_SIZE);
+		float dist = Helpers::getLength(pC - m_colCentres[i]);
+		if (dist < m_colRads[i] + (bb.width * 1.5f)) {
+			//collision happened
+			if (player->getHit() == false) {
+				player->hit();
+				GameData::getInstance().lives--;
+				if (GameData::getInstance().lives == 0) {
+					SceneManager::getInstance().changeScene(Scene::Type::GameOverScene);
+				}
+			}
+		}
 	}
 
 
@@ -95,8 +113,9 @@ void Shark::update(float dt) {
 	m_entity->setPosition(se::vectorToPoint(m_position));
 	m_entity->setTimeElapsed(dt);
 
-	if (m_position.y > 3000)
+	if (m_position.y > player->getPosition().y + 2000)
 		m_alive = false;
+
 }
 
 void Shark::draw(sf::RenderTarget & target, sf::RenderStates states) const {

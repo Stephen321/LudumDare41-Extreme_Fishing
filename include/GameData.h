@@ -23,6 +23,11 @@ public:
 	template<> void addAsset<sf::Font>(const char*  name, const char* path) { addFont(name, path); }
 	template<> void addAsset<se::SpriterModel>(const char*  name, const char* path) { addModel(name, path); }
 
+	int score;
+	int lives;
+	int time;
+	float top;
+
 
 private:
 	struct BaseAsset {

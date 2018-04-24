@@ -21,8 +21,9 @@ public:
 	sf::Vector2f getRodEnd() const;
 	void setQteFishSpot(const sf::Vector2f& qteFishSpot);
 	const sf::Vector2f* getPositionPtr() const;
-	int getScore();
 	float getQteTime() const;
+	void hit();
+	bool getHit() const;
 private:
 	void updateCoreLogic(float dt);
 	void updateQTE(float dt);
@@ -31,12 +32,12 @@ private:
 	se::EntityInstance* m_speechEnt;
 	sf::Vector2f m_qteFishSpot;
 	sf::Clock m_displaySpeechTimer;
-	bool m_hasScore;
-	int m_score;
 	sf::Vector2f m_velocity;
 	sf::Clock m_jumpTimer;
 	sf::Clock m_launchFisherTimer;
 	sf::Clock m_qteTimer;
+	sf::Clock m_hitTimer;
+	mutable bool m_hit; //m
 	bool m_spaceHeld;
 	float m_speed;
 	bool m_grounded;

@@ -29,12 +29,12 @@ void Player::start(const sf::Vector2f& start) {
 	m_velocity.y = 0.f;
 	se::changeAnimation(m_entity, PLAYER_IDLE_ANIM);
 	m_jumpForce = PLAYER_JUMPFORCE_EXTRA;
-	m_hasScore = false;
+	m_hit = false;
 }
 
 void Player::update(float dt) {
 	sf::IntRect bb= getBoundingBox();
-	m_lastY = bb.top + bb.height - (m_velocity.y * dt);
+	m_lastY = (bb.top + bb.height - (m_velocity.y * dt)); // -(SCROLL_SPEED * dt * 2);
 
 
 	if (m_qte == false && m_grounded && sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
@@ -92,6 +92,16 @@ void Player::update(float dt) {
 }
 
 void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const {
+	if (m_hit) {
+		if (m_hitTimer.getElapsedTime().asSeconds() < 2.5f) {
+			if (m_entity->getAlpha() > 0.5f)
+				m_entity->setAlpha(0.5f);
+		}
+		else {
+			m_entity->setAlpha(1.f);
+			m_hit = false;
+		}
+	}
 	m_entity->render();
 	if (m_qte)
 		m_qteEnt->render();
@@ -166,7 +176,7 @@ void Player::setSuccessfulAttempt(int length, float time) {
 			m_qteKeys.push_back(POSSIBLE_QTE_KEYS[k]);
 			k = newK;
 		}
-		se::changeAnimation(m_qteEnt, QTE_ANIM_PREFIX + keyToStr(m_qteKeys.front()));
+		se::changeAnimation(m_qteEnt, QTE_ANIM_PREFIX + keyToStr	(m_qteKeys.front()));
 	}
 }
 
@@ -184,8 +194,8 @@ void Player::handleEvents(const sf::Event & ev) {
 				se::changeAnimation(m_speechEnt, QTE_SUCCESS_ANIM);
 				m_displaySpeechTimer.restart();
 				m_qte = false;
-				m_hasScore = true;
-				m_score = (m_qteLength * BASE_SCORE) - (m_qteLength * DECR_SCORE * (m_qteTimer.getElapsedTime().asSeconds() / m_qteTime));
+				int score = (m_qteLength * BASE_SCORE) - (m_qteLength * DECR_SCORE * (m_qteTimer.getElapsedTime().asSeconds() / m_qteTime));
+				GameData::getInstance().score += score;
 				return;
 			}
 			else {
@@ -214,16 +224,17 @@ const sf::Vector2f * Player::getPositionPtr() const {
 	return &m_position;
 }
 
-int Player::getScore() {
-	if (m_hasScore) {
-		m_hasScore = false;
-		return m_score;
-	}
-	return 0;
-}
-
 float Player::getQteTime() const {
 	return m_qteTime - m_qteTimer.getElapsedTime().asSeconds();
+}
+
+void Player::hit() {
+	m_hit = true;
+	m_hitTimer.restart();
+}
+
+bool Player::getHit() const {
+	return m_hit;
 }
 
 

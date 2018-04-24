@@ -1,16 +1,17 @@
 #include "FishManager.h"
 #include "Constants.h"
 #include "GameData.h"
+#include "SceneManager.h"
 
-FishManager::FishManager(const sf::RenderWindow* _window, const sf::Vector2f* playerPos)
+FishManager::FishManager(const sf::RenderWindow* _window, Player* _player)
 	: window(_window)
 	, m_success(false)
-	, playerPos(playerPos) {
+	, playerPos(_player->getPositionPtr()) {
 	for (int i = 0; i < MAX_FISHING_SPOTS; i++) {
 		m_fishingSpots.emplace_back(FishingSpot());
 	}
 	for (int i = 0; i < MAX_SHARKS_ACTIVE; i++) {
-		m_sharks.emplace_back(Shark());
+		m_sharks.emplace_back(Shark(_player));
 	}
 	for (int i = 0; i < TILES_X; i++) {
 		m_possibleXLocations.push_back(i);
@@ -31,10 +32,12 @@ void FishManager::start(){
 	for (int i = 0; i < m_sharks.size(); i++) {
 		m_sharks[i].setAlive(false);
 	}
+	m_fishingLine.setPosition(-100.f, -100.f);
 	m_spawnTimer.restart();
 	m_timeNeededToAttempt = 0.f;
 	m_playerQte = false;
 	m_success = false;
+	m_playerLives = 5; //m
 }
 
 void FishManager::update(float dt){
@@ -86,7 +89,7 @@ void FishManager::update(float dt){
 			int spawnSpot = -1;
 			bool shark = false;
 			if (m_allSharksActive == false) {
-				if (rand() % 2 == 0) { //spawn a fish spot
+				if (rand() % 2) { //spawn a fish spot
 					if (rand() % FISHINGSPOT_SPAWN_CHANCE == 0) {
 						while (spawnSpot < 0) {
 							spawnSpot = rand() % TILES_X;
@@ -95,7 +98,7 @@ void FishManager::update(float dt){
 						}
 					}
 				}
-				else if (rand() % SHARKSPOT_SPAWN_CHANCE) { //spawn a shark!
+				else if (rand() % SHARKSPOT_SPAWN_CHANCE == 0) { //spawn a shark!
 					const int MAX_LOOPS = 1000; //if we couldnt spawn a shark after this many loops then there must be no available space currently..
 					int m_loop = 0;
 					while (spawnSpot < 0 || m_loop > MAX_LOOPS) {
@@ -150,6 +153,10 @@ void FishManager::update(float dt){
 	}
 	m_water->setPosition(se::point(0.f, currentWaterLevel));
 	m_water->setTimeElapsed(dt);
+
+	if (playerPos->y > m_water->getPosition().y + 200.f) {
+		SceneManager::getInstance().changeScene(Scene::Type::GameOverScene);
+	}
 }
 
 void FishManager::draw(sf::RenderTarget & target, sf::RenderStates states) const {
