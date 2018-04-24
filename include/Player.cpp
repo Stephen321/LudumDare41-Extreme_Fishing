@@ -176,6 +176,7 @@ void Player::setSuccessfulAttempt(int length, float time) {
 			m_qteKeys.push_back(POSSIBLE_QTE_KEYS[k]);
 			k = newK;
 		}
+		m_qteLength = length;
 		se::changeAnimation(m_qteEnt, QTE_ANIM_PREFIX + keyToStr	(m_qteKeys.front()));
 	}
 }

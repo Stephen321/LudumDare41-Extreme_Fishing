@@ -122,14 +122,14 @@ void Shark::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	if (!m_alive)
 		return;
 	m_entity->render();
-	sf::CircleShape cs;
-	cs.setFillColor(sf::Color(255, 0, 0, 100));
-	for (int i = 0; i < SHARK_COL_CIRCLES; i++) {
-		cs.setRadius(m_colRads[i]);
-		cs.setPosition(m_colCentres[i]);
-		cs.setOrigin(m_colRads[i], m_colRads[i]);
-		target.draw(cs);
-	}
+	//sf::CircleShape cs;
+	//cs.setFillColor(sf::Color(255, 0, 0, 100));
+	//for (int i = 0; i < SHARK_COL_CIRCLES; i++) {
+	//	cs.setRadius(m_colRads[i]);
+	//	cs.setPosition(m_colCentres[i]);
+	//	cs.setOrigin(m_colRads[i], m_colRads[i]);
+	//	target.draw(cs);
+	//}
 }
 
 sf::IntRect Shark::getBoundingBox() const {

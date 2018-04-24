@@ -56,7 +56,7 @@ void GameScene::update(float dt) {
 	else if (*m_player.getQte()) {
 		m_player.setQteFishSpot(m_fishManager.getQteFishSpot());
 	}
-	debugCircle.setPosition(m_player.getPosition().x, m_player.getPosition().y);
+	//debugCircle.setPosition(m_player.getPosition().x, m_player.getPosition().y);
 	m_background.setPosition(m_view.getCenter().x - (SCREEN_WIDTH * 0.5f), m_view.getCenter().y - (SCREEN_HEIGHT * 0.5f));
 
 	//GameData::getInstance().top = window->getView().getCenter().y - (SCREEN_HEIGHT * 0.5f);
@@ -69,20 +69,20 @@ void GameScene::render(sf::RenderStates states) const{
 	window->draw(m_player);
 	window->draw(m_fishManager);
 	window->draw(m_uiManager);
-	window->draw(debugCircle);
+	//window->draw(debugCircle);
 
-	sf::RectangleShape d;
-	d.setFillColor(sf::Color(0,255,0,100));
-	d.setPosition(m_player.getBoundingBox().left, m_player.getBoundingBox().top);
-	d.setSize(sf::Vector2f(m_player.getBoundingBox().width, m_player.getBoundingBox().height));
+	//sf::RectangleShape d;
+	//d.setFillColor(sf::Color(0,255,0,100));
+	//d.setPosition(m_player.getBoundingBox().left, m_player.getBoundingBox().top);
+	//d.setSize(sf::Vector2f(m_player.getBoundingBox().width, m_player.getBoundingBox().height));
 	//if (m_player.getAttemptingToFish())
 	//	window->draw(d);
-	for (int i = 0; i < m_platformManager.getPlatforms().size(); i++) {
-		sf::IntRect bb = m_platformManager.getPlatforms()[i].getBoundingBox();
-		d.setPosition(bb.left, bb.top);
-		d.setSize(sf::Vector2f(bb.width, bb.height));
+	//for (int i = 0; i < m_platformManager.getPlatforms().size(); i++) {
+		//sf::IntRect bb = m_platformManager.getPlatforms()[i].getBoundingBox();
+		//d.setPosition(bb.left, bb.top);
+		//d.setSize(sf::Vector2f(bb.width, bb.height));
 		//window->draw(d);
-	}
+	//}
 }
 
 void GameScene::autoScroll(float dt) {
