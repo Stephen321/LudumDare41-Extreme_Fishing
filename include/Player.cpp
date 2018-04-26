@@ -167,15 +167,27 @@ void Player::setSuccessfulAttempt(int length, float time) {
 		m_qteTime = time;
 		//set up qte keys 
 		m_qteKeys.clear();
+		//cout << "Settting up qte keys: " << endl;
 		int k = -1;
 		for (int i = 0; i < length; i++) {
 			int newK = rand() % POSSIBLE_KEYS_SIZE;
 			while (newK == k) {
 				newK = rand() % POSSIBLE_KEYS_SIZE;
 			}
-			m_qteKeys.push_back(POSSIBLE_QTE_KEYS[k]);
+			m_qteKeys.push_back(POSSIBLE_QTE_KEYS[newK]);
 			k = newK;
 		}
+		//cout << "The new keys are: ";
+		//for (int i = 0; i < length; i++) {
+		//	cout << m_qteKeys[i] << "," << keyToStr(m_qteKeys[i]) << " ";
+		//}
+		//cout << endl;
+
+		cout << "The possible keys are: ";
+		for (int i = 0; i < POSSIBLE_KEYS_SIZE; i++) {
+			cout << keyToStr(POSSIBLE_QTE_KEYS[i]);
+		}
+		cout << endl;
 		m_qteLength = length;
 		se::changeAnimation(m_qteEnt, QTE_ANIM_PREFIX + keyToStr	(m_qteKeys.front()));
 	}
@@ -205,6 +217,7 @@ void Player::handleEvents(const sf::Event & ev) {
 		}
 		else if (ev.type == sf::Event::KeyPressed && ev.key.code != m_qteKeys.front()) {
 			//qte failed! wrong key
+			std::cout << "Wrong key presed in poll events : " << ev.key.code << std::endl;
 			m_qte = false;
 			m_displaySpeechTimer.restart();
 			se::changeAnimation(m_speechEnt, QTE_FAIL_ANIM);
@@ -371,11 +384,11 @@ void Player::updateCoreLogic(float dt) {
 }
 
 void Player::updateQTE(float dt) {
-	cout << "QTE: ";
-	for (int i = 0; i < m_qteKeys.size(); i++) {
-		cout << keyToStr(m_qteKeys[i]) << " ";
-	}
-	cout << endl;
+	//cout << "QTE: ";
+	//for (int i = 0; i < m_qteKeys.size(); i++) {
+		//cout << keyToStr(m_qteKeys[i]) << " ";
+	//}
+	//cout << endl;
 	
 	if (m_qteTimer.getElapsedTime().asSeconds() > m_qteTime) {
 		//qte failed! ran out of time

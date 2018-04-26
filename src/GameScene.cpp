@@ -36,9 +36,9 @@ void GameScene::stop() {
 }
 
 void GameScene::handleEvents(const sf::Event& ev) {
-	if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Return) {
-		SceneManager::getInstance().changeScene(Type::GameOverScene);
-	}
+	//if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Return) {
+	//	SceneManager::getInstance().changeScene(Type::GameOverScene);
+	//}
 	m_player.handleEvents(ev);
 }
 
