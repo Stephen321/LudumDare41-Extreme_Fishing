@@ -16,7 +16,11 @@ static const int TILES_Y = SCREEN_HEIGHT / TILE_SIZE;
 static const float SCROLL_SPEED = 0;// -20.f;
 static const float MAX_FISHING_SPOTS = 6;
 static const int WATER_TILES = 2;
-static const int WATER_Y_OFFSET = (int)(SCREEN_HEIGHT * 0.5f) - (WATER_TILES * TILE_SIZE);
+static const int WATER_HEIGHT = WATER_TILES * TILE_SIZE;
+static const int WATER_Y_OFFSET = (int)(SCREEN_HEIGHT * 0.5f) - WATER_HEIGHT;
+static const float WATER_SPRING_K = 0.028f;
+static const float WATER_SPRING_DAMPENER = 0.0003f;
+static const int WATER_SPRINGS_COUNT = 102;
 static const int BASE_SCORE = 150;
 static const int DECR_SCORE = 50; //taking full qte time loses this much score per key
 
@@ -119,3 +123,7 @@ static const char* UI_QTE_TIMER_SUFFIX = "!";
 static const int UI_FONT_SIZE = 25;
 static const int UI_SCORE_X_OFFS = -TILE_SIZE;
 static const int UI_SCORE_Y_OFFS = -TILE_SIZE * PLAYER_SIZE_Y * 1.5f;
+
+
+//dev
+static const int GOD_MODE = true;

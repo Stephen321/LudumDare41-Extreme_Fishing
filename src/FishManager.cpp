@@ -18,8 +18,6 @@ FishManager::FishManager(const sf::RenderWindow* _window, Player* _player)
 	for (int i = 0; i < TILES_X; i++) {
 		m_possibleXLocations.push_back(i);
 	}
-	m_water = GameData::getInstance().getAsset<se::SpriterModel*>("water")->getNewEntityInstance("Water");
-	m_water->setCurrentAnimation("Idle");
 
 	m_fishingLine.setFillColor(sf::Color::White);
 	m_fishingLine.setSize(sf::Vector2f(FISHINGLINE_THICKNESS, 1.f));
@@ -152,17 +150,10 @@ void FishManager::update(float dt){
 			m_fishedSpot = -1;
 		}
 	}
-	m_water->setPosition(se::point(0.f, currentWaterLevel));
-	m_water->setTimeElapsed(dt);
-
-	if (playerPos->y > m_water->getPosition().y + 200.f) {
-		SceneManager::getInstance().changeScene(Scene::Type::GameOverScene);
-	}
 }
 
 void FishManager::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	target.draw(m_fishingLine);
-	m_water->render();
 	for (int i = 0; i < m_sharks.size(); i++) {
 		target.draw(m_sharks[i]);
 	}

@@ -100,7 +100,8 @@ void Shark::update(float dt) {
 			//collision happened
 			if (player->getHit() == false) {
 				player->hit();
-				GameData::getInstance().lives--;
+				if (!GOD_MODE)
+					GameData::getInstance().lives--;
 				if (GameData::getInstance().lives == 0) {
 					SceneManager::getInstance().changeScene(Scene::Type::GameOverScene);
 				}

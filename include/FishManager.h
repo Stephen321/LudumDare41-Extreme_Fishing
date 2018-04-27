@@ -22,7 +22,6 @@ private:
 	const sf::RenderWindow* window;
 	const sf::Vector2f* playerPos;
 	sf::Clock m_spawnTimer;
-	se::EntityInstance* m_water;
 	sf::RectangleShape m_fishingLine;
 	sf::Clock m_timer;
 	const bool* m_playerQte;
