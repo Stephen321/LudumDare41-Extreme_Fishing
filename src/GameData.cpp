@@ -7,7 +7,6 @@ GameData::GameData() {
 
 }
 
-
 GameData& GameData::getInstance() {
     static GameData gd;
     return gd;
@@ -35,6 +34,7 @@ void GameData::load(sf::RenderWindow* _window) {
     addTexture("title", "assets/sprites/main/titlelogo.png");
     addTexture("play", "assets/sprites/main/pressplay.png");
     addTexture("gameover", "assets/sprites/gameover/gameover.png");
+    addAsset("blur", "assets/shaders/blur.frag", sf::Shader::Type::Fragment);
 
     //add animations
     addModel("fisher", "assets/animations/Fisher/fisher.scon");
@@ -46,6 +46,18 @@ void GameData::load(sf::RenderWindow* _window) {
     addModel("QTE", "assets/animations/QTE/QTE.scon");
 
     assert(assets.size() && "no asserts were loaded");
+}
+
+void GameData::addShader(const char * name, const char * path, sf::Shader::Type type) {
+	//TODO: what if you want multiple instances of a shader
+	if (sf::Shader::isAvailable()) {
+		Asset<sf::Shader>* a = new Asset<sf::Shader>;
+		a->data.loadFromFile(path, type);
+		assets[std::string(name)] = a;
+	}
+	else {
+		std::cout << "Shaders not available" << std::endl;
+	}
 }
 
 void GameData::addTexture(const char * name, const char * path) {

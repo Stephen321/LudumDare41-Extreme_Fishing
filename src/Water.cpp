@@ -1,8 +1,10 @@
 #include "Water.h"
 #include "GameData.h"
 #include "Helpers.h"
-#define _USE_MATH_DEFINES 
-#include <cmath>
+//#define _USE_MATH_DEFINES 
+//#include <cmath>
+//todo: why doesnt the above work
+#define PI 3.141592653589793
 
 Water::Water(const sf::RenderWindow* _window)
 	: window(_window) { 
@@ -10,6 +12,9 @@ Water::Water(const sf::RenderWindow* _window)
 	//m_entity->setCurrentAnimation("Idle");
 	m_level = window->getView().getCenter().y + WATER_Y_OFFSET;
 	m_vertices = sf::VertexArray(sf::PrimitiveType::TrianglesStrip, WATER_SPRINGS_COUNT * 2);
+	m_blurShader = &GameData::getInstance().getAsset<sf::Shader>("blur");
+	m_blurShader->setUniform("blur_radius", 0.1f);
+	m_blurShader->setUniform("texture", sf::Shader::CurrentTexture);
 }
 
 void Water::start() {
@@ -19,66 +24,64 @@ void Water::start() {
 		s.position.y = WATER_HEIGHT;
 		m_springs[i] = s;
 	}
+	m_particles.clear();
+	createSines();
 	m_timer.restart();
 }
 
-//////////////////////////////////////////////////////////////////
-// A phase difference to apply to each sine
-float offset = 0;
-
-float NUM_BACKGROUND_WAVES = 7;
-float BACKGROUND_WAVE_MAX_HEIGHT = 6;
-float BACKGROUND_WAVE_COMPRESSION = 1 / 10;
-// Amounts by which a particular sine is offset
-std::vector<float> sineOffsets;
-// Amounts by which a particular sine is amplified
-std::vector<float> sineAmplitudes;
-// Amounts by which a particular sine is stretched
-std::vector<float> sineStretches;
-// Amounts by which a particular sine's offset is multiplied
-std::vector<float> offsetStretches;
-// Set each sine's values to a reasonable random value
-
-void Water::createSines() {
-	const float M_PI = 3.14; //temp
+void Water::createSines() { 
+	m_offset = 0.f;
 	for (int i = -0; i < NUM_BACKGROUND_WAVES; i++) {
-		float sineOffset = -M_PI + 2 * M_PI * (rand() / (float)RAND_MAX);
-		sineOffsets.push_back(sineOffset);
+		float sineOffset = -PI + (2 * PI * (rand() / (float)RAND_MAX));
+		m_sineOffsets.push_back(sineOffset);
 		float sineAmplitude = (rand() / (float)RAND_MAX) * BACKGROUND_WAVE_MAX_HEIGHT;
-		sineAmplitudes.push_back(sineAmplitude);
+		m_sineAmplitudes.push_back(sineAmplitude);
 		float sineStretch = (rand() / (float)RAND_MAX) * BACKGROUND_WAVE_COMPRESSION;
-		sineStretches.push_back(sineStretch);
+		m_sineStretches.push_back(sineStretch);
 		float offsetStretch = (rand() / (float)RAND_MAX) * BACKGROUND_WAVE_COMPRESSION;
-		offsetStretches.push_back(offsetStretch);
+		m_offsetStretches.push_back(offsetStretch);
 	}
 }
-// This function sums together the sines generated above,
-// given an input value x
-float Water::overlapSines(float x) {
+
+float Water::overlapSines(float x) const {
 	float result = 0;
 	for (int i = 0; i < NUM_BACKGROUND_WAVES; i++) {
-		result = result
-			+ sineOffsets[i]
-			+ sineAmplitudes[i]
-			* sin(x * sineStretches[i] + offset * offsetStretches[i]);
+		result += m_sineOffsets[i]
+				+ m_sineAmplitudes[i]
+				* sin(x * m_sineStretches[i] + m_offset * m_offsetStretches[i]);
 	}
 	return result;
 }
-//////////////////////////////////////////////////////////////////
 
 void Water::update(float dt) {
+	m_offset++;
+
 	m_level = window->getView().getCenter().y + WATER_Y_OFFSET;
 	//m_entity->setPosition(se::point(0.f, m_level));
 	//m_entity->setTimeElapsed(dt);
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 		sf::Vector2i mouse = sf::Mouse::getPosition();
-		splash(mouse.x, mouse.y / 100);
+		splash(mouse.x, mouse.y / 10);
 	}
 
-	//waves
-	float waveMult = sin(m_timer.getElapsedTime().asSeconds());
-	const int WAVE_STRENGTH = 60;
-	splash(0, waveMult * WAVE_STRENGTH);
+	//update particles
+	for (int i = 0; i < m_particles.size(); i++) {
+		Particle& p = m_particles[i];
+		p.velocity += sf::Vector2f(0.f, GRAVITY * dt);
+		p.position += p.velocity * dt;
+		p.sprite.setPosition(p.position);
+		//TODO: this line here and in splash() needs to be better thought out?
+		int x = p.position.x / ((float)SCREEN_WIDTH / WATER_SPRINGS_COUNT);
+		//TODO: have some variable that calculates bottom of the screen instead of dooing it multiple times
+		if (p.position.y > m_level + WATER_HEIGHT || p.position.y > (window->getView().getCenter().y + (SCREEN_HEIGHT * 0.5f) - m_springs[x].position.y))
+			p.alive = false;
+	}
+	if (!m_particles.empty()) {
+		m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), [](const Particle& p) {
+			return !p.alive;
+		}), m_particles.end());
+	}
+	///////////////////////
 
 	const int WATER_PROP_LOOPS = 10;
 	const float SPREAD = 0.45;
@@ -86,12 +89,10 @@ void Water::update(float dt) {
 	for (int i = 0; i < WATER_PROP_LOOPS; i++) {
 		for (int i = 0; i < WATER_SPRINGS_COUNT; i++) {
 			if (i > 0) {
-				//height diff from left
 				deltas[i].x = SPREAD * (m_springs[i].position.y - m_springs[i - 1].position.y);
 				m_springs[i - 1].velocity.y += deltas[i].x; //
 			}
 			if (i < WATER_SPRINGS_COUNT - 1) {
-				//height diff from right
 				deltas[i].y = SPREAD * (m_springs[i].position.y - m_springs[i + 1].position.y);
 				m_springs[i + 1].velocity.y += deltas[i].y;
 			}
@@ -126,30 +127,35 @@ void Water::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	s.setFillColor(sf::Color(0, 0, 255, 128));
 	m_vertices.clear();
 	sf::Vertex v1, v2;
-	sf::Vector2f pos = sf::Vector2f(m_springs[0].position.x, (m_level + WATER_HEIGHT) - m_springs[0].position.y);
+	sf::Vector2f pos = sf::Vector2f(m_springs[0].position.x, (m_level + WATER_HEIGHT) - m_springs[0].position.y + (overlapSines(m_springs[0].position.x)));
 	v1.position = pos;
 	v1.color = sf::Color(0, 0, 128, 128);
 
-	v2.position = pos + sf::Vector2f(0.f, m_springs[0].position.y);
+	v2.position = pos + sf::Vector2f(0.f, m_springs[0].position.y - (overlapSines(m_springs[0].position.x)));
 	v2.color = sf::Color(0, 0, 255, 128);
 	m_vertices.append(v1);
 	m_vertices.append(v2);
 
 	for (int i = 1; i < WATER_SPRINGS_COUNT - 1; i++) {
-		sf::Vector2f pos = sf::Vector2f(m_springs[i].position.x, (m_level + WATER_HEIGHT) - m_springs[i].position.y);
+		float wave = (overlapSines(m_springs[i].position.x)); //TODO: wave gets added to the draw and not part of the sppring physics
+		sf::Vector2f pos = sf::Vector2f(m_springs[i].position.x, (m_level + WATER_HEIGHT) - m_springs[i].position.y + wave);
 		s.setPosition(pos);
 		sf::Vertex v1, v2;
 		v1.position = pos;
 		v1.color = sf::Color(0, 0, 128, 128);
 
-		v2.position = pos + sf::Vector2f(0.f, m_springs[i].position.y);
+		v2.position = pos + sf::Vector2f(0.f, m_springs[i].position.y - wave);
 		v2.color = sf::Color(0, 0, 255, 128);
 
 		m_vertices.append(v1);
 		m_vertices.append(v2);
-		target.draw(s);
+		//target.draw(s);
 	}
 	target.draw(m_vertices);
+
+	for (int i = 0; i < m_particles.size(); i++) {
+		target.draw(m_particles[i].sprite, m_blurShader);
+	}
 }
 
 int Water::getLevel() const {
@@ -158,5 +164,24 @@ int Water::getLevel() const {
 
 void Water::splash(float position, float strength) {
 	int x = position / ((float)SCREEN_WIDTH / WATER_SPRINGS_COUNT);
+
+	
+	float wave = (overlapSines(m_springs[x].position.x)); //get what the wave is at this point
+	sf::Vector2f start;
+	start.x = m_springs[x].position.x;
+	start.y = window->getView().getCenter().y + (0.5f * SCREEN_HEIGHT) - m_springs[x].position.y - wave;
+	const int SPLASH_PARTICLES = 10;
+	const int SPLASH_PARTICLES_SPEED = 10;
+	for (int i = 0; i < SPLASH_PARTICLES; i++) {
+		//make new particles
+		Particle p;
+		p.sprite.setTexture(GameData::getInstance().getAsset<sf::Texture>("particle"));
+		p.position = start;
+		float speed = SPLASH_PARTICLES_SPEED * strength;
+		p.velocity = sf::Vector2f(Helpers::randomNumberF(-0.8f, 0.8f) * speed, -speed);
+		Helpers::limit(p.velocity, SPLASH_PARTICLES_SPEED * strength);
+		p.sprite.setColor(sf::Color(0, 0, 255, 128));
+		m_particles.push_back(p);
+	}
 	m_springs[x].position.y = WATER_HEIGHT - strength;
 }

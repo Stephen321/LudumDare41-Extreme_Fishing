@@ -26,25 +26,26 @@ public:
 
 
 private:
-    struct BaseAsset {
-        virtual ~BaseAsset() {}
-    };
-    template<class T> struct Asset : BaseAsset {
-        T data;
-    };
-    template<class T> struct Asset<T*> : BaseAsset{
-        ~Asset() {
-            if (data != nullptr)
-                delete data;
-        }
-        T* data;
-    };
-    GameData();
-    void addTexture(const char*  name, const char* path);
-    void addModel(const char*  name, const char* path);
-    void addFont(const char* name, const char* path);
-    std::unordered_map<std::string, BaseAsset*> assets;
-    sf::RenderWindow* window;
+	struct BaseAsset {
+		virtual ~BaseAsset() {}
+	};
+	template<class T> struct Asset : BaseAsset {
+		T data;
+	};
+	template<class T> struct Asset<T*> : BaseAsset{
+		~Asset() {
+			if (data != nullptr)
+				delete data;
+		}
+		T* data;
+	};
+	GameData();
+	void addShader(const char*  name, const char* path, sf::Shader::Type type);
+	void addTexture(const char*  name, const char* path);
+	void addModel(const char*  name, const char* path);
+	void addFont(const char* name, const char* path);
+	std::unordered_map<std::string, BaseAsset*> assets;
+	sf::RenderWindow* window;
 };
 
 template<class T>
