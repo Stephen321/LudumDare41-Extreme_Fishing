@@ -15,7 +15,7 @@ static const int TILES_X = SCREEN_WIDTH / TILE_SIZE;
 static const int TILES_Y = SCREEN_HEIGHT / TILE_SIZE;
 static const float SCROLL_SPEED = 0;// -20.f;
 static const float MAX_FISHING_SPOTS = 6;
-static const int WATER_TILES = 2;
+static const int WATER_TILES = 4;
 static const int WATER_HEIGHT = WATER_TILES * TILE_SIZE;
 static const int WATER_Y_OFFSET = (int)(SCREEN_HEIGHT * 0.5f) - WATER_HEIGHT;
 
