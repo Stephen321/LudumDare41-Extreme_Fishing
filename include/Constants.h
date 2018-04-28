@@ -2,6 +2,7 @@
 
 #include <string>
 #include "SFML/Window/Keyboard.hpp"
+#include "SFML\Graphics\Color.hpp"
 
 //misc
 static const char* TITLE = "Ludum Dare 41";
@@ -25,6 +26,10 @@ static const int WATER_SPRINGS_COUNT = 500;
 static const float NUM_BACKGROUND_WAVES = 7.f;
 static const float BACKGROUND_WAVE_MAX_HEIGHT = 4.5f;
 static const float BACKGROUND_WAVE_COMPRESSION = 1.f / 15;
+static const sf::Color WATER_TOP_COLOR(16, 127, 191, 255);
+static const sf::Color WATER_BOT_COLOR(23, 72, 146, 255);
+static const int SPLASH_PARTICLES = 10;
+static const int SPLASH_PARTICLES_SPEED = 10;
 
 static const int BASE_SCORE = 150;
 static const int DECR_SCORE = 50; //taking full qte time loses this much score per key
