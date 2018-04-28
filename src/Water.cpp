@@ -122,8 +122,6 @@ void Water::update(float dt) {
 void Water::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	//m_entity->render();
 	//todo: make these constants
-	sf::Color topColor(16, 127, 191, 255);
-	sf::Color botColor(23, 72, 146, 255);
 	sf::CircleShape s(5);
 	s.setOrigin(2.5, 2.5);
 	s.setFillColor(sf::Color(0, 0, 255, 128));
@@ -131,10 +129,10 @@ void Water::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	sf::Vertex v1, v2;
 	sf::Vector2f pos = sf::Vector2f(m_springs[0].position.x, (m_level + WATER_HEIGHT) - m_springs[0].position.y + (overlapSines(m_springs[0].position.x)));
 	v1.position = pos;
-	v1.color = topColor;
+	v1.color = WATER_TOP_COLOR;
 
 	v2.position = pos + sf::Vector2f(0.f, m_springs[0].position.y - (overlapSines(m_springs[0].position.x)));
-	v2.color = botColor;
+	v2.color = WATER_BOT_COLOR;
 	m_vertices.append(v1);
 	m_vertices.append(v2);
 
@@ -144,10 +142,10 @@ void Water::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 		s.setPosition(pos);
 		sf::Vertex v1, v2;
 		v1.position = pos;
-		v1.color = topColor;
+		v1.color = WATER_TOP_COLOR;
 
 		v2.position = pos + sf::Vector2f(0.f, m_springs[i].position.y - wave);
-		v2.color = botColor;
+		v2.color = WATER_BOT_COLOR;
 
 		m_vertices.append(v1);
 		m_vertices.append(v2);
@@ -173,8 +171,7 @@ void Water::splash(float position, float strength) {
 	sf::Vector2f start;
 	start.x = m_springs[x].position.x;
 	start.y = window->getView().getCenter().y + (0.5f * SCREEN_HEIGHT) - m_springs[x].position.y - wave;
-	const int SPLASH_PARTICLES = 10;
-	const int SPLASH_PARTICLES_SPEED = 10;
+
 	for (int i = 0; i < SPLASH_PARTICLES; i++) {
 		//make new particles
 		Particle p;
