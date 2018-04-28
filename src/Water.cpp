@@ -154,7 +154,8 @@ void Water::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	target.draw(m_vertices);
 
 	for (int i = 0; i < m_particles.size(); i++) {
-		target.draw(m_particles[i].sprite, m_blurShader);
+		target.draw(m_particles[i].sprite);// , m_blurShader);
+		//target.draw(m_particles[i].sprite, m_blurShader);
 	}
 }
 
@@ -179,7 +180,8 @@ void Water::splash(float position, float strength) {
 		p.position = start;
 		float speed = SPLASH_PARTICLES_SPEED * strength;
 		p.velocity = sf::Vector2f(Helpers::randomNumberF(-0.8f, 0.8f) * speed, -speed);
-		Helpers::limit(p.velocity, SPLASH_PARTICLES_SPEED * strength);
+		Helpers::limit(p.velocity, SPLASH_PARTICLES_SPEED * strength * Helpers::randomNumberF(0.2f, 1.f));
+
 		p.sprite.setColor(sf::Color(0, 0, 255, 128));
 		m_particles.push_back(p);
 	}
