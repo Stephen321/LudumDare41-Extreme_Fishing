@@ -5,7 +5,7 @@
 #include "PlatformManager.h"
 #include "FishManager.h"
 #include "UIManager.h"
-#include "SFML\Audio.hpp"
+#include "SFML/Audio.hpp"
 
 
 class GameScene : public Scene {

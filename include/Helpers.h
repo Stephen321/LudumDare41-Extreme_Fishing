@@ -1,9 +1,10 @@
 #pragma once
+#include <cmath>
 #include <vector>
-#include "SFML\Graphics.hpp"
+#include "SFML/Graphics.hpp"
 
 #define KEY_TO_CHARS(k) \
-		case sf::Keyboard::Key:: ## k:\
+		case sf::Keyboard::Key::k:\
 		return #k;
 
 namespace Helpers {
