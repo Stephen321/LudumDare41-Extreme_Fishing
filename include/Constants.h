@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include "SFML/Window/Keyboard.hpp"
 
 //misc
@@ -21,9 +22,9 @@ static const int DECR_SCORE = 50; //taking full qte time loses this much score p
 
 
 //qte
-static const const char* QTE_SUCCESS_ANIM = "KeyWin";
-static const const char* QTE_FAIL_ANIM = "KeyLose";
-static const const char* QTE_ATTEMPT_ANIM = "Key!";
+static const char* QTE_SUCCESS_ANIM = "KeyWin";
+static const char* QTE_FAIL_ANIM = "KeyLose";
+static const char* QTE_ATTEMPT_ANIM = "Key!";
 static const std::string QTE_ANIM_PREFIX = "Key";
 static const float QTE_STATUS_DISPLAY_TIME = 2.f;
 //static const int QTE_SPEECH_OFF_X = 1;
@@ -51,15 +52,15 @@ static const float PLAYER_SIZE_X = 1.f;
 static const float PLAYER_SIZE_Y = 2.f;
 static const float PLAYER_MIN_SPACEHOLD = 0.3f;
 static const float PLAYER_MAX_SPACEHOLD = 1.4f; //seconds max you can hold space
-static const const char* PLAYER_RUN_ANIM = "Run";
-static const const char* PLAYER_IDLE_ANIM = "Idle";
-static const const char* PLAYER_IDLE_CROUCH_ANIM = "Idle Crouch";
-static const const char* PLAYER_JUMP_ANIM = "Jump";
-static const const char* PLAYER_FALL_ANIM = "Falling";
-static const const char* PLAYER_FISHLAUNCH_ANIM = "FishingLauch";
-static const const char* PLAYER_IDLE_FISHING_ANIM = "Idle Fishing";
-static const const char* PLAYER_LAND_ANIM = "Landing";
-static const const char* PLAYER_CROUCH_FALL_ANIM = "CrouchFall";
+static const char* PLAYER_RUN_ANIM = "Run";
+static const char* PLAYER_IDLE_ANIM = "Idle";
+static const char* PLAYER_IDLE_CROUCH_ANIM = "Idle Crouch";
+static const char* PLAYER_JUMP_ANIM = "Jump";
+static const char* PLAYER_FALL_ANIM = "Falling";
+static const char* PLAYER_FISHLAUNCH_ANIM = "FishingLauch";
+static const char* PLAYER_IDLE_FISHING_ANIM = "Idle Fishing";
+static const char* PLAYER_LAND_ANIM = "Landing";
+static const char* PLAYER_CROUCH_FALL_ANIM = "CrouchFall";
 static const float PLAYER_QTE_TIME = 5.f;
 static const float PLAYER_ROD_OFFSET_X = 105.f;
 static const float PLAYER_ROD_OFFSET_Y = 10.f;
@@ -112,9 +113,9 @@ static const float SHARK_COL_RAD = SHARK_SIZE_X * 0.33f * TILE_SIZE;
 //ui
 static const int UI_X = SCREEN_WIDTH / 96;
 static const int UI_Y = SCREEN_HEIGHT / 47;
-static const const char* UI_SCORE_PREFIX = "Score: ";
-static const const char* UI_TIMER_PREFIX = "Timer: ";
-static const const char* UI_QTE_TIMER_SUFFIX = "!";
+static const char* UI_SCORE_PREFIX = "Score: ";
+static const char* UI_TIMER_PREFIX = "Timer: ";
+static const char* UI_QTE_TIMER_SUFFIX = "!";
 static const int UI_FONT_SIZE = 25;
 static const int UI_SCORE_X_OFFS = -TILE_SIZE;
 static const int UI_SCORE_Y_OFFS = -TILE_SIZE * PLAYER_SIZE_Y * 1.5f;
