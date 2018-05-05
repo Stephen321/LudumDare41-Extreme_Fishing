@@ -73,7 +73,8 @@ if (CMAKE_COMPILER_IS_GNUCC)
     target_compile_options(${TESTS_TARGET_NAME} PRIVATE "-Wno-psabi")
     target_compile_options(${SPRITER_LIBRARY} PRIVATE "-Wno-psabi")
     target_compile_options(${PROJECT_LIB} PRIVATE "-Wno-psabi")
-    set (CMAKE_CXX_STANDARD 11)
+    # set (CMAKE_CXX_STANDARD 11) #doesnt seem to work
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif()
 #------------------------------------------------------------------------------
 
