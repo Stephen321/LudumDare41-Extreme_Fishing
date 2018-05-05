@@ -1,3 +1,9 @@
+# build which you create manually for cmake building (pprobably dont need a lot of the other stuff in this file)
+build/
+
+# tags file for vim
+tags
+
 # files being edited
 *.vcxproj.user
 *~

@@ -1,4 +1,6 @@
 #include "FishManager.h"
+
+#include <cmath>
 #include "Constants.h"
 #include "GameData.h"
 #include "SceneManager.h"
@@ -35,7 +37,6 @@ void FishManager::start(){
 	m_fishingLine.setPosition(-100.f, -100.f);
 	m_spawnTimer.restart();
 	m_timeNeededToAttempt = 0.f;
-	m_playerQte = false;
 	m_success = false;
 	m_playerLives = 5; //m
 }
