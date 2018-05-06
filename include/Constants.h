@@ -24,7 +24,7 @@ static const float WATER_SPRING_K = 0.03f;
 static const float WATER_SPRING_DAMPENER = 0.00015f;
 static const int WATER_SPRINGS_COUNT = 500;
 static const float NUM_BACKGROUND_WAVES = 7.f;
-static const float BACKGROUND_WAVE_MAX_HEIGHT = 4.5f;
+static const float BACKGROUND_WAVE_MAX_HEIGHT = 4.25f;
 static const float BACKGROUND_WAVE_COMPRESSION = 1.f / 15;
 static const sf::Color WATER_TOP_COLOR(16, 127, 191, 255);
 static const sf::Color WATER_BOT_COLOR(23, 72, 146, 255);

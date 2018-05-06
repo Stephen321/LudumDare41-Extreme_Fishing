@@ -77,6 +77,7 @@ void GameScene::update(float dt) {
 
 void GameScene::render(sf::RenderStates states) const{
 	window->draw(m_background);
+	m_water.drawBackground(*window);
 	window->draw(m_platformManager);
 	window->draw(m_player);
 	window->draw(m_water);
