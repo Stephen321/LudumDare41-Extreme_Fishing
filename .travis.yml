@@ -16,9 +16,17 @@ matrix:
       addons: *gcc7
       env: COMPILER='g++-7' BUILD_TYPE='Debug'
 
-# isnt 2.4.2
-#before_install:
+before_install:
 #  - sudo apt-get install -y libsfml-dev
+# trying to use default libsfml-dev is not latest version (2.4.2)
+# manually download and ensure all dependencies are built
+  - sudo apt-get install -y freeglut3-dev 
+  - sudo apt-get install -y libjpeg-dev 
+  - sudo apt-get install -y libfreetype6-dev 
+  - sudo apt-get install -y libxrandr-dev 
+  - sudo apt-get install -y libglew-dev 
+  - sudo apt-get install -y libsndfile1-dev 
+  - sudo apt-get install -y libopenal-dev
 
 install:
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
