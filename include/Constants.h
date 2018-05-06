@@ -2,7 +2,7 @@
 
 #include <string>
 #include "SFML/Window/Keyboard.hpp"
-#include "SFML\Graphics\Color.hpp"
+#include "SFML/Graphics/Color.hpp"
 
 //misc
 static const char* TITLE = "Ludum Dare 41";
