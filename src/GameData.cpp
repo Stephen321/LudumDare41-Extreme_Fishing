@@ -34,7 +34,7 @@ void GameData::load(sf::RenderWindow* _window) {
     addTexture("title", "assets/sprites/main/titlelogo.png");
     addTexture("play", "assets/sprites/main/pressplay.png");
     addTexture("gameover", "assets/sprites/gameover/gameover.png");
-    addAsset("blur", "assets/shaders/blur.frag", sf::Shader::Type::Fragment);
+    addShader("blur", "assets/shaders/blur.frag", sf::Shader::Type::Fragment);
 
     //add animations
     addModel("fisher", "assets/animations/Fisher/fisher.scon");
