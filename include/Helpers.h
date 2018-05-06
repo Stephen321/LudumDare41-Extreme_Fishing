@@ -8,6 +8,9 @@
 		return #k;
 
 namespace Helpers {
+	inline sf::Color colorMult(sf::Color c, float m) {
+		return sf::Color(c.r * m, c.g * m, c.b * m, c.a);
+	}
 	inline std::string keyToStr(sf::Keyboard::Key k) {
 		switch (k) {
 			KEY_TO_CHARS(W);

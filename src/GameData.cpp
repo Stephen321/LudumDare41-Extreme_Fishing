@@ -21,10 +21,7 @@ GameData::~GameData() {
 void GameData::load(sf::RenderWindow* _window) {
     window = _window;
     assert(window && "should always be a window when load is called");
-
-    //Add assets here
-    //--
-
+	
     //add font
     addFont("font", "assets/font/BADABB.TTF");
 
@@ -33,7 +30,8 @@ void GameData::load(sf::RenderWindow* _window) {
     addTexture("sky", "assets/sprites/sky.png");
     addTexture("title", "assets/sprites/main/titlelogo.png");
     addTexture("play", "assets/sprites/main/pressplay.png");
-    addTexture("gameover", "assets/sprites/gameover/gameover.png");
+	addTexture("gameover", "assets/sprites/gameover/gameover.png");
+	addTexture("particle", "assets/sprites/particle.png");
     addShader("blur", "assets/shaders/blur.frag", sf::Shader::Type::Fragment);
 
     //add animations

@@ -36,6 +36,7 @@ void FishManager::start(){
 	m_spawnTimer.restart();
 	m_timeNeededToAttempt = 0.f;
 	m_success = false;
+	m_playerQte = nullptr;
 	m_playerLives = 5; //m
 }
 
