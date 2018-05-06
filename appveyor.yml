@@ -6,8 +6,6 @@ os:
 
 init:
   - git config --global core.autocrlf input
-  # Set build version to git commit-hash
-  - ps: Update-AppveyorBuild -Version "$($env:APPVEYOR_REPO_BRANCH) - $($env:APPVEYOR_REPO_COMMIT)"
 
 install:
   - git submodule update --init --recursive
