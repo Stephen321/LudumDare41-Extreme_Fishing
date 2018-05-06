@@ -3,7 +3,6 @@ version: "{build}"
 
 os:
   - Visual Studio 2017
-  - Visual Studio 2015
 
 init:
   - git config --global core.autocrlf input
@@ -13,11 +12,10 @@ init:
 install:
   - git submodule update --init --recursive
 
-# Win32 and x64 are CMake-compatible solution platform names.
+# Win32 is a CMake-compatible solution platform names.
 # This allows us to pass %PLATFORM% to CMake -A.
 platform:
   - Win32
-  - x64
 
 # build Configurations, i.e. Debug, Release, etc.
 configuration:
