@@ -17,7 +17,9 @@ set(SOURCE_MAIN "src/main.cpp")
 list(FILTER SOURCE_FILES EXCLUDE REGEX ".*${SOURCE_MAIN}$")
 
 set(JSON_INCLUDE_DIR "${DEPENDENCIES_DIR}/json")
-set(SFML_ROOT "${DEPENDENCIES_DIR}/sfml")
+if (WIN32)
+	set(SFML_ROOT "${DEPENDENCIES_DIR}/sfml")
+endif ()
 
 #Find any version 2.X of SFML
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${${PROJECT_NAME}_SOURCE_DIR}/cmake")
