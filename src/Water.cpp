@@ -17,9 +17,9 @@ Water::Water(const sf::RenderWindow* _window)
 void Water::start() {
 	float viewBot = window->getView().getCenter().y + (SCREEN_HEIGHT * 0.5f);
 	m_frontWave.start(viewBot);
-	m_wave1.start(Helpers::colorMult(WATER_TOP_COLOR, 0.8f), Helpers::colorMult(WATER_BOT_COLOR, 0.8f)); //todo: has to be called after front wave
-	m_wave2.start(Helpers::colorMult(WATER_TOP_COLOR, 0.6f), Helpers::colorMult(WATER_BOT_COLOR, 0.6f));
-	m_wave3.start(Helpers::colorMult(WATER_TOP_COLOR, 0.6f), Helpers::colorMult(WATER_BOT_COLOR, 0.2f));
+	m_wave1.start(Helpers::colorMult(WATER_SURFACE_COLOR, 1.0f), Helpers::colorMult(WATER_SURFACE_COLOR, 1.0f)); //todo: has to be called after front wave
+	m_wave2.start(Helpers::colorMult(WATER_SURFACE_COLOR, 0.99f), Helpers::colorMult(WATER_SURFACE_COLOR, 0.99f));
+	m_wave3.start(Helpers::colorMult(WATER_SURFACE_COLOR, 0.98f), Helpers::colorMult(WATER_SURFACE_COLOR, 0.98f));
 
 	m_particles.clear();
 	m_timer.restart();
