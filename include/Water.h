@@ -88,6 +88,7 @@ public:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override {
 		target.draw(m_vertices);
 
+		/*
 		sf::CircleShape s(1);
 		s.setFillColor(sf::Color(0, 0, 255, 128));
 		sf::CircleShape s2(2);
@@ -102,6 +103,7 @@ public:
 			target.draw(s);
 			target.draw(s2);
 		}
+		*/
 	}
 
 	float getWave(int idx) const {
