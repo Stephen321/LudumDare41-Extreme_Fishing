@@ -270,8 +270,10 @@ private:
 	sf::Clock m_timer;
 	const sf::RenderWindow* window;
 	float m_level;
-	//sf::Shader* m_blurShader;
+	sf::Shader* m_alphaTestShader;
 	std::vector<Particle> m_particles;
+	sf::RenderTexture m_metaBallsRenderTexture;
+	sf::Sprite m_metaBallsSprite;
 
 	Wave m_frontWave;
 	MimicWave m_wave1;

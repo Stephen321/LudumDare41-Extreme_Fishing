@@ -9,9 +9,14 @@ Water::Water(const sf::RenderWindow* _window)
 	, m_wave3(&m_frontWave, &m_wave2, 0.2f, WATER_HEIGHT * 0.45f) { //todo: remove need for this here
 	//m_entity = GameData::getInstance().getAsset<se::SpriterModel*>("water")->getNewEntityInstance("Water");
 	//m_entity->setCurrentAnimation("Idle");
-	//m_blurShader = &GameData::getInstance().getAsset<sf::Shader>("blur");
-	//m_blurShader->setUniform("blur_radius", 0.1f);
-	//m_blurShader->setUniform("texture", sf::Shader::CurrentTexture);
+
+	m_metaBallsRenderTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
+	m_metaBallsSprite.setTexture(m_metaBallsRenderTexture.getTexture());
+	//TODO: if screen scrolling then likely need to also setView for this renderTexture
+
+	m_alphaTestShader = &GameData::getInstance().getAsset<sf::Shader>("alphaTest");
+	m_alphaTestShader->setUniform("threshold", 0.7f);
+	m_alphaTestShader->setUniform("texture", sf::Shader::CurrentTexture);
 }
 
 void Water::start() {
@@ -45,25 +50,28 @@ void Water::update(float dt) {
 		p.position += p.velocity * dt;
 		p.sprite.setPosition(p.position);
 		//TODO: this line here and in splash() needs to be better thought out?
-		//int x = p.position.x / ((float)SCREEN_WIDTH / WATER_SPRINGS_COUNT);
+		int x = p.position.x / ((float)SCREEN_WIDTH / WATER_SPRINGS_COUNT);
 		//TODO: have some variable that calculates bottom of the screen instead of dooing it multiple times
-		//if (p.position.y > m_level + WATER_HEIGHT || p.position.y > (window->getView().getCenter().y + (SCREEN_HEIGHT * 0.5f) - m_springs[x].position.y))
-		//	p.alive = false;
+		if (p.position.y > m_level + WATER_HEIGHT || p.position.y > (window->getView().getCenter().y + (SCREEN_HEIGHT * 0.5f) - m_frontWave.getSpringY(x)))
+			p.alive = false;
 	}
 	if (!m_particles.empty()) {
 		m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), [](const Particle& p) {
 			return !p.alive;
 		}), m_particles.end());
 	}
+
+	//update metaballs now that particles have updated
+	m_metaBallsRenderTexture.clear(sf::Color(WATER_TOP_COLOR.r, WATER_TOP_COLOR.g, WATER_TOP_COLOR.b, 0.f)); //todo: this should go in draw menthod?
+	for (int i = 0; i < m_particles.size(); i++) {
+		m_metaBallsRenderTexture.draw(m_particles[i].sprite);// , sf::BlendAdd);
+	}
+	m_metaBallsRenderTexture.display();
 }
 
 void Water::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	target.draw(m_frontWave);
-
-	for (int i = 0; i < m_particles.size(); i++) {
-		target.draw(m_particles[i].sprite);// , m_blurShader);
-		//target.draw(m_particles[i].sprite, m_blurShader);
-	}
+	target.draw(m_metaBallsSprite, m_alphaTestShader);
 }
 
 void Water::drawBackground(sf::RenderTarget & target) const {
@@ -81,11 +89,12 @@ void Water::splash(float position, float strength) {
 	for (int i = 0; i < SPLASH_PARTICLES; i++) {
 		Particle p;
 		p.sprite.setTexture(GameData::getInstance().getAsset<sf::Texture>("particle"));
+		p.sprite.setOrigin(p.sprite.getGlobalBounds().width * 0.5f, p.sprite.getGlobalBounds().height * 0.5f);
 		p.position = particleStart;
 		float speed = SPLASH_PARTICLES_SPEED * strength;
-		p.velocity = sf::Vector2f(Helpers::randomNumberF(-0.8f, 0.8f) * speed, -speed);
-		p.sprite.setColor(sf::Color(0, 0, 255, 128));
-		Helpers::limit(p.velocity, SPLASH_PARTICLES_SPEED * strength * Helpers::randomNumberF(0.2f, 1.f));
+		p.velocity = sf::Vector2f(Helpers::randomNumberF(-0.55f, 0.55f) * speed, -speed);
+		p.sprite.setColor(WATER_TOP_COLOR);
+		Helpers::limit(p.velocity, SPLASH_PARTICLES_SPEED * strength * Helpers::randomNumberF(0.45f, 1.f));
 		m_particles.push_back(p);
 	}
 }
