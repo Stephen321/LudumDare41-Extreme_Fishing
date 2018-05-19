@@ -26,9 +26,9 @@ static const int WATER_SPRINGS_COUNT = 500;
 static const float NUM_BACKGROUND_WAVES = 7.f;
 static const float BACKGROUND_WAVE_MAX_HEIGHT = 4.25f;
 static const float BACKGROUND_WAVE_COMPRESSION = 1.f / 15;
-static const sf::Color WATER_TOP_COLOR(16, 127, 191, 255);
+static const sf::Color WATER_TOP_COLOR(16, 127, 191, 192);
 static const sf::Color WATER_BOT_COLOR(23, 72, 146, 255);
-static const sf::Color WATER_SURFACE_COLOR(41, 147, 199, 255);
+static const sf::Color WATER_SURFACE_COLOR(22, 154, 222, 224);
 static const int SPLASH_PARTICLES = 10;
 static const int SPLASH_PARTICLES_SPEED = 10;
 
