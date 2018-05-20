@@ -53,6 +53,7 @@ void GameScene::update(float dt) {
 
 	m_platformManager.update(dt);
 	m_fishManager.update(dt);
+	m_cloudManager.update(dt);
 	m_player.checkCollisions(m_platformManager.getPlatforms());
 	m_player.update(dt);
 	m_uiManager.update(dt);
@@ -78,6 +79,7 @@ void GameScene::update(float dt) {
 void GameScene::render(sf::RenderStates states) const{
 	window->draw(m_background);
 	m_water.drawBackground(*window);
+	window->draw(m_cloudManager);
 	window->draw(m_platformManager);
 	window->draw(m_player);
 	window->draw(m_water);

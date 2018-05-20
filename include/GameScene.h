@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "PlatformManager.h"
 #include "FishManager.h"
+#include "CloudManager.h"
 #include "UIManager.h"
 #include "Water.h"
 #include "SFML/Audio.hpp"
@@ -24,6 +25,7 @@ private:
 	Player m_player;
 	PlatformManager m_platformManager;
 	FishManager m_fishManager;
+	CloudManager m_cloudManager;
 	UIManager m_uiManager;
 	Water m_water;
 	sf::CircleShape debugCircle;
