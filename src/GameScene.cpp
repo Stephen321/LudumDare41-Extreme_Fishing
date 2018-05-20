@@ -21,6 +21,7 @@ GameScene::GameScene(sf::RenderWindow* _window)
 void GameScene::start() {
 	m_platformManager.start(); // call this first so it sets player start position
 	m_fishManager.start();
+	m_cloudManager.start();
 	m_uiManager.start();
 	m_water.start();
 	m_player.start(m_platformManager.getPlayerStartPosition());

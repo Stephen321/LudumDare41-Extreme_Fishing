@@ -5,7 +5,10 @@ CloudManager::CloudManager() {
 }
 
 void CloudManager::start() {
-
+		m_clouds.push_back(Cloud("cloud2"));
+		m_clouds.push_back(Cloud("cloud5"));
+		m_clouds.push_back(Cloud("cloud8"));
+		m_clouds.push_back(Cloud());
 }
 
 void CloudManager::update(float dt) {
@@ -23,7 +26,7 @@ void CloudManager::update(float dt) {
 }
 
 void CloudManager::spawnCloud() {
-	if (m_time > 10.f) {
+	if (m_time > 5.f) {
 		m_clouds.push_back(Cloud());
 		m_time = 0;
 	}
