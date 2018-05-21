@@ -27,15 +27,19 @@ void GameData::load(sf::RenderWindow* _window) {
 
     //add textures
     addTexture("menu", "assets/sprites/main/menu.png");
-    addTexture("sky", "assets/sprites/sky.png");
-	addTexture("cloud1", "assets/sprites/clouds/Cloud1.png");
-	addTexture("cloud2", "assets/sprites/clouds/Cloud2.png");
-	addTexture("cloud3", "assets/sprites/clouds/Cloud3.png");
-	addTexture("cloud4", "assets/sprites/clouds/Cloud4.png");
-	addTexture("cloud5", "assets/sprites/clouds/Cloud5.png");
-	addTexture("cloud6", "assets/sprites/clouds/Cloud6.png");
-	addTexture("cloud7", "assets/sprites/clouds/Cloud7.png");
-	addTexture("cloud8", "assets/sprites/clouds/Cloud8.png");
+    addTexture("sky", "assets/sprites/sky/sky.png");
+	addTexture("cloud1", "assets/sprites/sky/Cloud1.png");
+	addTexture("cloud2", "assets/sprites/sky/Cloud2.png");
+	addTexture("cloud3", "assets/sprites/sky/Cloud3.png");
+	addTexture("cloud4", "assets/sprites/sky/Cloud4.png");
+	addTexture("cloud5", "assets/sprites/sky/Cloud5.png");
+	addTexture("cloud6", "assets/sprites/sky/Cloud6.png");
+	addTexture("cloud7", "assets/sprites/sky/Cloud7.png");
+	addTexture("cloud8", "assets/sprites/sky/Cloud8.png");
+	addTexture("godRay1", "assets/sprites/sky/GodRay1.png");
+	addTexture("godRay2", "assets/sprites/sky/GodRay2.png");
+	addTexture("godRay3", "assets/sprites/sky/GodRay3.png");
+	addTexture("godRay4", "assets/sprites/sky/GodRay4.png");
     addTexture("title", "assets/sprites/main/titlelogo.png");
     addTexture("play", "assets/sprites/main/pressplay.png");
 	addTexture("gameover", "assets/sprites/gameover/gameover.png");

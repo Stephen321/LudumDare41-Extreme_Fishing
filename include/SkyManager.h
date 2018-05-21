@@ -3,15 +3,19 @@
 #include "GameObject.h"
 #include "Constants.h"
 #include "Cloud.h"
+#include "GodRay.h"
 
-class CloudManager : public sf::Drawable {
+class SkyManager : public sf::Drawable {
 public:
-	CloudManager();
+	SkyManager();
 	void start();
 	void update(float dt);
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 	void spawnCloud();
 private:
 	std::vector<Cloud> m_clouds;
-	float m_time = 0;
+	int m_currentCloudIndex = 0;
+	int m_previousCloudIndex = 0;
+	std::vector<GodRay> m_godRays;
+	float m_timer = 0;
 };
