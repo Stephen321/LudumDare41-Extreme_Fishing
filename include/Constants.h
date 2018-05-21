@@ -125,6 +125,14 @@ static const int MAX_SHARKS_ACTIVE = MAX_FISHING_SPOTS;
 static const int SHARK_COL_CIRCLES = 1;
 static const float SHARK_COL_RAD = SHARK_SIZE_X * 0.33f * TILE_SIZE;
 
+//clouds
+static const float LARGE_CLOUD_SPEED = 0.8f;
+static const float MEDIUM_CLOUD_SPEED = 0.6f;
+static const float SMALL_CLOUD_SPEED = 0.33f;
+static const float CLOUD_SPAWN_DELAY = 5.f;
+static const int LARGE_CLOUD_PROBILITY = 90;
+static const int MEDIUM_CLOUD_PROBILITY = 50;
+
 //ui
 static const int UI_X = SCREEN_WIDTH / 96;
 static const int UI_Y = SCREEN_HEIGHT / 47;
