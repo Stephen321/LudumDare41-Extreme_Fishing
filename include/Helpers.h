@@ -60,12 +60,17 @@ namespace Helpers {
 		return rand() % (max - min + 1) + min;
 	}
 
-
 	inline void limit(sf::Vector2f& v, float max) {
 		if (Helpers::getLength(v) > max) {
 			v = Helpers::normaliseCopy(v) * max;
 		}
 	}
+	
+	inline void normalisedVmult(sf::Vector2f& v, float mult) {
+		normalise(v);
+		v *= mult;
+	}
+
 	template<typename T, typename Comparer1, typename Comparer2 = Comparer1>
 	inline int binarySearch(const std::vector<T>& v, const T& target, Comparer1 equals, Comparer2 lessThanEquals) {
 		int low = 0;

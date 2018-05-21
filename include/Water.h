@@ -10,7 +10,6 @@
 //todo: why doesnt the above work
 #define PI 3.141592653589793
 
-
 class Wave : public sf::Drawable {
 public:
 	Wave() {
@@ -88,11 +87,10 @@ public:
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override {
 		target.draw(m_vertices);
 
-		/*
-		sf::CircleShape s(1);
-		s.setFillColor(sf::Color(0, 0, 255, 128));
+		sf::CircleShape s(4);
+		s.setFillColor(sf::Color(0, 0, 255, 160));
 		sf::CircleShape s2(2);
-		s2.setFillColor(sf::Color(255, 0, 0, 128));
+		s2.setFillColor(sf::Color(255, 0, 0, 160));
 		s2.setOrigin(1, 1);
 		for (int i = 1; i < WATER_SPRINGS_COUNT - 1; i++) {
 			sf::Vector2f pos = sf::Vector2f(m_springs[i].position.x, m_viewBot - getCurrentHeight(i));
@@ -100,10 +98,16 @@ public:
 			pos.y = m_waterLevel;
 			//pos.y = m_viewBot - spring;//todo: this looks so much better...
 			s2.setPosition(pos);
-			target.draw(s);
-			target.draw(s2);
+			//target.draw(s);
+			//target.draw(s2);
 		}
-		*/
+
+		for (int i = 0; i < WATER_SPRINGS_COUNT; i++) {
+			sf::Vector2f pos = m_vertices[i * 2].position;
+			s.setFillColor(sf::Color(255, 10, 50, 160));
+			s.setPosition(pos);
+			target.draw(s);
+		}
 	}
 
 	float getWave(int idx) const {
@@ -128,6 +132,7 @@ public:
 	}
 
 	sf::Vector2f splash(float xPos, float strength) {
+		//todo: move velocity calculation to the same place as position calculation...
 		//todo refactor this
 		int x = xPos / ((float)SCREEN_WIDTH / WATER_SPRINGS_COUNT);
 		float wave = (overlapSines(m_springs[x].position.x)); //get what the wave is at this point
@@ -135,8 +140,9 @@ public:
 		start.x = m_springs[x].position.x;
 		start.y = m_viewBot - m_springs[x].position.y - wave;
 
-		m_springs[x].position.y = WATER_HEIGHT - strength;
-
+		m_springs[x].position.y = WATER_HEIGHT - (SPLASH_PARTICLES_WAVE_MIN_STRENGTH + (strength * SPLASH_PARTICLES_WAVE_STRENGTH));
+		
+		//SPLASH_PARTICLES_X_MAXOFFSET
 		return start;
 	}
 
@@ -145,6 +151,7 @@ public:
 	}
 
 private:
+
 	//https://gamedev.stackexchange.com/questions/44547/how-do-i-create-2d-water-with-dynamic-waves
 	void createSines() {
 		m_offset = 0.f;

@@ -61,6 +61,12 @@ void GameScene::update(float dt) {
 	m_water.update(dt);
 	m_background.setPosition(m_view.getCenter().x - (SCREEN_WIDTH * 0.5f), m_view.getCenter().y - (SCREEN_HEIGHT * 0.5f));
 
+	//temp
+	static sf::Clock tempClock;
+	if (tempClock.getElapsedTime().asSeconds() > 0.5f) {
+		tempClock.restart();
+		//m_water.splash(randomNumberF(0.f, SCREEN_WIDTH), 1.f);
+	}
 
 	if (m_player.getPosition().y > m_water.getLevel() + (TILE_SIZE * WATER_TILES)) {
 		SceneManager::getInstance().changeScene(Scene::Type::GameOverScene);

@@ -31,6 +31,13 @@ static const sf::Color WATER_BOT_COLOR(23, 72, 146, 255);
 static const sf::Color WATER_SURFACE_COLOR(22, 154, 222, 224);
 static const int SPLASH_PARTICLES = 10;
 static const int SPLASH_PARTICLES_SPEED = 10;
+static const int SPLASH_PARTICLES = 35;
+static const int SPLASH_PARTICLES_SPEED = 250;
+static const int SPLASH_PARTICLES_BASE_SPEED = 200;
+static const int SPLASH_PARTICLES_X_MAXOFFSET = 20;
+static const int SPLASH_PARTICLES_Y_MAXOFFSET = 20;
+static const int SPLASH_PARTICLES_WAVE_MIN_STRENGTH = 20;
+static const int SPLASH_PARTICLES_WAVE_STRENGTH = 80;
 
 static const int BASE_SCORE = 150;
 static const int DECR_SCORE = 50; //taking full qte time loses this much score per key
