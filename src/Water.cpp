@@ -104,6 +104,6 @@ void Water::splash(float position, float strength) {
 		p.velocity = sf::Vector2f(Helpers::randomNumberF(-0.7f, 0.7f), -1.f);
 		Helpers::normalisedVmult(p.velocity, (SPLASH_PARTICLES_BASE_SPEED + (SPLASH_PARTICLES_SPEED * strength)) * Helpers::randomNumberF(0.3f, 1.f));
 		
-		//m_particles.push_back(p);
+		m_particles.push_back(p);
 	}
 }
