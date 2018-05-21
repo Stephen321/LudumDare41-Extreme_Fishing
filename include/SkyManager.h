@@ -17,5 +17,5 @@ private:
 	int m_currentCloudIndex = 0;
 	int m_previousCloudIndex = 0;
 	std::vector<GodRay> m_godRays;
-	float m_timer = 0;
+	float m_timer = CLOUD_SPAWN_DELAY;
 };

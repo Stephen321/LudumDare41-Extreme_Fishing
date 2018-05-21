@@ -15,7 +15,6 @@ public:
 private:
 	sf::Sprite m_sprite;
 	float m_alpha = 0;
-	float m_ease = 2;
 	float m_timer = 0;
 	const float EASE_DURATION;
 };

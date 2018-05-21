@@ -5,10 +5,9 @@ SkyManager::SkyManager() {
 }
 
 void SkyManager::start() {
-		m_clouds.push_back(Cloud("cloud2", true));
-		m_clouds.push_back(Cloud("cloud5", true));
 		m_clouds.push_back(Cloud("cloud8", true));
-		m_timer = CLOUD_SPAWN_DELAY;
+		m_clouds.push_back(Cloud("cloud4", true));
+		m_clouds.push_back(Cloud("cloud2", true));
 		m_godRays.push_back(GodRay("godRay1", SCREEN_WIDTH * 0.33f, 5.f));
 		m_godRays.push_back(GodRay("godRay2", SCREEN_WIDTH * 0.01f, 3.f));
 		m_godRays.push_back(GodRay("godRay3", SCREEN_WIDTH * 0.5f, 6.f));
@@ -36,7 +35,20 @@ void SkyManager::update(float dt) {
 void SkyManager::spawnCloud() {
 
 	if (m_timer > CLOUD_SPAWN_DELAY) {
-		float probability = rand() % 100;
+		
+		float probability = rand() % 100;			
+
+		if (m_previousCloudIndex >= 1 && m_previousCloudIndex < 3 &&
+			m_currentCloudIndex >= 1 && m_currentCloudIndex < 3)
+			probability -= 10;
+
+		if (m_previousCloudIndex >= 3 && m_previousCloudIndex < 5 &&
+			m_currentCloudIndex >= 3 && m_currentCloudIndex < 5)
+			probability -= 40;
+
+		if (m_previousCloudIndex >= 5 && m_previousCloudIndex < 9 &&
+			m_currentCloudIndex >= 5 && m_currentCloudIndex < 9)
+			probability += 60;
 
 		if (probability > LARGE_CLOUD_PROBILITY) {
 			while (m_previousCloudIndex == m_currentCloudIndex) {
@@ -53,9 +65,9 @@ void SkyManager::spawnCloud() {
 				m_currentCloudIndex = ceil(rand() % 4) + 5;
 			}
 		}
-
-		m_previousCloudIndex = m_currentCloudIndex;		
-		m_clouds.push_back(Cloud(std::string("cloud" + std::to_string(m_currentCloudIndex)), false));
+				
+		m_clouds.push_back(Cloud(std::string("cloud" + std::to_string(m_currentCloudIndex)), false));		
+		m_previousCloudIndex = m_currentCloudIndex;
 		m_timer = 0;
 	}
 }
