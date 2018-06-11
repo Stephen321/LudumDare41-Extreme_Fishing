@@ -5,11 +5,11 @@ https://ldjam.com/events/ludum-dare/41/$80635
 
 Started with base project from here: (https://github.com/Stephen321/sfml_starter)
 
-W A S D to move
-E to start fishing
+Controls 
+- W A S D to move 
+- E to start fishing
 
-Version submitted for Ludum Dare 41: https://github.com/Stephen321/LudumDare41/releases/tag/1.0.0
-
+Version submitted for Ludum Dare 41: https://github.com/Stephen321/LudumDare41/releases/tag/1.0.0 
 Continued progress on https://github.com/Stephen321/LudumDare41/tree/master
 
 ### Using CMake:  
