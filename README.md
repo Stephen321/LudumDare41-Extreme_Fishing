@@ -10,7 +10,9 @@ Controls
 - E to start fishing
 
 Version submitted for Ludum Dare 41: https://github.com/Stephen321/LudumDare41/releases/tag/1.0.0 
+
 Continued progress on https://github.com/Stephen321/LudumDare41/tree/master
+
 
 ### Using CMake:  
 Install latest: (https://cmake.org/download/)  
