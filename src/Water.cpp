@@ -1,5 +1,6 @@
 #include "Water.h"
 #include "GameData.h"
+#include "Constants.h"
 #include "Helpers.h"
 
 Water::Water(const sf::RenderWindow* _window)
