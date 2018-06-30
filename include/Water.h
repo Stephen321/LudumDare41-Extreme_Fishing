@@ -20,6 +20,7 @@ private:
 		sf::Vector2f velocity;
 		sf::Sprite sprite;
 		bool alive = true;
+		MimicWave* wave;//todo: cant add more waves or less without also having to change wave selection and other code
 	};
 
 	sf::Clock m_timer;

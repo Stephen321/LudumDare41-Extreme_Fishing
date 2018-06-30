@@ -55,8 +55,19 @@ void Water::update(float dt) {
 		//TODO: this line here and in splash() needs to be better thought out?
 		int x = p.position.x / ((float)SCREEN_WIDTH / WATER_SPRINGS_COUNT);
 		//TODO: have some variable that calculates bottom of the screen instead of dooing it multiple times
-		if (p.velocity.y > 0.f && p.position.y > (window->getView().getCenter().y + (SCREEN_HEIGHT * 0.5f) - m_frontWave.getSpringY(x)))
-			p.alive = false;
+
+		if (p.velocity.y > 0.f) {
+			int screenBot = window->getView().getCenter().y + (SCREEN_HEIGHT * 0.5f);
+			float waveY = m_frontWave.getSpringY(x) - 10.f;
+			if (p.wave == &m_wave1)
+				waveY = m_wave1.getCurrentHeight(x);
+			if (p.wave == &m_wave2)
+				waveY = m_wave2.getCurrentHeight(x);
+			if (p.wave == &m_wave3)
+				waveY = m_wave3.getCurrentHeight(x);
+			if (p.position.y > screenBot - waveY)
+				p.alive = false;
+		}
 	}
 	if (!m_particles.empty()) {
 		m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), [](const Particle& p) {
@@ -100,6 +111,17 @@ void Water::splash(float position, float strength) {
 		p.sprite.setOrigin(p.sprite.getGlobalBounds().width * 0.5f, p.sprite.getGlobalBounds().height * 0.5f);
 		p.position = particleStart;
 		p.sprite.setColor(WATER_TOP_COLOR);
+
+		//select wave
+		int r = rand() % 4;
+		p.wave = nullptr;
+		if (r == 1)
+			p.wave = &m_wave1;
+		if (r == 2)
+			p.wave = &m_wave2;
+		if (r == 3)
+			p.wave = &m_wave2;
+
 
 		//todo: move velocity calculation to the same place as position calculation...
 		float speed = SPLASH_PARTICLES_SPEED * strength;

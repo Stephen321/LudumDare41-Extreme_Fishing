@@ -30,6 +30,7 @@ static const float BACKGROUND_WAVE_COMPRESSION = 1.f / 15;
 static const sf::Color WATER_TOP_COLOR(16, 127, 191, 192);
 static const sf::Color WATER_BOT_COLOR(23, 72, 146, 255);
 static const sf::Color WATER_SURFACE_COLOR(22, 154, 222, 224);
+static const int SPLASH_POSITION_OFFSET = 75; //TODO: manually set this to half the sum of the height of all the background waves 
 static const int SPLASH_PARTICLES = 35;
 static const int SPLASH_PARTICLES_SPEED = 250;
 static const int SPLASH_PARTICLES_BASE_SPEED = 200;
