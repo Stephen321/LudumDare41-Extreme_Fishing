@@ -106,7 +106,7 @@ public:
 			sf::Vector2f pos = m_vertices[i * 2].position;
 			s.setFillColor(sf::Color(255, 10, 50, 160));
 			s.setPosition(pos);
-			target.draw(s);
+			//target.draw(s);
 		}
 	}
 
@@ -137,12 +137,11 @@ public:
 		int x = xPos / ((float)SCREEN_WIDTH / WATER_SPRINGS_COUNT);
 		float wave = (overlapSines(m_springs[x].position.x)); //get what the wave is at this point
 		sf::Vector2f start;
-		start.x = m_springs[x].position.x;
+		start.x = m_springs[x].position.x + (SPLASH_PARTICLES_X_MAXOFFSET * Helpers::randomNumberF(-1.f, 1.f));
 		start.y = m_viewBot - m_springs[x].position.y - wave;
 
 		m_springs[x].position.y = WATER_HEIGHT - (SPLASH_PARTICLES_WAVE_MIN_STRENGTH + (strength * SPLASH_PARTICLES_WAVE_STRENGTH));
 		
-		//SPLASH_PARTICLES_X_MAXOFFSET
 		return start;
 	}
 

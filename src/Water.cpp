@@ -72,6 +72,7 @@ void Water::update(float dt) {
 }
 
 void Water::draw(sf::RenderTarget & target, sf::RenderStates states) const {
+	drawBackground(target);
 	target.draw(m_frontWave);
 	target.draw(m_metaBallsSprite, m_alphaTestShader);
 }
