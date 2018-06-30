@@ -129,7 +129,7 @@ sf::Vector2f Wave::splash(float xPos, float strength) {
 	float wave = (overlapSines(m_springs[x].position.x)); //get what the wave is at this point
 	sf::Vector2f start;
 	start.x = m_springs[x].position.x + (SPLASH_PARTICLES_X_MAXOFFSET * Helpers::randomNumberF(-1.f, 1.f));
-	start.y = m_viewBot - m_springs[x].position.y - wave;
+	start.y = m_viewBot - m_springs[x].position.y - wave - (SPLASH_POSITION_OFFSET);
 
 	m_springs[x].position.y = WATER_HEIGHT - (SPLASH_PARTICLES_WAVE_MIN_STRENGTH + (strength * SPLASH_PARTICLES_WAVE_STRENGTH));
 
