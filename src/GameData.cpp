@@ -36,6 +36,7 @@ void GameData::load(sf::RenderWindow* _window) {
 
 	//add background textures
 	addTexture("sky", "assets/sprites/sky/sky.png");
+	addTexture("island", "assets/sprites/island/Island.png");
 	addTexture("cloud1", "assets/sprites/sky/Cloud1.png");
 	addTexture("cloud2", "assets/sprites/sky/Cloud2.png");
 	addTexture("cloud3", "assets/sprites/sky/Cloud3.png");
@@ -48,7 +49,6 @@ void GameData::load(sf::RenderWindow* _window) {
 	addTexture("godRay2", "assets/sprites/sky/GodRay2.png");
 	addTexture("godRay3", "assets/sprites/sky/GodRay3.png");
 	addTexture("godRay4", "assets/sprites/sky/GodRay4.png");
-    addShader("blur", "assets/shaders/blur.frag", sf::Shadader("alphaTest", "assets/shaders/alphaTest.frag", sf::Shader::Type::Fragment);
     addShader("alphaTest", "assets/shaders/alphaTest.frag", sf::Shader::Type::Fragment);
 
     //add animations
