@@ -16,8 +16,9 @@ static const int TILES_X = SCREEN_WIDTH / TILE_SIZE;
 static const int TILES_Y = SCREEN_HEIGHT / TILE_SIZE;
 static const float SCROLL_SPEED = 0;// -20.f;
 static const float MAX_FISHING_SPOTS = 6;
-static const int WATER_TILES = 4;
+static const int WATER_TILES = 2;
 static const int WATER_HEIGHT = WATER_TILES * TILE_SIZE;
+static const int WATER_SURFACE_HEIGHT = 5 * TILE_SIZE;
 static const int WATER_Y_OFFSET = (int)(SCREEN_HEIGHT * 0.5f) - WATER_HEIGHT;
 
 static const float WATER_SPRING_K = 0.03f;
@@ -148,6 +149,8 @@ static const int UI_FONT_SIZE = 25;
 static const int UI_SCORE_X_OFFS = -TILE_SIZE;
 static const int UI_SCORE_Y_OFFS = -TILE_SIZE * PLAYER_SIZE_Y * 1.5f;
 
+//palmtree
+static const char* PALMTREE_IDLE_ANIM = "Idle";
 
 //dev
 static const int GOD_MODE = true;

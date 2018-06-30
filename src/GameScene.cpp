@@ -59,6 +59,7 @@ void GameScene::update(float dt) {
 	m_player.update(dt);
 	m_uiManager.update(dt);
 	m_water.update(dt);
+	m_island.update(dt);
 	m_background.setPosition(m_view.getCenter().x - (SCREEN_WIDTH * 0.5f), m_view.getCenter().y - (SCREEN_HEIGHT * 0.5f));
 
 	//temp
@@ -85,8 +86,9 @@ void GameScene::update(float dt) {
 
 void GameScene::render(sf::RenderStates states) const{
 	window->draw(m_background);
-	m_water.drawBackground(*window);
 	window->draw(m_cloudManager);
+	window->draw(m_island);
+	m_water.drawBackground(*window);	
 	window->draw(m_platformManager);
 	window->draw(m_player);
 	window->draw(m_water);

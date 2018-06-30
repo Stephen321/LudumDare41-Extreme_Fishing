@@ -4,9 +4,9 @@
 
 Water::Water(const sf::RenderWindow* _window)
 	: window(_window)
-	, m_wave1(&m_frontWave, nullptr, 0.6f, WATER_HEIGHT * 0.2f)
-	, m_wave2(&m_frontWave, &m_wave1, 0.4f, WATER_HEIGHT * 0.35f)
-	, m_wave3(&m_frontWave, &m_wave2, 0.2f, WATER_HEIGHT * 0.45f) { //todo: remove need for this here
+	, m_wave1(&m_frontWave, nullptr, 0.6f, WATER_SURFACE_HEIGHT * 0.2f)
+	, m_wave2(&m_frontWave, &m_wave1, 0.4f, WATER_SURFACE_HEIGHT * 0.35f)
+	, m_wave3(&m_frontWave, &m_wave2, 0.2f, WATER_SURFACE_HEIGHT * 0.45f) { //todo: remove need for this here
 	//m_entity = GameData::getInstance().getAsset<se::SpriterModel*>("water")->getNewEntityInstance("Water");
 	//m_entity->setCurrentAnimation("Idle");
 

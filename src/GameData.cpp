@@ -25,9 +25,18 @@ void GameData::load(sf::RenderWindow* _window) {
     //add font
     addFont("font", "assets/font/BADABB.TTF");
 
-    //add textures
-    addTexture("menu", "assets/sprites/main/menu.png");
-    addTexture("sky", "assets/sprites/sky/sky.png");
+    //add misc textures
+    addTexture("menu", "assets/sprites/main/menu.png");    
+    addTexture("title", "assets/sprites/main/titlelogo.png");
+    addTexture("play", "assets/sprites/main/pressplay.png");
+	addTexture("gameover", "assets/sprites/gameover/gameover.png");
+	addTexture("particle", "assets/sprites/particle.png");
+    addShader("blur", "assets/shaders/blur.frag", sf::Shader::Type::Fragment);
+    addShader("alphaTest", "assets/shaders/alphaTest.frag", sf::Shader::Type::Fragment);
+
+	//add background textures
+	addTexture("sky", "assets/sprites/sky/sky.png");
+	addTexture("island", "assets/sprites/island/Island.png");
 	addTexture("cloud1", "assets/sprites/sky/Cloud1.png");
 	addTexture("cloud2", "assets/sprites/sky/Cloud2.png");
 	addTexture("cloud3", "assets/sprites/sky/Cloud3.png");
@@ -40,10 +49,6 @@ void GameData::load(sf::RenderWindow* _window) {
 	addTexture("godRay2", "assets/sprites/sky/GodRay2.png");
 	addTexture("godRay3", "assets/sprites/sky/GodRay3.png");
 	addTexture("godRay4", "assets/sprites/sky/GodRay4.png");
-    addTexture("title", "assets/sprites/main/titlelogo.png");
-    addTexture("play", "assets/sprites/main/pressplay.png");
-	addTexture("gameover", "assets/sprites/gameover/gameover.png");
-	addTexture("particle", "assets/sprites/particle.png");
     addShader("alphaTest", "assets/shaders/alphaTest.frag", sf::Shader::Type::Fragment);
 
     //add animations
@@ -54,6 +59,7 @@ void GameData::load(sf::RenderWindow* _window) {
     addModel("SharkSpot", "assets/animations/SharkSpot/SharkSpot.scon");
     addModel("water", "assets/animations/Ocean/water.scon");
     addModel("QTE", "assets/animations/QTE/QTE.scon");
+	addModel("Palmtree", "assets/animations/PalmTree/Palmtree.scon");
 
     assert(assets.size() && "no asserts were loaded");
 }
