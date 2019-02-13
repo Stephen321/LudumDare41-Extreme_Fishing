@@ -9,14 +9,14 @@ Controls
 - W A S D to move 
 - E to start fishing
 
-Version submitted for Ludum Dare 41: https://github.com/Stephen321/LudumDare41/releases/tag/1.0.0 
+Version submitted for Ludum Dare 41: https://github.com/Stephen321/LudumDare41-Extreme_Fishing/releases/tag/1.0.0 
 
-Continued progress on https://github.com/Stephen321/LudumDare41/tree/master
+Continued progress on https://github.com/Stephen321/LudumDare41-Extreme_Fishing/tree/master
 
 
 ### Using CMake:  
 Install latest: (https://cmake.org/download/)  
-- git clone https://github.com/stephenn321/LudumDare41 ld41
+- git clone https://github.com/stephenn321/LudumDare41-Extreme_Fishing ld41
 - cd ld41
 - mkdir build
 - cd build
