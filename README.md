@@ -1,4 +1,4 @@
-# LudumDare41
+# LudumDare41-Extreme_Fishing
 
 https://ldjam.com/events/ludum-dare/41/$80635
 
