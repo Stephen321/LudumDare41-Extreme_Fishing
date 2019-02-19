@@ -103,14 +103,17 @@ void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 		}
 	}
 	m_entity->render();
-	if (m_qte)
-		m_qteEnt->render();
 	if (m_entity->currentAnimationName() == PLAYER_IDLE_FISHING_ANIM ||
 		m_entity->currentAnimationName() == PLAYER_FISHLAUNCH_ANIM || 
 		((m_speechEnt->currentAnimationName() == QTE_SUCCESS_ANIM ||
 		  m_speechEnt->currentAnimationName() == QTE_FAIL_ANIM) && 
 		 m_displaySpeechTimer.getElapsedTime().asSeconds() < QTE_STATUS_DISPLAY_TIME))
 		m_speechEnt->render();
+}
+
+void Player::drawQte() const {
+	if (m_qte)
+		m_qteEnt->render();
 }
 
 void Player::checkCollisions(const std::vector<Platform>& platforms) {

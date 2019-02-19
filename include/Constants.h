@@ -154,4 +154,4 @@ static const int UI_SCORE_Y_OFFS = -TILE_SIZE * PLAYER_SIZE_Y * 1.5f;
 static const char* PALMTREE_IDLE_ANIM = "Idle";
 
 //dev
-static const int GOD_MODE = true;
+static const int GOD_MODE = false;

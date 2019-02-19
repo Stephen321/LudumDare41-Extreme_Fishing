@@ -11,6 +11,7 @@ public:
 	void start(const sf::Vector2f& start);
 	void update(float dt) override;
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+	void Player::drawQte() const;
 	void checkCollisions(const std::vector<Platform>& platforms);
 	sf::IntRect getBoundingBox() const;
 	bool getAttemptingToFish() const;

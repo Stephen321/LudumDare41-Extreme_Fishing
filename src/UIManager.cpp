@@ -12,9 +12,13 @@ void UIManager::start(){
 	m_timer = 0.f;
 
 	m_scoreDisplay.setFont(GameData::getInstance().getAsset<sf::Font>("font"));
+	m_scoreDisplay.setColor(sf::Color::Black);
 	m_timerDisplay.setFont(GameData::getInstance().getAsset<sf::Font>("font"));
+	m_timerDisplay.setColor(sf::Color::Black);
 	m_qteTimeRemaining.setFont(GameData::getInstance().getAsset<sf::Font>("font"));
+	m_qteTimeRemaining.setColor(sf::Color::Black);
 	m_lives.setFont(GameData::getInstance().getAsset<sf::Font>("font"));
+	m_lives.setColor(sf::Color::Black);
 	m_scoreDisplay.setCharacterSize(UI_FONT_SIZE);
 	m_timerDisplay.setCharacterSize(UI_FONT_SIZE);
 	m_qteTimeRemaining.setCharacterSize(UI_FONT_SIZE);

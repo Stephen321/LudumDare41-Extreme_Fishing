@@ -93,6 +93,7 @@ void GameScene::render(sf::RenderStates states) const{
 	window->draw(m_player);
 	window->draw(m_water);
 	window->draw(m_fishManager);
+	m_player.drawQte();
 	window->draw(m_uiManager);
 }
 
