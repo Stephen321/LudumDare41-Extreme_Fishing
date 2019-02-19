@@ -49,7 +49,7 @@ If *sudo apt-get install libsfml-dev* doesnt install sfml 2.4.2 or later then in
   
 ## Current Status Video:  
 *Note this version was not for Ludum Dare but rather the version you can see on the ldjam.com page was improved after the event had ended:*  
-https://youtu.be/2qyETVXxE5c?list=PLn9-l8kkg87PzWmn7uGRBlUTwavOcUfOw
+https://youtu.be/S4urydENLpU
 
 
 
