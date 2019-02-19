@@ -45,5 +45,12 @@ If *sudo apt-get install libsfml-dev* doesnt install sfml 2.4.2 or later then in
   - SFML_URL="https://www.sfml-dev.org/files/SFML-2.4.2-linux-gcc-64-bit.tar.gz"
   - mkdir sfml && wget --no-check-certificate --quiet -O - ${SFML_URL} | tar --strip-components=1 -xz -C sfml
   - export SFML_ROOT=/path/to/sfml
+  
+  
+## Current Status Video:  
+*Note this version was not for Ludum Dare but rather the version you can see on the ldjam.com page was improved after the event had ended:*  
+https://youtu.be/S4urydENLpU?list=PLn9-l8kkg87PzWmn7uGRBlUTwavOcUfOw
+
+
 
 
