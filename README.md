@@ -47,10 +47,9 @@ If *sudo apt-get install libsfml-dev* doesnt install sfml 2.4.2 or later then in
   - export SFML_ROOT=/path/to/sfml
   
   
-## Current Status Gifs:
-![Alt Text](https://i.imgur.com/A8DlgE7.mp4)
-
-![Alt Text](https://i.imgur.com/2CFTzCa.mp4)
+## Current Status Video:  
+*Note this version was not for Ludum Dare but rather the version you can see on the ldjam.com page was improved after the event had ended:*  
+https://youtu.be/2qyETVXxE5c?list=PLn9-l8kkg87PzWmn7uGRBlUTwavOcUfOw
 
 
 
